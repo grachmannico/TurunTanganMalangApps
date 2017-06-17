@@ -186,7 +186,7 @@ public class KonfirmasiDonasiActivity extends AppCompatActivity {
             } else if (status.equals("gagal")) {
                 Toast.makeText(getApplicationContext(), "Gagal Konfirmasi Donasi", Toast.LENGTH_LONG).show();
             } else if (status.equals("jsonNull")) {
-                Toast.makeText(getApplicationContext(), "Gagal mendapatkan data", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else if (status.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Status = kosong", Toast.LENGTH_LONG).show();
             } else {

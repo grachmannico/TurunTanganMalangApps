@@ -12,7 +12,7 @@ public class GarageSale {
     }
 
     public void setGambar_barang(String gambar_barang) {
-        this.gambar_barang = gambar_barang;
+        this.gambar_barang = "http://192.168.43.133:80/ttm/uploads/barang_garage_sale/" + gambar_barang;
     }
 
     public void setHarga(String harga) {

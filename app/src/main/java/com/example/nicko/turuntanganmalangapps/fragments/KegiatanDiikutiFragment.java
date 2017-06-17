@@ -96,7 +96,7 @@ public class KegiatanDiikutiFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             JSONArray jsonArray = JSONParser.list_kegiatan_diikuti(email);
             try {
-                if (!jsonArray.isNull(0)) {
+                if (jsonArray != null) {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
@@ -128,7 +128,7 @@ public class KegiatanDiikutiFragment extends Fragment {
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
             } else {
-                Toast.makeText(getActivity().getApplicationContext(), "No Data Found", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             }
         }
     }

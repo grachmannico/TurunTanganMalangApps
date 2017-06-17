@@ -114,7 +114,7 @@ public class DonasiActivity extends AppCompatActivity {
             } else if (status.equals("0")) {
                 Toast.makeText(getApplicationContext(), "Masukkan Nominal Donasi", Toast.LENGTH_LONG).show();
             } else if (status.equals("jsonNull")) {
-                Toast.makeText(getApplicationContext(), "Gagal mendapatkan data", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_LONG).show();
             }

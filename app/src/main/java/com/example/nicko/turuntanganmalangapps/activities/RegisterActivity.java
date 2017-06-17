@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
             } else if (status.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Status = kosong", Toast.LENGTH_LONG).show();
             } else if (status.equals("jsonNull")){
-                Toast.makeText(getApplicationContext(), "Gagal mendapatkan data", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Something wrong", Toast.LENGTH_LONG).show();
             }

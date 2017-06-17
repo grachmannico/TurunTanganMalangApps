@@ -113,7 +113,7 @@ public class GarageSaleFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             JSONArray jsonArray = JSONParser.lihat_garage_sale(email, invoice);
             try {
-                if (!jsonArray.isNull(0)) {
+                if (jsonArray != null) {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
@@ -127,7 +127,7 @@ public class GarageSaleFragment extends Fragment {
                             model.setId_barang_garage_sale(id_barang_garage_sale);
                             model.setNama_barang(nama_barang);
                             model.setHarga(harga);
-                            model.setGambar_barang("http://192.168.43.133:80/ttm/uploads/barang_garage_sale/" + gambar_barang);
+                            model.setGambar_barang(gambar_barang);
                             list.add(model);
                         }
                     }
@@ -145,7 +145,7 @@ public class GarageSaleFragment extends Fragment {
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
             } else {
-                Toast.makeText(getActivity().getApplicationContext(), "No Data Found", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             }
         }
     }

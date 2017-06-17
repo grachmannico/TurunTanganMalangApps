@@ -131,7 +131,7 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             JSONArray jsonArray = JSONParser.keranjang_belanja(email, invoice);
             try {
-                if (!jsonArray.isNull(0)) {
+                if (jsonArray != null) {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
@@ -147,7 +147,7 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
                             model.setId_keranjang_belanja(id_keranjang_belanja);
                             model.setNama_barang(nama_barang);
                             model.setHarga(harga);
-                            model.setGambar_barang("http://192.168.43.133:80/ttm/uploads/barang_garage_sale/" + gambar_barang);
+                            model.setGambar_barang(gambar_barang);
                             model.setQty(qty);
                             list.add(model);
                         }
@@ -167,7 +167,7 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 txt_total_tagihan.setText("Total Tagihan: " + total_tagihan.toString());
             } else {
-//                Toast.makeText(getApplicationContext(), "No Data Found", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
                 txt_null_cart.setVisibility(View.VISIBLE);
                 txt_judul_cart.setVisibility(View.GONE);
                 txt_total_tagihan.setVisibility(View.GONE);
@@ -221,7 +221,7 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
             } else if (status.equals("gagal")) {
                 Toast.makeText(getApplicationContext(), "Hapus Barang Gagal", Toast.LENGTH_LONG).show();
             } else if (status.equals("jsonNull")) {
-                Toast.makeText(getApplicationContext(), "Gagal mendapatkan data", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_LONG).show();
             }
@@ -273,7 +273,7 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
             } else if (status.equals("gagal")) {
                 Toast.makeText(getApplicationContext(), "Hapus Barang Gagal", Toast.LENGTH_LONG).show();
             } else if (status.equals("jsonNull")) {
-                Toast.makeText(getApplicationContext(), "Gagal mendapatkan data", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_LONG).show();
             }

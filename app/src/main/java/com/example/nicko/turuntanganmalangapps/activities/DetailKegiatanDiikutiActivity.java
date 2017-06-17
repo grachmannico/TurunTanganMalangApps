@@ -158,7 +158,7 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                 txt_status_kegiatan_diikuti.setText("Status Kegiatan: " + status_kegiatan);
                 Picasso.with(DetailKegiatanDiikutiActivity.this).load(banner).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(img_banner_kegiatan_diikuti);
             } else if (status.equals("jsonNull")) {
-                Toast.makeText(getApplicationContext(), "Gagal mendapatkan data", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_LONG).show();
             }

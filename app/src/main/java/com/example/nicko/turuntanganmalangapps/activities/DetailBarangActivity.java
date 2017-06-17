@@ -124,7 +124,7 @@ public class DetailBarangActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             JSONArray jsonArray = JSONParser.detail_barang(email, invoice, id_barang);
             try {
-                if (!jsonArray.isNull(0)) {
+                if (jsonArray != null) {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
@@ -155,10 +155,8 @@ public class DetailBarangActivity extends AppCompatActivity {
                 txt_deskripsi_barang.setText("Deskripsi: \n" + Html.fromHtml(deskripsi));
                 txt_stok.setText("Stok: " + stok_terpesan);
                 Picasso.with(DetailBarangActivity.this).load(gambar_barang).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(img_barang);
-            } else if (status.equals("jsonNull")) {
-                Toast.makeText(getApplicationContext(), "Gagal mendapatkan data", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -211,7 +209,7 @@ public class DetailBarangActivity extends AppCompatActivity {
             } else if (status.equals("gagal")) {
                 Toast.makeText(getApplicationContext(), "Status Gagal", Toast.LENGTH_LONG).show();
             } else if (status.equals("jsonNull")) {
-                Toast.makeText(getApplicationContext(), "Gagal mendapatkan data", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_LONG).show();
             }

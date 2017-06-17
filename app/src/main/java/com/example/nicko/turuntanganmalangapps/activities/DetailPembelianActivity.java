@@ -175,7 +175,7 @@ public class DetailPembelianActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             JSONArray jsonArray = JSONParser.detail_pembelian(invoice);
             try {
-                if (!jsonArray.isNull(0)) {
+                if (jsonArray != null) {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
@@ -195,7 +195,11 @@ public class DetailPembelianActivity extends AppCompatActivity {
                             model.setQty(qty);
                             list.add(model);
                         }
+                    } else {
+                        status = "jsonNull";
                     }
+                } else {
+                    status = "jsonNull";
                 }
             } catch (JSONException je) {
                 Log.i(JSONParser.TAG, "" + je.getLocalizedMessage());
@@ -207,7 +211,9 @@ public class DetailPembelianActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             dialog.dismiss();
-            if (list.size() > 0) {
+            if (status.equals("jsonNull")) {
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
+            } else if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
                 txt_total_tagihan_detail.setText("Total Tagihan: Rp. " + total_tagihan.toString());
             } else {
@@ -266,7 +272,7 @@ public class DetailPembelianActivity extends AppCompatActivity {
             } else if (status.equals("gagal")) {
                 Toast.makeText(getApplicationContext(), "Gagal Konfirmasi Pembayaran", Toast.LENGTH_LONG).show();
             } else if (status.equals("jsonNull")) {
-                Toast.makeText(getApplicationContext(), "Gagal mendapatkan data", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else if (status.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Status = kosong", Toast.LENGTH_LONG).show();
             } else {

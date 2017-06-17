@@ -80,7 +80,7 @@ public class MonitorDanaActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             JSONArray jsonArray = JSONParser.monitor_dana(email, id_kegiatan);
             try {
-                if (!jsonArray.isNull(0)) {
+                if (jsonArray != null) {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
@@ -112,7 +112,7 @@ public class MonitorDanaActivity extends AppCompatActivity {
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
             } else {
-//                Toast.makeText(getApplicationContext(), "No Data Found", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
                 txt_nama_kegiatan_monitor.setVisibility(View.GONE);
                 listView.setVisibility(View.GONE);
                 txt_null_monitor.setVisibility(View.VISIBLE);

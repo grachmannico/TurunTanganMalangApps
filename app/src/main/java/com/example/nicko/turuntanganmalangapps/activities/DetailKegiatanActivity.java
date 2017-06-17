@@ -188,7 +188,7 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
                 txt_alamat.setText("Alamat: " + alamat);
                 Picasso.with(DetailKegiatanActivity.this).load(banner).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(img_banner_kegiatan);
             } else if (status.equals("jsonNull")) {
-                Toast.makeText(getApplicationContext(), "Gagal mendapatkan data", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_LONG).show();
             }
@@ -240,7 +240,7 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
                 btn_gabung.setEnabled(false);
                 btn_gabung.setText("Anda telah bergabung dalam kegaiatan ini");
             } else if (status.equals("jsonNull")) {
-                Toast.makeText(getApplicationContext(), "Gagal mendapatkan data", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_LONG).show();
             }

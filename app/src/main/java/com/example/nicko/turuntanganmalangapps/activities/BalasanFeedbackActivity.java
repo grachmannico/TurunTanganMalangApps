@@ -99,7 +99,7 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             JSONArray jsonArray = JSONParser.lihat_balasan_feedback(id_feedback_kegiatan);
             try {
-                if (!jsonArray.isNull(0)) {
+                if (jsonArray != null) {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
@@ -128,7 +128,7 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
             } else {
-//                Toast.makeText(getApplicationContext(), "No Data Found", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
                 listView.setVisibility(View.GONE);
                 txt_null_feedback_balasan.setVisibility(View.VISIBLE);
             }
@@ -184,7 +184,7 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
             } else if (status.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Status = kosong", Toast.LENGTH_LONG).show();
             } else if (status.equals("jsonNull")) {
-                Toast.makeText(getApplicationContext(), "Gagal mendapatkan data", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_LONG).show();
             }
