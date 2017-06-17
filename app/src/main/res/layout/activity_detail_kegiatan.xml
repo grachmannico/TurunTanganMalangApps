@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:map="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:id="@+id/map"-->
+    <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--tools:context="com.example.nicko.turuntanganmalangapps.activities.DetailKegiatanActivity" />-->
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/txt_nama_kegiatan_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Nama Kegiatan"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/txt_pesan_ajakan_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="Pesan Ajakan "
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btn_gabung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_person_add_black_24dp"
+                android:drawablePadding="5dp"
+                android:text="Gabung Relawan"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_donasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_favorite_black_24dp"
+                android:drawablePadding="5dp"
+                android:text="Donasi"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txt_alamat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/ic_pin_drop_black_24dp"
+                android:drawablePadding="5dp"
+                android:text="Alamat: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_tanggal_kegiatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                android:drawablePadding="5dp"
+                android:text="Tanggal Kegiatan: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_batas_akhir_pendaftaran"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                android:drawablePadding="5dp"
+                android:text="Batas Akhir Pendaftaran: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_jumlah_relawan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/ic_people_black_24dp"
+                android:drawablePadding="5dp"
+                android:text="Jumlah Relawan: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_jumlah_donasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/ic_favorite_black_24dp"
+                android:drawablePadding="5dp"
+                android:text="Jumlah Dana Terkumpul: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_deskripsi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/ic_description_black_24dp"
+                android:drawablePadding="5dp"
+                android:text="Deskripsi Kegiatan: "
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/img_banner_kegiatan"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@mipmap/ic_launcher" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/txt_nama_kegiatan_detail_diikuti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Nama Kegiatan"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/txt_pesan_ajakan_detail_diikuti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="Pesan Ajakan "
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_dokumentasi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Dokumentasi"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_monitor_dana"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Monitor Dana"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_feedback"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Feedback"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_status_kegiatan_diikuti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/ic_cast_connected_black_24dp"
+                android:drawablePadding="5dp"
+                android:text="Status Kegiatan: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_alamat_diikuti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/ic_pin_drop_black_24dp"
+                android:drawablePadding="5dp"
+                android:text="Alamat: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_jumlah_relawan_diikuti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/ic_people_black_24dp"
+                android:drawablePadding="5dp"
+                android:text="Jumlah Relawan: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_jumlah_donasi_diikuti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/ic_favorite_black_24dp"
+                android:drawablePadding="5dp"
+                android:text="Jumlah Dana Terkumpul: "
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_deskripsi_diikuti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/ic_description_black_24dp"
+                android:drawablePadding="5dp"
+                android:text="Deskripsi Kegiatan: "
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/img_banner_kegiatan_diikuti"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@mipmap/ic_launcher" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

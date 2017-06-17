@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txt_nama_dana_keluar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_credit_card_black_24dp"
+            android:drawablePadding="5dp"
+            android:textSize="20sp"
+            tools:text="TextView" />
+
+        <TextView
+            android:id="@+id/txt_tanggal_dana_keluar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="TextView" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_nominal_dana_keluar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/ic_monetization_on_black_24dp"
+        android:drawablePadding="5dp"
+        android:textSize="17dp"
+        tools:text="TextView" />
+
+    <TextView
+        android:id="@+id/txt_deskripsi_dana_keluar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_description_black_24dp"
+        android:drawablePadding="5dp"
+        android:text="Deskripsi" />
+</LinearLayout>
