@@ -24,6 +24,7 @@ import okhttp3.Response;
 
 public class JSONParser {
     private static final String MAIN_URL = "http://192.168.43.133:80/ttm/REST_API/";
+    //    private static final String MAIN_URL = "http://turuntanganmalang.pe.hu/REST_API/";
     public static final String TAG = "TAG";
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/*");
     private static Response response;
@@ -53,7 +54,7 @@ public class JSONParser {
         return null;
     }
 
-    public static JSONObject login(String email, String password) {
+    public static JSONObject login(String email, String password, String token) {
 
         try {
             OkHttpClient client = new OkHttpClient();
@@ -61,6 +62,7 @@ public class JSONParser {
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("email", email)
                     .add("password", password)
+                    .add("token", token)
                     .build();
 
             Request request = new Request.Builder()

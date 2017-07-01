@@ -132,6 +132,7 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                         jumlah_donasi = jsonObject.getString("jumlah_donasi") + " / " + jsonObject.getString("minimal_donasi");
                         alamat = jsonObject.getString("alamat");
                         banner = "http://192.168.43.133:80/ttm/uploads/gambar_kegiatan/" + jsonObject.getString("banner");
+//                        banner = "http://turuntanganmalang.pe.hu/uploads/gambar_kegiatan/" + jsonObject.getString("banner");
                     } else {
                         status = "jsonNull";
                     }

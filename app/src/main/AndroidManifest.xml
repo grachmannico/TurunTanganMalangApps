@@ -57,6 +57,16 @@
         <activity android:name=".activities.MonitorDanaActivity" />
         <activity android:name=".activities.FeedbackActivity" />
         <activity android:name=".activities.BalasanFeedbackActivity"></activity>
+        <service android:name=".utils.FcmInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"></action>
+            </intent-filter>
+        </service>
+        <service android:name=".utils.FcmMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

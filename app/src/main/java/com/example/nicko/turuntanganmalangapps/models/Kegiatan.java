@@ -9,6 +9,7 @@ public class Kegiatan {
 
     public void setBanner(String banner) {
         this.banner = "http://192.168.43.133:80/ttm/uploads/gambar_kegiatan/" + banner;
+//        this.banner = "http://turuntanganmalang.pe.hu/uploads/gambar_kegiatan/" + banner;
     }
 
     public void setId_kegiatan(String id_kegiatan) {

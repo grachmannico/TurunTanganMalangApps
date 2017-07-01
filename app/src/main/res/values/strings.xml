@@ -6,4 +6,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_detail_kegiatan">Map</string>
+
+    <string name="FCM_PREF">com.example.nicko.turuntanganmalangapps.fcm_pref</string>
+    <string name="FCM_TOKEN">com.example.nicko.turuntanganmalangapps.fcm_token</string>
 </resources>

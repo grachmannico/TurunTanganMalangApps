@@ -1,7 +1,9 @@
 package com.example.nicko.turuntanganmalangapps.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edt_email, edt_pass;
     private Button btn_login, btn_register;
 
-    private String email, password, tipe_pengguna, status;
+    private String email, password, token, tipe_pengguna, status;
     private String email_pengguna, nama_pengguna, pangkat_divisi, divisi;
 
     private Session session;
@@ -48,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.FCM_PREF), Context.MODE_PRIVATE);
+                token = sharedPreferences.getString(getString(R.string.FCM_TOKEN), "");
                 email = edt_email.getText().toString();
                 password = edt_pass.getText().toString();
                 if (InternetConnection.checkConnection(getApplicationContext())) {
@@ -88,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         @Nullable
         @Override
         protected Void doInBackground(Void... params) {
-            JSONObject jsonObject = JSONParser.login(email, password);
+            JSONObject jsonObject = JSONParser.login(email, password, token);
             try {
                 if (jsonObject != null) {
                     if (jsonObject.length() > 0) {

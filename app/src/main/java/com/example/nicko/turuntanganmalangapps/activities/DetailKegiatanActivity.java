@@ -159,6 +159,7 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
                         batas_akhir_pendaftaran = jsonObject.getString("batas_akhir_pendaftaran");
                         alamat = jsonObject.getString("alamat");
                         banner = "http://192.168.43.133:80/ttm/uploads/gambar_kegiatan/" + jsonObject.getString("banner");
+//                        banner = "http://turuntanganmalang.pe.hu/uploads/gambar_kegiatan/" + jsonObject.getString("banner");
 //                        lat = Double.parseDouble(jsonObject.getString("lat"));
 //                        lng = Double.parseDouble(jsonObject.getString("lng"));
                     } else {

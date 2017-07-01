@@ -7,6 +7,7 @@ android {
         applicationId "com.example.nicko.turuntanganmalangapps"
         minSdkVersion 19
         targetSdkVersion 25
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -30,5 +31,8 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.6.0'
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'com.google.android.gms:play-services:10.2.1'
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
     testCompile 'junit:junit:4.12'
 }
+apply plugin: 'com.google.gms.google-services'
