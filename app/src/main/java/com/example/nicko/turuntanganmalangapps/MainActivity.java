@@ -21,6 +21,7 @@ import com.example.nicko.turuntanganmalangapps.fragments.KegiatanDiikutiFragment
 import com.example.nicko.turuntanganmalangapps.fragments.KegiatanFragment;
 import com.example.nicko.turuntanganmalangapps.fragments.ListKonfirmasiDonasiFragment;
 import com.example.nicko.turuntanganmalangapps.fragments.ListKonfirmasiPembayaranFragment;
+import com.example.nicko.turuntanganmalangapps.fragments.NotificationFragment;
 import com.example.nicko.turuntanganmalangapps.utils.Session;
 
 public class MainActivity extends AppCompatActivity
@@ -123,6 +124,9 @@ public class MainActivity extends AppCompatActivity
                 case R.id.nav_kegiatan:
                     fragment = new KegiatanFragment();
                     break;
+                case R.id.nav_notif_relawan:
+                    fragment = new NotificationFragment();
+                    break;
                 case R.id.nav_kegiatan_diikuti:
                     fragment = new KegiatanDiikutiFragment();
                     break;
@@ -134,6 +138,9 @@ public class MainActivity extends AppCompatActivity
             switch (id) {
                 case R.id.nav_kegiatan:
                     fragment = new KegiatanFragment();
+                    break;
+                case R.id.nav_notif_donatur:
+                    fragment = new NotificationFragment();
                     break;
                 case R.id.nav_konfirmasi_donasi:
                     fragment = new ListKonfirmasiDonasiFragment();

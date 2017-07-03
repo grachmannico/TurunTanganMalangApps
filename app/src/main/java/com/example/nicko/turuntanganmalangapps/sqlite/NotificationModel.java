@@ -5,7 +5,7 @@ package com.example.nicko.turuntanganmalangapps.sqlite;
  */
 
 public class NotificationModel {
-    private String id, title, body, intent, id_target;
+    private String id, title, body, message, message_type, intent, id_target;
 
     public String getId() {
         return id;
@@ -29,6 +29,22 @@ public class NotificationModel {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage_type() {
+        return message_type;
+    }
+
+    public void setMessage_type(String message_type) {
+        this.message_type = message_type;
     }
 
     public String getIntent() {
