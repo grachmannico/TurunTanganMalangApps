@@ -58,25 +58,25 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
         btn_feedback = (Button) findViewById(R.id.btn_feedback);
 
         id_kegiatan = getIntent().getExtras().getString("id_kegiatan");
-        status_kegiatan = getIntent().getExtras().getString("status_kegiatan");
+//        status_kegiatan = getIntent().getExtras().getString("status_kegiatan");
 
-        if (session.getTipePengguna().equals("donatur")) {
-            if (status_kegiatan.equals("Kegiatan Sedang Berjalan")) {
-                btn_dokumentasi.setVisibility(View.VISIBLE);
-                btn_monitor_dana.setVisibility(View.VISIBLE);
-            } else if (status_kegiatan.equals("Kegiatan Selesai Berjalan")) {
-                btn_dokumentasi.setVisibility(View.VISIBLE);
-                btn_monitor_dana.setVisibility(View.VISIBLE);
-                btn_feedback.setVisibility(View.VISIBLE);
-            }
-        } else if (session.getTipePengguna().equals("relawan")) {
-            if (status_kegiatan.equals("Kegiatan Sedang Berjalan")) {
-                btn_dokumentasi.setVisibility(View.VISIBLE);
-            } else if (status_kegiatan.equals("Kegiatan Selesai Berjalan")) {
-                btn_dokumentasi.setVisibility(View.VISIBLE);
-                btn_feedback.setVisibility(View.VISIBLE);
-            }
-        }
+//        if (session.getTipePengguna().equals("donatur")) {
+//            if (status_kegiatan.equals("Kegiatan Sedang Berjalan")) {
+//                btn_dokumentasi.setVisibility(View.VISIBLE);
+//                btn_monitor_dana.setVisibility(View.VISIBLE);
+//            } else if (status_kegiatan.equals("Kegiatan Selesai Berjalan")) {
+//                btn_dokumentasi.setVisibility(View.VISIBLE);
+//                btn_monitor_dana.setVisibility(View.VISIBLE);
+//                btn_feedback.setVisibility(View.VISIBLE);
+//            }
+//        } else if (session.getTipePengguna().equals("relawan")) {
+//            if (status_kegiatan.equals("Kegiatan Sedang Berjalan")) {
+//                btn_dokumentasi.setVisibility(View.VISIBLE);
+//            } else if (status_kegiatan.equals("Kegiatan Selesai Berjalan")) {
+//                btn_dokumentasi.setVisibility(View.VISIBLE);
+//                btn_feedback.setVisibility(View.VISIBLE);
+//            }
+//        }
 
         if (InternetConnection.checkConnection(getApplicationContext())) {
             new Detail_Kegiatan_Diikuti().execute();
@@ -89,7 +89,6 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(DetailKegiatanDiikutiActivity.this, MonitorDanaActivity.class);
                 intent.putExtra("id_kegiatan", id_kegiatan);
-                intent.putExtra("nama_kegiatan", nama_kegiatan);
                 startActivity(intent);
             }
         });
@@ -108,6 +107,7 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
     class Detail_Kegiatan_Diikuti extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog dialog;
+        Session session;
 
         @Override
         protected void onPreExecute() {
@@ -133,6 +133,7 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                         alamat = jsonObject.getString("alamat");
                         banner = "http://192.168.43.133:80/ttm/uploads/gambar_kegiatan/" + jsonObject.getString("banner");
 //                        banner = "http://turuntanganmalang.pe.hu/uploads/gambar_kegiatan/" + jsonObject.getString("banner");
+                        status_kegiatan = jsonObject.getString("status_kegiatan");
                     } else {
                         status = "jsonNull";
                     }
@@ -150,6 +151,8 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             dialog.dismiss();
             if (status.equals("sukses")) {
+                session = new Session(getApplicationContext());
+
                 txt_nama_kegiatan_detail_diikuti.setText(nama_kegiatan);
                 txt_pesan_ajakan_detail_diikuti.setText(pesan_ajakan);
                 txt_deskripsi_diikuti.setText("Deskripsi: \n" + Html.fromHtml(deskripsi_kegiatan));
@@ -158,6 +161,23 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                 txt_alamat_diikuti.setText("Alamat: " + alamat);
                 txt_status_kegiatan_diikuti.setText("Status Kegiatan: " + status_kegiatan);
                 Picasso.with(DetailKegiatanDiikutiActivity.this).load(banner).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(img_banner_kegiatan_diikuti);
+                if (session.getTipePengguna().equals("donatur")) {
+                    if (status_kegiatan.equals("Kegiatan Sedang Berjalan")) {
+                        btn_dokumentasi.setVisibility(View.VISIBLE);
+                        btn_monitor_dana.setVisibility(View.VISIBLE);
+                    } else if (status_kegiatan.equals("Kegiatan Selesai Berjalan")) {
+                        btn_dokumentasi.setVisibility(View.VISIBLE);
+                        btn_monitor_dana.setVisibility(View.VISIBLE);
+                        btn_feedback.setVisibility(View.VISIBLE);
+                    }
+                } else if (session.getTipePengguna().equals("relawan")) {
+                    if (status_kegiatan.equals("Kegiatan Sedang Berjalan")) {
+                        btn_dokumentasi.setVisibility(View.VISIBLE);
+                    } else if (status_kegiatan.equals("Kegiatan Selesai Berjalan")) {
+                        btn_dokumentasi.setVisibility(View.VISIBLE);
+                        btn_feedback.setVisibility(View.VISIBLE);
+                    }
+                }
             } else if (status.equals("jsonNull")) {
                 Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {

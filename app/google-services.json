@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "519577839517",
+    "firebase_url": "https://ttmfirebase.firebaseio.com",
+    "project_id": "ttmfirebase",
+    "storage_bucket": "ttmfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519577839517:android:3d956e9e067aa786",
+        "android_client_info": {
+          "package_name": "com.example.nicko.turuntanganmalangapps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519577839517-bvvg98j620he830c69n47346n6a6kmsf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nicko.turuntanganmalangapps",
+            "certificate_hash": "d2c9eb4d0e98ebaf9c46a5da31a5aedfeb1c4dda"
+          }
+        },
+        {
+          "client_id": "519577839517-r4dljdsm049amijslgs97ldmssa1t0kb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZyBePBHN04qmSsUN1O1HCRx_KL4RBvaY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "519577839517-r4dljdsm049amijslgs97ldmssa1t0kb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

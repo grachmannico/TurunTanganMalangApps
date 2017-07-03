@@ -79,6 +79,7 @@ public class DetailPembelianActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
         }
 
+        image_name = "imgNull";
         btn_foto_struk_pembelian = (Button) findViewById(R.id.btn_foto_struk_pembelian);
         btn_foto_struk_pembelian.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +92,15 @@ public class DetailPembelianActivity extends AppCompatActivity {
         btn_konfirmasi_pembelian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Konfirmasi_Pembelian().execute();
+                if (image_name.equals("imgNull")) {
+                    Toast.makeText(getApplicationContext(), "Anda Belum Memilih Struk Transfer Untuk Diunggah", Toast.LENGTH_LONG).show();
+                } else {
+                    if (InternetConnection.checkConnection(getApplicationContext())) {
+                        new Konfirmasi_Pembelian().execute();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
     }
@@ -191,15 +200,11 @@ public class DetailPembelianActivity extends AppCompatActivity {
                             model.setId_keranjang_belanja(id_keranjang_belanja);
                             model.setNama_barang(nama_barang);
                             model.setHarga(harga);
-                            model.setGambar_barang("http://192.168.43.133:80/ttm/uploads/barang_garage_sale/" + gambar_barang);
+                            model.setGambar_barang(gambar_barang);
                             model.setQty(qty);
                             list.add(model);
                         }
-                    } else {
-                        status = "jsonNull";
                     }
-                } else {
-                    status = "jsonNull";
                 }
             } catch (JSONException je) {
                 Log.i(JSONParser.TAG, "" + je.getLocalizedMessage());
@@ -211,9 +216,7 @@ public class DetailPembelianActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             dialog.dismiss();
-            if (status.equals("jsonNull")) {
-                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
-            } else if (list.size() > 0) {
+            if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
                 txt_total_tagihan_detail.setText("Total Tagihan: Rp. " + total_tagihan.toString());
             } else {
@@ -271,6 +274,8 @@ public class DetailPembelianActivity extends AppCompatActivity {
                 startActivity(intent);
             } else if (status.equals("gagal")) {
                 Toast.makeText(getApplicationContext(), "Gagal Konfirmasi Pembayaran", Toast.LENGTH_LONG).show();
+            } else if (status.equals("error")) {
+                Toast.makeText(getApplicationContext(), "Anda Belum Memilih Struk Transfer Untuk Diunggah", Toast.LENGTH_LONG).show();
             } else if (status.equals("jsonNull")) {
                 Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else if (status.isEmpty()) {

@@ -56,6 +56,7 @@ public class KonfirmasiDonasiActivity extends AppCompatActivity {
         txt_nama_kegiatan_donasi_detail.setText("Kegiatan " + nama_kegiatan);
         txt_nominal_donasi_detail.setText("Rp." + nominal_donasi);
 
+        image_name = "imgNull";
         btn_foto_struk_transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,10 +67,14 @@ public class KonfirmasiDonasiActivity extends AppCompatActivity {
         btn_konfirmasi_donasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (InternetConnection.checkConnection(getApplicationContext())) {
-                    new Konfirmasi_Donasi().execute();
+                if (image_name.equals("imgNull")) {
+                    Toast.makeText(getApplicationContext(), "Anda Belum Memilih Struk Transfer Untuk Diunggah", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                    if (InternetConnection.checkConnection(getApplicationContext())) {
+                        new Konfirmasi_Donasi().execute();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -185,6 +190,8 @@ public class KonfirmasiDonasiActivity extends AppCompatActivity {
                 startActivity(intent);
             } else if (status.equals("gagal")) {
                 Toast.makeText(getApplicationContext(), "Gagal Konfirmasi Donasi", Toast.LENGTH_LONG).show();
+            } else if (status.equals("error")) {
+                Toast.makeText(getApplicationContext(), "Anda Belum Memilih Struk Transfer Untuk Diunggah", Toast.LENGTH_LONG).show();
             } else if (status.equals("jsonNull")) {
                 Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else if (status.isEmpty()) {

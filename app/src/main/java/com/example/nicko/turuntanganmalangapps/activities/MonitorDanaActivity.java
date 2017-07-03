@@ -44,11 +44,9 @@ public class MonitorDanaActivity extends AppCompatActivity {
         session = new Session(this);
         email = session.getEmail();
         id_kegiatan = getIntent().getExtras().getString("id_kegiatan");
-        nama_kegiatan = getIntent().getExtras().getString("nama_kegiatan");
 
         txt_nama_kegiatan_monitor = (TextView) findViewById(R.id.txt_nama_kegiatan_monitor);
         txt_null_monitor = (TextView) findViewById(R.id.txt_null_monitor);
-        txt_nama_kegiatan_monitor.setText(nama_kegiatan);
 
         listView = (ListView) findViewById(R.id.list_monitor_dana);
         list = new ArrayList<>();
@@ -90,6 +88,7 @@ public class MonitorDanaActivity extends AppCompatActivity {
                             String tanggal = innerObject.getString("tanggal");
                             String nominal_dana_keluar = innerObject.getString("nominal_dana_keluar");
                             String keterangan = innerObject.getString("keterangan");
+                            nama_kegiatan = innerObject.getString("nama_kegiatan");
 
                             model.setNama_dana_keluar(nama_dana_keluar);
                             model.setTanggal(tanggal);
@@ -111,6 +110,7 @@ public class MonitorDanaActivity extends AppCompatActivity {
             dialog.dismiss();
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
+                txt_nama_kegiatan_monitor.setText(nama_kegiatan);
             } else {
 //                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
                 txt_nama_kegiatan_monitor.setVisibility(View.GONE);
