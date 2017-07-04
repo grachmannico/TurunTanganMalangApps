@@ -25,6 +25,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String MESSAGE_TYPE = "MESSAGE_TYPE";
     public static final String INTENT = "INTENT";
     public static final String ID_TARGET = "ID_TARGET";
+    public static final String DATE_RCV = "DATE_RCV";
 
     private SQLiteDatabase database;
 
@@ -42,7 +43,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                         + MESSAGE + " VARCHAR, "
                         + MESSAGE_TYPE + " VARCHAR, "
                         + INTENT + " VARCHAR, "
-                        + ID_TARGET + " VARCHAR);"
+                        + ID_TARGET + " VARCHAR, "
+                        + DATE_RCV + " VARCHAR);"
         );
     }
 
@@ -61,6 +63,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         contentValues.put(MESSAGE_TYPE, notifModel.getMessage_type());
         contentValues.put(INTENT, notifModel.getIntent());
         contentValues.put(ID_TARGET, notifModel.getId_target());
+        contentValues.put(DATE_RCV, notifModel.getDate_rcv());
         database.insert(TABLE_NAME, null, contentValues);
         database.close();
     }
@@ -83,6 +86,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 notifModel.setMessage_type(cursor.getString(4));
                 notifModel.setIntent(cursor.getString(5));
                 notifModel.setId_target(cursor.getString(6));
+                notifModel.setDate_rcv(cursor.getString(7));
 
                 notif.add(notifModel);
             }
@@ -102,6 +106,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         contentValues.put(MESSAGE_TYPE, notifModel.getMessage_type());
         contentValues.put(INTENT, notifModel.getIntent());
         contentValues.put(ID_TARGET, notifModel.getId_target());
+        contentValues.put(DATE_RCV, notifModel.getDate_rcv());
         database.update(TABLE_NAME, contentValues, ID + " = ?", new String[]{notifModel.getId()});
         database.close();
     }

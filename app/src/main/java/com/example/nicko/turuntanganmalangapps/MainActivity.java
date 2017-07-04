@@ -76,6 +76,12 @@ public class MainActivity extends AppCompatActivity
                 displaySelectedScreen(R.id.nav_konfirmasi_donasi);
             } else if (trigger.equals("konfirmasi_pembayaran")) {
                 displaySelectedScreen(R.id.nav_konfirmasi_pembayaran);
+            } else if (trigger.equals(("notification"))) {
+                if (session.getTipePengguna().equals("relawan")) {
+                    displaySelectedScreen(R.id.nav_notif_relawan);
+                } else if (session.getTipePengguna().equals("donatur")) {
+                    displaySelectedScreen(R.id.nav_notif_donatur);
+                }
             }
         } else {
             displaySelectedScreen(R.id.nav_kegiatan);

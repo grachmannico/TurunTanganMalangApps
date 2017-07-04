@@ -5,7 +5,7 @@ package com.example.nicko.turuntanganmalangapps.sqlite;
  */
 
 public class NotificationModel {
-    private String id, title, body, message, message_type, intent, id_target;
+    private String id, title, body, message, message_type, intent, id_target, date_rcv;
 
     public String getId() {
         return id;
@@ -61,5 +61,13 @@ public class NotificationModel {
 
     public void setId_target(String id_target) {
         this.id_target = id_target;
+    }
+
+    public String getDate_rcv() {
+        return date_rcv;
+    }
+
+    public void setDate_rcv(String date_rcv) {
+        this.date_rcv = date_rcv;
     }
 }

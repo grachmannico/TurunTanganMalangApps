@@ -1,5 +1,6 @@
 package com.example.nicko.turuntanganmalangapps.activities;
 
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -47,10 +48,15 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
     private Double lat, lng;
 
     private Session session;
+    private NotificationManager nm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm.cancel(0);
+
         setContentView(R.layout.activity_detail_kegiatan);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -97,9 +103,9 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
         }
 
         id_kegiatan = getIntent().getExtras().getString("id_kegiatan");
-        lat = Double.parseDouble(getIntent().getExtras().getString("lat"));
-        lng = Double.parseDouble(getIntent().getExtras().getString("lng"));
-        Toast.makeText(getApplicationContext(), getIntent().getExtras().getString("lat") + "/" + getIntent().getExtras().getString("lng"), Toast.LENGTH_LONG).show();
+//        lat = Double.parseDouble(getIntent().getExtras().getString("lat"));
+//        lng = Double.parseDouble(getIntent().getExtras().getString("lng"));
+//        Toast.makeText(getApplicationContext(), getIntent().getExtras().getString("lat") + "/" + getIntent().getExtras().getString("lng"), Toast.LENGTH_LONG).show();
 
         if (InternetConnection.checkConnection(getApplicationContext())) {
             new Detail_Kegiatan().execute();
@@ -124,10 +130,10 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
 
         // Add a marker in Sydney and move the camera
 //        LatLng sydney = new LatLng(-34, 151);
-        LatLng locMarker = new LatLng(lat, lng);
-        mMap.addMarker(new MarkerOptions().position(locMarker).title("Lokasi Kegiatan"));
+//        LatLng locMarker = new LatLng(lat, lng);
+//        mMap.addMarker(new MarkerOptions().position(locMarker).title("Lokasi Kegiatan"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(locMarker));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15.0f));
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15.0f));
     }
 
     class Detail_Kegiatan extends AsyncTask<Void, Void, Void> {
@@ -160,8 +166,8 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
                         alamat = jsonObject.getString("alamat");
                         banner = "http://192.168.43.133:80/ttm/uploads/gambar_kegiatan/" + jsonObject.getString("banner");
 //                        banner = "http://turuntanganmalang.pe.hu/uploads/gambar_kegiatan/" + jsonObject.getString("banner");
-//                        lat = Double.parseDouble(jsonObject.getString("lat"));
-//                        lng = Double.parseDouble(jsonObject.getString("lng"));
+                        lat = Double.parseDouble(jsonObject.getString("lat"));
+                        lng = Double.parseDouble(jsonObject.getString("lng"));
                     } else {
                         status = "jsonNull";
                     }
@@ -187,6 +193,11 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
                 txt_tanggal_kegiatan.setText("Pelaksanaan Kegiatan: " + tanggal_kegiatan);
                 txt_batas_akhir_pendaftaran.setText("Batas Akhir Pendaftaran: " + batas_akhir_pendaftaran);
                 txt_alamat.setText("Alamat: " + alamat);
+
+                LatLng locMarker = new LatLng(lat, lng);
+                mMap.addMarker(new MarkerOptions().position(locMarker).title("Lokasi Kegiatan"));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15.0f));
+
                 Picasso.with(DetailKegiatanActivity.this).load(banner).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(img_banner_kegiatan);
             } else if (status.equals("jsonNull")) {
                 Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
