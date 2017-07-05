@@ -1,7 +1,10 @@
 package com.example.nicko.turuntanganmalangapps.parser;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
+
+import com.example.nicko.turuntanganmalangapps.utils.Session;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,11 +26,20 @@ import okhttp3.Response;
  */
 
 public class JSONParser {
-    private static final String MAIN_URL = "http://192.168.43.133:80/ttm/REST_API/";
+    private Context context;
+    private Session session;
+    private static String MAIN_URL;
+    //    private static final String MAIN_URL = "http://192.168.43.133:80/ttm/REST_API/";
     //    private static final String MAIN_URL = "http://turuntanganmalang.pe.hu/REST_API/";
     public static final String TAG = "TAG";
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/*");
     private static Response response;
+
+    public JSONParser(Context context) {
+        this.context = context;
+        session = new Session(this.context);
+        MAIN_URL = session.getURL() + "REST_API/";
+    }
 
     public static JSONObject register(String nama, String email, String password) {
 
@@ -100,13 +112,14 @@ public class JSONParser {
         return null;
     }
 
-    public static JSONObject detail_kegiatan(String id_kegiatan) {
+    public static JSONObject detail_kegiatan(String id_kegiatan, String email) {
 
         try {
             OkHttpClient client = new OkHttpClient();
 
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("id_kegiatan", id_kegiatan)
+                    .add("email", email)
                     .build();
 
             Request request = new Request.Builder()

@@ -70,7 +70,36 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public ArrayList<NotificationModel> getAllRecords() {
         database = this.getReadableDatabase();
-        Cursor cursor = database.query(TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor = database.query(TABLE_NAME, null, null, null, null, null, ID + " DESC");
+
+        ArrayList<NotificationModel> notif = new ArrayList<NotificationModel>();
+        NotificationModel notifModel;
+        if (cursor.getCount() > 0) {
+            for (int i = 0; i < cursor.getCount(); i++) {
+                cursor.moveToNext();
+
+                notifModel = new NotificationModel();
+                notifModel.setId(cursor.getString(0));
+                notifModel.setTitle(cursor.getString(1));
+                notifModel.setBody(cursor.getString(2));
+                notifModel.setMessage(cursor.getString(3));
+                notifModel.setMessage_type(cursor.getString(4));
+                notifModel.setIntent(cursor.getString(5));
+                notifModel.setId_target(cursor.getString(6));
+                notifModel.setDate_rcv(cursor.getString(7));
+
+                notif.add(notifModel);
+            }
+        }
+        cursor.close();
+        database.close();
+
+        return notif;
+    }
+
+    public ArrayList<NotificationModel> getSelectedRecords(String table_name, String where_value) {
+        database = this.getReadableDatabase();
+        Cursor cursor = database.query(TABLE_NAME, null, table_name + " = '" + where_value + "'", null, null, null, ID + " DESC");
 
         ArrayList<NotificationModel> notif = new ArrayList<NotificationModel>();
         NotificationModel notifModel;

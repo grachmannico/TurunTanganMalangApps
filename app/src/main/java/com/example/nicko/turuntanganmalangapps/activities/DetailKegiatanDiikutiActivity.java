@@ -32,7 +32,7 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
             txt_jumlah_donasi_diikuti, txt_deskripsi_diikuti;
     private Button btn_dokumentasi, btn_monitor_dana, btn_feedback;
 
-    private String id_kegiatan, status_kegiatan, nama_kegiatan, pesan_ajakan, deskripsi_kegiatan, jumlah_relawan, jumlah_donasi,
+    private String email, id_kegiatan, status_kegiatan, nama_kegiatan, pesan_ajakan, deskripsi_kegiatan, jumlah_relawan, jumlah_donasi,
             alamat, banner, status;
 
     private Session session;
@@ -44,6 +44,8 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
 
         this.setTitle("Kegiatan Yang Diikuti");
         session = new Session(this);
+
+        email = session.getEmail();
 
         img_banner_kegiatan_diikuti = (ImageView) findViewById(R.id.img_banner_kegiatan_diikuti);
         txt_nama_kegiatan_detail_diikuti = (TextView) findViewById(R.id.txt_nama_kegiatan_detail_diikuti);
@@ -58,25 +60,6 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
         btn_feedback = (Button) findViewById(R.id.btn_feedback);
 
         id_kegiatan = getIntent().getExtras().getString("id_kegiatan");
-//        status_kegiatan = getIntent().getExtras().getString("status_kegiatan");
-
-//        if (session.getTipePengguna().equals("donatur")) {
-//            if (status_kegiatan.equals("Kegiatan Sedang Berjalan")) {
-//                btn_dokumentasi.setVisibility(View.VISIBLE);
-//                btn_monitor_dana.setVisibility(View.VISIBLE);
-//            } else if (status_kegiatan.equals("Kegiatan Selesai Berjalan")) {
-//                btn_dokumentasi.setVisibility(View.VISIBLE);
-//                btn_monitor_dana.setVisibility(View.VISIBLE);
-//                btn_feedback.setVisibility(View.VISIBLE);
-//            }
-//        } else if (session.getTipePengguna().equals("relawan")) {
-//            if (status_kegiatan.equals("Kegiatan Sedang Berjalan")) {
-//                btn_dokumentasi.setVisibility(View.VISIBLE);
-//            } else if (status_kegiatan.equals("Kegiatan Selesai Berjalan")) {
-//                btn_dokumentasi.setVisibility(View.VISIBLE);
-//                btn_feedback.setVisibility(View.VISIBLE);
-//            }
-//        }
 
         if (InternetConnection.checkConnection(getApplicationContext())) {
             new Detail_Kegiatan_Diikuti().execute();
@@ -107,7 +90,6 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
     class Detail_Kegiatan_Diikuti extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog dialog;
-        Session session;
 
         @Override
         protected void onPreExecute() {
@@ -120,7 +102,7 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
         @Nullable
         @Override
         protected Void doInBackground(Void... params) {
-            JSONObject jsonObject = JSONParser.detail_kegiatan(id_kegiatan);
+            JSONObject jsonObject = JSONParser.detail_kegiatan(id_kegiatan, email);
             try {
                 if (jsonObject != null) {
                     if (jsonObject.length() > 0) {
@@ -131,8 +113,7 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                         jumlah_relawan = jsonObject.getString("jumlah_relawan") + " / " + jsonObject.getString("minimal_relawan");
                         jumlah_donasi = jsonObject.getString("jumlah_donasi") + " / " + jsonObject.getString("minimal_donasi");
                         alamat = jsonObject.getString("alamat");
-                        banner = "http://192.168.43.133:80/ttm/uploads/gambar_kegiatan/" + jsonObject.getString("banner");
-//                        banner = "http://turuntanganmalang.pe.hu/uploads/gambar_kegiatan/" + jsonObject.getString("banner");
+                        banner = session.getURL() + "uploads/gambar_kegiatan/" + jsonObject.getString("banner");
                         status_kegiatan = jsonObject.getString("status_kegiatan");
                     } else {
                         status = "jsonNull";
@@ -151,8 +132,6 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             dialog.dismiss();
             if (status.equals("sukses")) {
-                session = new Session(getApplicationContext());
-
                 txt_nama_kegiatan_detail_diikuti.setText(nama_kegiatan);
                 txt_pesan_ajakan_detail_diikuti.setText(pesan_ajakan);
                 txt_deskripsi_diikuti.setText("Deskripsi: \n" + Html.fromHtml(deskripsi_kegiatan));

@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -20,13 +19,11 @@ import android.widget.Toast;
 
 import com.example.nicko.turuntanganmalangapps.MainActivity;
 import com.example.nicko.turuntanganmalangapps.R;
-import com.example.nicko.turuntanganmalangapps.adapters.GarageSaleAdapter;
 import com.example.nicko.turuntanganmalangapps.adapters.KeranjangBelanjaAdapter;
 import com.example.nicko.turuntanganmalangapps.models.GarageSale;
 import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
 import com.example.nicko.turuntanganmalangapps.utils.InternetConnection;
 import com.example.nicko.turuntanganmalangapps.utils.Session;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -105,7 +102,6 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         if (item.getItemId() == R.id.hapus_barang) {
             id_keranjang_belanja = list.get(info.position).getId_keranjang_belanja();
-//            Toast.makeText(getApplicationContext(), id_keranjang_belanja, Toast.LENGTH_LONG).show();
             new Hapus_Barang().execute();
             return true;
         } else {
@@ -135,7 +131,7 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
-                            GarageSale model = new GarageSale();
+                            GarageSale model = new GarageSale(getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
                             String id_keranjang_belanja = innerObject.getString("id_keranjang_belanja");
                             String nama_barang = innerObject.getString("nama_barang");
@@ -167,7 +163,6 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 txt_total_tagihan.setText("Total Tagihan: " + total_tagihan.toString());
             } else {
-//                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
                 txt_null_cart.setVisibility(View.VISIBLE);
                 txt_judul_cart.setVisibility(View.GONE);
                 txt_total_tagihan.setVisibility(View.GONE);

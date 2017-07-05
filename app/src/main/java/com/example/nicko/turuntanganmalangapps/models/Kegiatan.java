@@ -1,14 +1,26 @@
 package com.example.nicko.turuntanganmalangapps.models;
 
+import android.content.Context;
+
+import com.example.nicko.turuntanganmalangapps.utils.Session;
+
 /**
  * Created by nicko on 6/8/2017.
  */
 
 public class Kegiatan {
     private String id_kegiatan, nama_kegiatan, pesan_ajakan, lat, lng, banner, status_kegiatan;
+    private Context context;
+    private Session session;
 
-    public void setBanner(String banner) {
-        this.banner = "http://192.168.43.133:80/ttm/uploads/gambar_kegiatan/" + banner;
+    public Kegiatan (Context context) {
+        this.context = context;
+        session = new Session(this.context);
+    }
+
+    public void setBanner(String banner) {;
+        this.banner = session.getURL() + "uploads/gambar_kegiatan/" + banner;
+//        this.banner = "http://192.168.43.133:80/ttm/uploads/gambar_kegiatan/" + banner;
 //        this.banner = "http://turuntanganmalang.pe.hu/uploads/gambar_kegiatan/" + banner;
     }
 

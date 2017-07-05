@@ -10,6 +10,7 @@ import android.support.v4.app.NotificationCompat;
 import com.example.nicko.turuntanganmalangapps.MainActivity;
 import com.example.nicko.turuntanganmalangapps.R;
 import com.example.nicko.turuntanganmalangapps.activities.DetailKegiatanActivity;
+import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
 import com.example.nicko.turuntanganmalangapps.sqlite.NotificationModel;
 import com.example.nicko.turuntanganmalangapps.sqlite.SQLiteHelper;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -79,5 +80,7 @@ public class FcmMessagingService extends FirebaseMessagingService {
         } else if (intent.equals("transaksi")) {
 
         }
+
+        new JSONParser(getApplicationContext());
     }
 }

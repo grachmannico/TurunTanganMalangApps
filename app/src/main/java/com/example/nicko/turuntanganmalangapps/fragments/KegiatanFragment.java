@@ -126,6 +126,7 @@ public class KegiatanFragment extends Fragment {
     class Tampil_Kegiatan extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog dialog;
+//        JSONParser jsonParser;
 
         @Override
         protected void onPreExecute() {
@@ -139,13 +140,14 @@ public class KegiatanFragment extends Fragment {
         @Nullable
         @Override
         protected Void doInBackground(Void... params) {
+//            jsonParser = new JSONParser(getActivity().getApplicationContext());
             JSONArray jsonArray = JSONParser.tampil_kegiatan(id_status_kegiatan);
             try {
                 if (jsonArray != null) {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
-                            Kegiatan model = new Kegiatan();
+                            Kegiatan model = new Kegiatan(getActivity().getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
                             String id_kegiatan = innerObject.getString("id_kegiatan");
                             String nama_kegiatan = innerObject.getString("nama_kegiatan");

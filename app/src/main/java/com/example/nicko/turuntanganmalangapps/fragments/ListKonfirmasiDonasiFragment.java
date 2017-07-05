@@ -133,7 +133,6 @@ public class ListKonfirmasiDonasiFragment extends Fragment {
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
             } else {
-//                Toast.makeText(getActivity().getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
                 txt_null_konfirmasi.setVisibility(View.VISIBLE);
             }
         }

@@ -44,7 +44,7 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
 
     private String id_kegiatan, email, status;
     private String nama_kegiatan, pesan_ajakan, alamat, tanggal_kegiatan, batas_akhir_pendaftaran, jumlah_relawan,
-            jumlah_donasi, deskripsi_kegiatan, banner;
+            jumlah_donasi, deskripsi_kegiatan, banner, status_bergabung;
     private Double lat, lng;
 
     private Session session;
@@ -103,9 +103,6 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
         }
 
         id_kegiatan = getIntent().getExtras().getString("id_kegiatan");
-//        lat = Double.parseDouble(getIntent().getExtras().getString("lat"));
-//        lng = Double.parseDouble(getIntent().getExtras().getString("lng"));
-//        Toast.makeText(getApplicationContext(), getIntent().getExtras().getString("lat") + "/" + getIntent().getExtras().getString("lng"), Toast.LENGTH_LONG).show();
 
         if (InternetConnection.checkConnection(getApplicationContext())) {
             new Detail_Kegiatan().execute();
@@ -127,13 +124,6 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        LatLng locMarker = new LatLng(lat, lng);
-//        mMap.addMarker(new MarkerOptions().position(locMarker).title("Lokasi Kegiatan"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(locMarker));
-//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15.0f));
     }
 
     class Detail_Kegiatan extends AsyncTask<Void, Void, Void> {
@@ -151,7 +141,7 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
         @Nullable
         @Override
         protected Void doInBackground(Void... params) {
-            JSONObject jsonObject = JSONParser.detail_kegiatan(id_kegiatan);
+            JSONObject jsonObject = JSONParser.detail_kegiatan(id_kegiatan, email);
             try {
                 if (jsonObject != null) {
                     if (jsonObject.length() > 0) {
@@ -164,10 +154,10 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
                         tanggal_kegiatan = jsonObject.getString("tanggal_kegiatan");
                         batas_akhir_pendaftaran = jsonObject.getString("batas_akhir_pendaftaran");
                         alamat = jsonObject.getString("alamat");
-                        banner = "http://192.168.43.133:80/ttm/uploads/gambar_kegiatan/" + jsonObject.getString("banner");
-//                        banner = "http://turuntanganmalang.pe.hu/uploads/gambar_kegiatan/" + jsonObject.getString("banner");
+                        banner = session.getURL() + "uploads/gambar_kegiatan/" + jsonObject.getString("banner");
                         lat = Double.parseDouble(jsonObject.getString("lat"));
                         lng = Double.parseDouble(jsonObject.getString("lng"));
+                        status_bergabung = jsonObject.getString("status_bergabung");
                     } else {
                         status = "jsonNull";
                     }
@@ -199,6 +189,11 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15.0f));
 
                 Picasso.with(DetailKegiatanActivity.this).load(banner).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(img_banner_kegiatan);
+
+                if (status_bergabung.equals("yes")) {
+                    btn_gabung.setEnabled(false);
+                    btn_gabung.setText("Anda telah bergabung dalam kegaiatan ini");
+                }
             } else if (status.equals("jsonNull")) {
                 Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {

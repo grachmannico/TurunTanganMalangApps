@@ -22,6 +22,8 @@ import com.example.nicko.turuntanganmalangapps.fragments.KegiatanFragment;
 import com.example.nicko.turuntanganmalangapps.fragments.ListKonfirmasiDonasiFragment;
 import com.example.nicko.turuntanganmalangapps.fragments.ListKonfirmasiPembayaranFragment;
 import com.example.nicko.turuntanganmalangapps.fragments.NotificationFragment;
+import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
+import com.example.nicko.turuntanganmalangapps.sqlite.SQLiteHelper;
 import com.example.nicko.turuntanganmalangapps.utils.Session;
 
 public class MainActivity extends AppCompatActivity
@@ -65,6 +67,8 @@ public class MainActivity extends AppCompatActivity
             txt_nama.setText(session.getNama());
             txt_divisi.setText("Donatur");
         }
+
+        new JSONParser(getApplicationContext());
 
         if (!session.loggedin()) {
             logout();
@@ -186,6 +190,8 @@ public class MainActivity extends AppCompatActivity
 
     private void logout() {
         session.setLoggedIn(false);
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(this);
+        sqLiteHelper.deleteAllRecords();
         finish();
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);

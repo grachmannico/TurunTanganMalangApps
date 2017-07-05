@@ -12,6 +12,7 @@ public class Session {
     SharedPreferences.Editor editor;
     Context context;
     private String tipe_pengguna, nama, email, pangkat_divisi, divisi, invoice;
+    private String MAIN_URL = "http://192.168.43.133:80/ttm/";
 
     public Session(Context context) {
         this.context = context;
@@ -86,5 +87,9 @@ public class Session {
 
     public String getInvoice() {
         return prefs.getString("invoice", this.invoice);
+    }
+
+    public String getURL() {
+        return prefs.getString("url", this.MAIN_URL);
     }
 }

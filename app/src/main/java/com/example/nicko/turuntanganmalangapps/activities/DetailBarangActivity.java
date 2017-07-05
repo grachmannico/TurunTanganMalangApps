@@ -135,8 +135,7 @@ public class DetailBarangActivity extends AppCompatActivity {
                             deskripsi = innerObject.getString("deskripsi");
                             harga = innerObject.getString("harga");
                             stok_terpesan = innerObject.getString("stok_terpesan");
-                            gambar_barang = "http://192.168.43.133:80/ttm/uploads/barang_garage_sale/" + innerObject.getString("gambar_barang");
-//                            gambar_barang = "http://turuntanganmalang.pe.hu/uploads/barang_garage_sale/" + innerObject.getString("gambar_barang");
+                            gambar_barang = session.getURL() + "uploads/barang_garage_sale/" + innerObject.getString("gambar_barang");
                         }
                     }
                 }

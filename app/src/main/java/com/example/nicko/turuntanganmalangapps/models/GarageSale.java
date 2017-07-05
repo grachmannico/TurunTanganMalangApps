@@ -1,18 +1,30 @@
 package com.example.nicko.turuntanganmalangapps.models;
 
+import android.content.Context;
+
+import com.example.nicko.turuntanganmalangapps.utils.Session;
+
 /**
  * Created by nicko on 6/11/2017.
  */
 
 public class GarageSale {
     private String id_barang_garage_sale, nama_barang, deskripsi, harga, stok_terpesan, gambar_barang, qty, id_keranjang_belanja;
+    private Context context;
+    private Session session;
+
+    public GarageSale (Context context) {
+        this.context = context;
+        session = new Session(this.context);
+    }
 
     public void setDeskripsi(String deskripsi) {
         this.deskripsi = deskripsi;
     }
 
     public void setGambar_barang(String gambar_barang) {
-        this.gambar_barang = "http://192.168.43.133:80/ttm/uploads/barang_garage_sale/" + gambar_barang;
+        this.gambar_barang = session.getURL() + "uploads/barang_garage_sale/" + gambar_barang;
+//        this.gambar_barang = "http://192.168.43.133:80/ttm/uploads/barang_garage_sale/" + gambar_barang;
 //        this.gambar_barang = "http://turuntanganmalang.pe.hu/uploads/barang_garage_sale/" + gambar_barang;
     }
 

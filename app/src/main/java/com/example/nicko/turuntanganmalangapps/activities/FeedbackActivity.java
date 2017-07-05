@@ -100,7 +100,6 @@ public class FeedbackActivity extends AppCompatActivity {
                 komentar = edt_feedback.getText().toString();
                 rating = spin_rating.getSelectedItem().toString();
                 if (InternetConnection.checkConnection(getApplicationContext())) {
-//                    Toast.makeText(getApplication(), komentar, Toast.LENGTH_LONG).show();
                     new Kirim_Feedback().execute();
                 } else {
                     Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
@@ -161,7 +160,6 @@ public class FeedbackActivity extends AppCompatActivity {
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
             } else {
-//                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
                 txt_nama_kegiatan_feedback.setVisibility(View.GONE);
                 listView.setVisibility(View.GONE);
                 txt_null_feedback.setVisibility(View.VISIBLE);

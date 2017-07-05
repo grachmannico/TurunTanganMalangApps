@@ -100,7 +100,7 @@ public class KegiatanDiikutiFragment extends Fragment {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
-                            Kegiatan model = new Kegiatan();
+                            Kegiatan model = new Kegiatan(getActivity().getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
                             String id_kegiatan = innerObject.getString("id_kegiatan");
                             String nama_kegiatan = innerObject.getString("nama_kegiatan");

@@ -117,7 +117,7 @@ public class GarageSaleFragment extends Fragment {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
-                            GarageSale model = new GarageSale();
+                            GarageSale model = new GarageSale(getActivity().getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
                             String id_barang_garage_sale = innerObject.getString("id_barang_garage_sale");
                             String nama_barang = innerObject.getString("nama_barang");

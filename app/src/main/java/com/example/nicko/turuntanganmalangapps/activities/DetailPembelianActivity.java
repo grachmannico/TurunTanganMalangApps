@@ -35,7 +35,7 @@ import java.util.ArrayList;
 
 public class DetailPembelianActivity extends AppCompatActivity {
 
-    private TextView txt_judul_detail, txt_invoice_detail, txt_total_tagihan_detail;
+    private TextView txt_invoice_detail, txt_total_tagihan_detail;
     private Button btn_foto_struk_pembelian, btn_konfirmasi_pembelian;
 
     private ListView listView;
@@ -43,7 +43,7 @@ public class DetailPembelianActivity extends AppCompatActivity {
     private KeranjangBelanjaAdapter adapter;
 
     private Session session;
-    private String email, invoice, id_keranjang_belanja, status;
+    private String email, invoice, status;
     private Integer total_tagihan;
 
     private File image;
@@ -188,7 +188,7 @@ public class DetailPembelianActivity extends AppCompatActivity {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
-                            GarageSale model = new GarageSale();
+                            GarageSale model = new GarageSale(getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
                             String id_keranjang_belanja = innerObject.getString("id_keranjang_belanja");
                             String nama_barang = innerObject.getString("nama_barang");
@@ -232,9 +232,6 @@ public class DetailPembelianActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            /**
-             * Progress Dialog for User Interaction
-             */
             dialog = new ProgressDialog(DetailPembelianActivity.this);
             dialog.setTitle("Tunggu Sebentar");
             dialog.setMessage("Permintaan Sedang Diproses");

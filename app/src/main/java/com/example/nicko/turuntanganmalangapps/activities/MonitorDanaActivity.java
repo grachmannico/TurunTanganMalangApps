@@ -112,7 +112,6 @@ public class MonitorDanaActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 txt_nama_kegiatan_monitor.setText(nama_kegiatan);
             } else {
-//                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
                 txt_nama_kegiatan_monitor.setVisibility(View.GONE);
                 listView.setVisibility(View.GONE);
                 txt_null_monitor.setVisibility(View.VISIBLE);

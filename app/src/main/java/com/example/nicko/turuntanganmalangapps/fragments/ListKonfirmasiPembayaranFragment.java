@@ -127,7 +127,6 @@ public class ListKonfirmasiPembayaranFragment extends Fragment {
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
             } else {
-//                Toast.makeText(getActivity().getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
                 txt_null_pembayaran.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);
             }

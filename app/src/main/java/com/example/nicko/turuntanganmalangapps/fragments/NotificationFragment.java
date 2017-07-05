@@ -11,14 +11,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nicko.turuntanganmalangapps.MainActivity;
 import com.example.nicko.turuntanganmalangapps.R;
+import com.example.nicko.turuntanganmalangapps.activities.DetailKegiatanActivity;
 import com.example.nicko.turuntanganmalangapps.sqlite.NotificationAdapter;
 import com.example.nicko.turuntanganmalangapps.sqlite.NotificationModel;
 import com.example.nicko.turuntanganmalangapps.sqlite.SQLiteHelper;
+import com.example.nicko.turuntanganmalangapps.utils.Session;
 
 import java.util.ArrayList;
 
@@ -33,6 +39,13 @@ public class NotificationFragment extends Fragment {
     private SQLiteHelper sqLiteHelper;
 
     private ListView list_data;
+    private Spinner spin_kategori_notif;
+    private TextView txt_null_notif;
+    private Button btn_cari_notif;
+
+    private String[] array_kategori_notif;
+
+    private Session session;
 
     @Nullable
     @Override
@@ -46,15 +59,68 @@ public class NotificationFragment extends Fragment {
 
         getActivity().setTitle("Notification");
 
+        spin_kategori_notif = (Spinner) getActivity().findViewById(R.id.spin_kategori_notif);
+        txt_null_notif = (TextView) getActivity().findViewById(R.id.txt_null_notif);
+        btn_cari_notif = (Button) getActivity().findViewById(R.id.btn_cari_notif);
+
+        session = new Session(getActivity());
+        if (session.getTipePengguna().equals("relawan")) {
+            this.array_kategori_notif = new String[]{
+                    "Kegiatan", "Absensi", "Dokumentasi"
+            };
+            ArrayAdapter<String> kategori_notif_adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, array_kategori_notif);
+            spin_kategori_notif.setAdapter(kategori_notif_adapter);
+        } else if (session.getTipePengguna().equals("donatur")) {
+            this.array_kategori_notif = new String[]{
+                    "Kegiatan", "Konfirmasi Donasi", "Konfirmasi Pembayaran", "Dokumentasi", "Monitor Dana"
+            };
+            ArrayAdapter<String> kategori_notif_adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, array_kategori_notif);
+            spin_kategori_notif.setAdapter(kategori_notif_adapter);
+        }
+
         notifModel = new ArrayList<NotificationModel>();
 
         sqLiteHelper = new SQLiteHelper(getActivity());
-        notifModel = sqLiteHelper.getAllRecords();
         list_data = (ListView) getActivity().findViewById(R.id.list_notifikasi);
+        notifModel = sqLiteHelper.getAllRecords();
+        if (notifModel.isEmpty()) {
+            list_data.setVisibility(View.GONE);
+            txt_null_notif.setVisibility(View.VISIBLE);
+        } else {
+            dataAdapter = new NotificationAdapter(getActivity(), notifModel);
+            list_data.setAdapter(dataAdapter);
+            registerForContextMenu(list_data);
+        }
 
-        dataAdapter = new NotificationAdapter(getActivity(), notifModel);
-        list_data.setAdapter(dataAdapter);
-        registerForContextMenu(list_data);
+        btn_cari_notif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notifModel.clear();
+
+                if (spin_kategori_notif.getSelectedItem().toString().equals("Kegiatan")) {
+                    notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "kegiatan");
+                    dataAdapter = new NotificationAdapter(getActivity(), notifModel);
+                    list_data.setAdapter(dataAdapter);
+                    registerForContextMenu(list_data);
+                } else if (spin_kategori_notif.getSelectedItem().toString().equals("Dokumentasi")){
+                    notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "dokumentasi");
+                    dataAdapter = new NotificationAdapter(getActivity(), notifModel);
+                    list_data.setAdapter(dataAdapter);
+                    registerForContextMenu(list_data);
+                }
+            }
+        });
+
+        list_data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                if (notifModel.get(position).getIntent().equals("DetailKegiatanActivity")) {
+                    Intent intent = new Intent(getActivity(), DetailKegiatanActivity.class);
+                    intent.putExtra("id_kegiatan", notifModel.get(position).getId_target());
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override

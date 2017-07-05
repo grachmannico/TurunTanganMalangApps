@@ -148,9 +148,6 @@ public class KonfirmasiDonasiActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            /**
-             * Progress Dialog for User Interaction
-             */
             dialog = new ProgressDialog(KonfirmasiDonasiActivity.this);
             dialog.setTitle("Tunggu Sebentar");
             dialog.setMessage("Permintaan Sedang Diproses");
