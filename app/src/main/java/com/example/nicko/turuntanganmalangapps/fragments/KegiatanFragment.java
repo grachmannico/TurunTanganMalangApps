@@ -149,12 +149,12 @@ public class KegiatanFragment extends Fragment {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             Kegiatan model = new Kegiatan(getActivity().getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            String id_kegiatan = innerObject.getString("id_kegiatan");
+                            int id_kegiatan = Integer.parseInt(innerObject.getString("id_kegiatan"));
                             String nama_kegiatan = innerObject.getString("nama_kegiatan");
                             String pesan_ajakan = innerObject.getString("pesan_ajakan");
                             String banner = innerObject.getString("banner");
-                            String lat = innerObject.getString("lat");
-                            String lng = innerObject.getString("lng");
+                            double lat = Double.parseDouble(innerObject.getString("lat"));
+                            double lng = Double.parseDouble(innerObject.getString("lng"));
 
                             model.setId_kegiatan(id_kegiatan);
                             model.setNama_kegiatan(nama_kegiatan);

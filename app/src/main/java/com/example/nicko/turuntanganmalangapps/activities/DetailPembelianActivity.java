@@ -20,7 +20,6 @@ import com.example.nicko.turuntanganmalangapps.MainActivity;
 import com.example.nicko.turuntanganmalangapps.R;
 import com.example.nicko.turuntanganmalangapps.adapters.KeranjangBelanjaAdapter;
 import com.example.nicko.turuntanganmalangapps.models.GarageSale;
-import com.example.nicko.turuntanganmalangapps.models.KonfirmasiPembayaran;
 import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
 import com.example.nicko.turuntanganmalangapps.utils.InternetConnection;
 import com.example.nicko.turuntanganmalangapps.utils.Session;
@@ -190,12 +189,12 @@ public class DetailPembelianActivity extends AppCompatActivity {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             GarageSale model = new GarageSale(getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            String id_keranjang_belanja = innerObject.getString("id_keranjang_belanja");
+                            int id_keranjang_belanja = Integer.parseInt(innerObject.getString("id_keranjang_belanja"));
                             String nama_barang = innerObject.getString("nama_barang");
-                            String harga = innerObject.getString("harga");
+                            double harga = Double.parseDouble(innerObject.getString("harga"));
                             String gambar_barang = innerObject.getString("gambar_barang");
-                            String qty = innerObject.getString("qty");
-                            total_tagihan = total_tagihan + (Integer.parseInt(harga) * Integer.parseInt(qty));
+                            int qty = Integer.parseInt(innerObject.getString("qty"));
+                            total_tagihan = total_tagihan + ((int) harga * qty);
 
                             model.setId_keranjang_belanja(id_keranjang_belanja);
                             model.setNama_barang(nama_barang);

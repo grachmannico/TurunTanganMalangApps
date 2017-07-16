@@ -5,30 +5,31 @@ package com.example.nicko.turuntanganmalangapps.models;
  */
 
 public class Feedback {
-    private String id_feedback_kegiatan, nama, komentar, rating, jml_balasan;
+    private int id_feedback_kegiatan, rating, jml_balasan;
+    private String nama, komentar;
 
     public String getId_feedback_kegiatan() {
-        return id_feedback_kegiatan;
+        return String.valueOf(id_feedback_kegiatan);
     }
 
-    public void setId_feedback_kegiatan(String id_feedback_kegiatan) {
+    public void setId_feedback_kegiatan(int id_feedback_kegiatan) {
         this.id_feedback_kegiatan = id_feedback_kegiatan;
     }
 
+    public String getRating() {
+        return String.valueOf(rating);
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     public String getJml_balasan() {
-        return jml_balasan;
+        return String.valueOf(jml_balasan);
     }
 
-    public void setJml_balasan(String jml_balasan) {
+    public void setJml_balasan(int jml_balasan) {
         this.jml_balasan = jml_balasan;
-    }
-
-    public String getKomentar() {
-        return komentar;
-    }
-
-    public void setKomentar(String komentar) {
-        this.komentar = komentar;
     }
 
     public String getNama() {
@@ -39,11 +40,11 @@ public class Feedback {
         this.nama = nama;
     }
 
-    public String getRating() {
-        return rating;
+    public String getKomentar() {
+        return komentar;
     }
 
-    public void setRating(String rating) {
-        this.rating = rating;
+    public void setKomentar(String komentar) {
+        this.komentar = komentar;
     }
 }

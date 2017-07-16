@@ -5,14 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.nicko.turuntanganmalangapps.R;
-import com.example.nicko.turuntanganmalangapps.models.KonfirmasiDonasi;
-import com.squareup.picasso.Picasso;
+import com.example.nicko.turuntanganmalangapps.models.Donasi;
 
 import java.util.List;
 
@@ -20,13 +17,13 @@ import java.util.List;
  * Created by nicko on 6/11/2017.
  */
 
-public class KonfirmasiDonasiAdapter extends ArrayAdapter<KonfirmasiDonasi> {
-    List<KonfirmasiDonasi> modelList;
+public class KonfirmasiDonasiAdapter extends ArrayAdapter<Donasi> {
+    List<Donasi> modelList;
     Context context;
     private LayoutInflater mInflater;
 
     // Constructors
-    public KonfirmasiDonasiAdapter(Context context, List<KonfirmasiDonasi> objects) {
+    public KonfirmasiDonasiAdapter(Context context, List<Donasi> objects) {
         super(context, 0, objects);
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
@@ -34,7 +31,7 @@ public class KonfirmasiDonasiAdapter extends ArrayAdapter<KonfirmasiDonasi> {
     }
 
     @Override
-    public KonfirmasiDonasi getItem(int position) {
+    public Donasi getItem(int position) {
         return modelList.get(position);
     }
 
@@ -49,7 +46,7 @@ public class KonfirmasiDonasiAdapter extends ArrayAdapter<KonfirmasiDonasi> {
             vh = (ViewHolder) convertView.getTag();
         }
 
-        KonfirmasiDonasi item = getItem(position);
+        Donasi item = getItem(position);
 
         vh.txt_nama_kegiatan_donasi.setText(item.getNama_kegiatan());
         vh.txt_nominal_donasi.setText(item.getNominal_donasi());

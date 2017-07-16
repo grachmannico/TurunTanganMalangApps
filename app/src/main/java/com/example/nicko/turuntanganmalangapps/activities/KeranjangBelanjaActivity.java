@@ -59,7 +59,7 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
 
         session = new Session(this);
         email = session.getEmail();
-        if (session.getInvoice() == null) {
+        if (session.getInvoice() == null || session.getInvoice().equals("null")) {
             invoice = "";
         } else {
             invoice = session.getInvoice();
@@ -133,12 +133,12 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             GarageSale model = new GarageSale(getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            String id_keranjang_belanja = innerObject.getString("id_keranjang_belanja");
+                            int id_keranjang_belanja = Integer.parseInt(innerObject.getString("id_keranjang_belanja"));
                             String nama_barang = innerObject.getString("nama_barang");
-                            String harga = innerObject.getString("harga");
+                            double harga = Integer.parseInt(innerObject.getString("harga"));
                             String gambar_barang = innerObject.getString("gambar_barang");
-                            String qty = innerObject.getString("qty");
-                            total_tagihan = total_tagihan + (Integer.parseInt(harga) * Integer.parseInt(qty));
+                            int qty = Integer.parseInt(innerObject.getString("qty"));
+                            total_tagihan = total_tagihan + (((int) harga) * qty);
 
                             model.setId_keranjang_belanja(id_keranjang_belanja);
                             model.setNama_barang(nama_barang);
@@ -261,12 +261,12 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
             dialog.dismiss();
             if (status.equals("sukses")) {
                 session = new Session(getApplicationContext());
-                session.getInvoice();
+                session.setInvoice("null");
                 Intent intent = new Intent(KeranjangBelanjaActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             } else if (status.equals("gagal")) {
-                Toast.makeText(getApplicationContext(), "Hapus Barang Gagal", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Pembelian Barang Gagal", Toast.LENGTH_LONG).show();
             } else if (status.equals("jsonNull")) {
                 Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {

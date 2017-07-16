@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.nicko.turuntanganmalangapps.R;
 import com.example.nicko.turuntanganmalangapps.activities.DetailPembelianActivity;
 import com.example.nicko.turuntanganmalangapps.adapters.KonfirmasiPembayaranAdapter;
-import com.example.nicko.turuntanganmalangapps.models.KonfirmasiPembayaran;
+import com.example.nicko.turuntanganmalangapps.models.Pembayaran;
 import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
 import com.example.nicko.turuntanganmalangapps.utils.InternetConnection;
 import com.example.nicko.turuntanganmalangapps.utils.Session;
@@ -35,7 +35,7 @@ import java.util.ArrayList;
 
 public class ListKonfirmasiPembayaranFragment extends Fragment {
     private ListView listView;
-    private ArrayList<KonfirmasiPembayaran> list;
+    private ArrayList<Pembayaran> list;
     private KonfirmasiPembayaranAdapter adapter;
 
     private Session session;
@@ -101,11 +101,11 @@ public class ListKonfirmasiPembayaranFragment extends Fragment {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
-                            KonfirmasiPembayaran model = new KonfirmasiPembayaran();
+                            Pembayaran model = new Pembayaran();
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
                             String id_invoice = innerObject.getString("id_invoice");
                             String tanggal_pembelian = innerObject.getString("tanggal_pembelian");
-                            String total_tagihan = innerObject.getString("total_tagihan");
+                            double total_tagihan = Double.parseDouble(innerObject.getString("total_tagihan"));
 
                             model.setId_invoice(id_invoice);
                             model.setTanggal_pembelian(tanggal_pembelian);

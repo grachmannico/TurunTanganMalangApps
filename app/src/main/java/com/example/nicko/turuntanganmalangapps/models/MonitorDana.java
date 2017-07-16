@@ -5,14 +5,15 @@ package com.example.nicko.turuntanganmalangapps.models;
  */
 
 public class MonitorDana {
-    private String nama_dana_keluar, tanggal, nominal_dana_keluar, keterangan;
+    private double nominal_dana_keluar;
+    private String nama_dana_keluar, tanggal, keterangan;
 
-    public String getKeterangan() {
-        return keterangan;
+    public String getNominal_dana_keluar() {
+        return String.valueOf(((int) nominal_dana_keluar));
     }
 
-    public void setKeterangan(String keterangan) {
-        this.keterangan = keterangan;
+    public void setNominal_dana_keluar(double nominal_dana_keluar) {
+        this.nominal_dana_keluar = nominal_dana_keluar;
     }
 
     public String getNama_dana_keluar() {
@@ -23,19 +24,19 @@ public class MonitorDana {
         this.nama_dana_keluar = nama_dana_keluar;
     }
 
-    public String getNominal_dana_keluar() {
-        return nominal_dana_keluar;
-    }
-
-    public void setNominal_dana_keluar(String nominal_dana_keluar) {
-        this.nominal_dana_keluar = nominal_dana_keluar;
-    }
-
     public String getTanggal() {
         return tanggal;
     }
 
     public void setTanggal(String tanggal) {
         this.tanggal = tanggal;
+    }
+
+    public String getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
     }
 }

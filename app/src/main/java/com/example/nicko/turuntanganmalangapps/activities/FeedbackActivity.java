@@ -132,11 +132,11 @@ public class FeedbackActivity extends AppCompatActivity {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             Feedback model = new Feedback();
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            String id_feedback_kegiatan = innerObject.getString("id_feedback_kegiatan");
+                            int id_feedback_kegiatan = Integer.parseInt(innerObject.getString("id_feedback_kegiatan"));
                             String nama = innerObject.getString("nama");
                             String komentar = innerObject.getString("komentar");
-                            String rating = innerObject.getString("rating");
-                            String jml_balasan = innerObject.getString("jml_balasan");
+                            int rating = Integer.parseInt(innerObject.getString("rating"));
+                            int jml_balasan = Integer.parseInt(innerObject.getString("jml_balasan"));
 
                             model.setId_feedback_kegiatan(id_feedback_kegiatan);
                             model.setNama(nama);

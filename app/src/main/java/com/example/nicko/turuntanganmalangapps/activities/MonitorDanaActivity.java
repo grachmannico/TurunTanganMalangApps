@@ -86,7 +86,7 @@ public class MonitorDanaActivity extends AppCompatActivity {
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
                             String nama_dana_keluar = innerObject.getString("nama_dana_keluar");
                             String tanggal = innerObject.getString("tanggal");
-                            String nominal_dana_keluar = innerObject.getString("nominal_dana_keluar");
+                            double nominal_dana_keluar = Double.parseDouble(innerObject.getString("nominal_dana_keluar"));
                             String keterangan = innerObject.getString("keterangan");
                             nama_kegiatan = innerObject.getString("nama_kegiatan");
 

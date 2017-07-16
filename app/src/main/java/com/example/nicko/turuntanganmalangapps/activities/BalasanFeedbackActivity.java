@@ -108,7 +108,7 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
                             String nama = innerObject.getString("nama");
                             String komentar = innerObject.getString("komentar");
 
-                            model.setId_feedback_kegiatan(id_feedback_kegiatan);
+                            model.setId_feedback_kegiatan(Integer.parseInt(id_feedback_kegiatan));
                             model.setNama(nama);
                             model.setKomentar(komentar);
                             list.add(model);

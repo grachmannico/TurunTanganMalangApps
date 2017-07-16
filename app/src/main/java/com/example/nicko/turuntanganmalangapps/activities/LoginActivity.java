@@ -141,6 +141,9 @@ public class LoginActivity extends AppCompatActivity {
                 session.setTipePengguna(tipe_pengguna);
                 session.setNama(nama_pengguna);
                 session.setEmail(email_pengguna);
+                if (session.getInvoice() == null || session.getInvoice().equals("null")) {
+                    session.setInvoice("null");
+                }
                 Toast.makeText(getApplicationContext(), "Login Berhasil, Selamat Datang " + session.getNama(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);

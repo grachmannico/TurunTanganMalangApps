@@ -21,7 +21,6 @@ import com.example.nicko.turuntanganmalangapps.utils.InternetConnection;
 import com.example.nicko.turuntanganmalangapps.utils.Session;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -90,6 +89,7 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
     class Detail_Kegiatan_Diikuti extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog dialog;
+        Kegiatan kegiatan = new Kegiatan(getApplicationContext());
 
         @Override
         protected void onPreExecute() {
@@ -107,14 +107,22 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                 if (jsonObject != null) {
                     if (jsonObject.length() > 0) {
                         status = "sukses";
-                        nama_kegiatan = jsonObject.getString("nama_kegiatan");
-                        pesan_ajakan = jsonObject.getString("pesan_ajakan");
-                        deskripsi_kegiatan = jsonObject.getString("deskripsi_kegiatan");
-                        jumlah_relawan = jsonObject.getString("jumlah_relawan") + " / " + jsonObject.getString("minimal_relawan");
-                        jumlah_donasi = jsonObject.getString("jumlah_donasi") + " / " + jsonObject.getString("minimal_donasi");
-                        alamat = jsonObject.getString("alamat");
-                        banner = session.getURL() + "uploads/gambar_kegiatan/" + jsonObject.getString("banner");
-                        status_kegiatan = jsonObject.getString("status_kegiatan");
+//                        nama_kegiatan = jsonObject.getString("nama_kegiatan");
+//                        pesan_ajakan = jsonObject.getString("pesan_ajakan");
+//                        deskripsi_kegiatan = jsonObject.getString("deskripsi_kegiatan");
+//                        jumlah_relawan = jsonObject.getString("jumlah_relawan") + " / " + jsonObject.getString("minimal_relawan");
+//                        jumlah_donasi = jsonObject.getString("jumlah_donasi") + " / " + jsonObject.getString("minimal_donasi");
+//                        alamat = jsonObject.getString("alamat");
+//                        banner = session.getURL() + "uploads/gambar_kegiatan/" + jsonObject.getString("banner");
+//                        status_kegiatan = jsonObject.getString("status_kegiatan");
+                        kegiatan.setNama_kegiatan(jsonObject.getString("nama_kegiatan"));
+                        kegiatan.setPesan_ajakan(jsonObject.getString("pesan_ajakan"));
+                        kegiatan.setDeskripsi_kegiatan(jsonObject.getString("deskripsi_kegiatan"));
+                        kegiatan.setMinimal_relawan(jsonObject.getString("jumlah_relawan") + " / " + jsonObject.getString("minimal_relawan"));
+                        kegiatan.setMinimal_donasi(jsonObject.getString("jumlah_donasi") + " / " + jsonObject.getString("minimal_donasi"));
+                        kegiatan.setAlamat(jsonObject.getString("alamat"));
+                        kegiatan.setBanner(jsonObject.getString("banner"));
+                        kegiatan.setStatus_kegiatan(jsonObject.getString("status_kegiatan"));
                     } else {
                         status = "jsonNull";
                     }
@@ -132,27 +140,35 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             dialog.dismiss();
             if (status.equals("sukses")) {
-                txt_nama_kegiatan_detail_diikuti.setText(nama_kegiatan);
-                txt_pesan_ajakan_detail_diikuti.setText(pesan_ajakan);
-                txt_deskripsi_diikuti.setText("Deskripsi: \n" + Html.fromHtml(deskripsi_kegiatan));
-                txt_jumlah_relawan_diikuti.setText("Jumlah Relawan: " + jumlah_relawan);
-                txt_jumlah_donasi_diikuti.setText("Donasi Terkumpul: " + jumlah_donasi);
-                txt_alamat_diikuti.setText("Alamat: " + alamat);
-                txt_status_kegiatan_diikuti.setText("Status Kegiatan: " + status_kegiatan);
-                Picasso.with(DetailKegiatanDiikutiActivity.this).load(banner).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(img_banner_kegiatan_diikuti);
+//                txt_nama_kegiatan_detail_diikuti.setText(nama_kegiatan);
+//                txt_pesan_ajakan_detail_diikuti.setText(pesan_ajakan);
+//                txt_deskripsi_diikuti.setText("Deskripsi: \n" + Html.fromHtml(deskripsi_kegiatan));
+//                txt_jumlah_relawan_diikuti.setText("Jumlah Relawan: " + jumlah_relawan);
+//                txt_jumlah_donasi_diikuti.setText("Donasi Terkumpul: " + jumlah_donasi);
+//                txt_alamat_diikuti.setText("Alamat: " + alamat);
+//                txt_status_kegiatan_diikuti.setText("Status Kegiatan: " + status_kegiatan);
+//                Picasso.with(DetailKegiatanDiikutiActivity.this).load(banner).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(img_banner_kegiatan_diikuti);
+                txt_nama_kegiatan_detail_diikuti.setText(kegiatan.getNama_kegiatan());
+                txt_pesan_ajakan_detail_diikuti.setText(kegiatan.getPesan_ajakan());
+                txt_deskripsi_diikuti.setText("Deskripsi: \n" + Html.fromHtml(kegiatan.getDeskripsi_kegiatan()));
+                txt_jumlah_relawan_diikuti.setText("Jumlah Relawan: " + kegiatan.getMinimal_relawan());
+                txt_jumlah_donasi_diikuti.setText("Donasi Terkumpul: " + kegiatan.getMinimal_donasi());
+                txt_alamat_diikuti.setText("Alamat: " + kegiatan.getAlamat());
+                txt_status_kegiatan_diikuti.setText("Status Kegiatan: " + kegiatan.getStatus_kegiatan());
+                Picasso.with(DetailKegiatanDiikutiActivity.this).load(kegiatan.getBanner()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(img_banner_kegiatan_diikuti);
                 if (session.getTipePengguna().equals("donatur")) {
-                    if (status_kegiatan.equals("Kegiatan Sedang Berjalan")) {
+                    if (kegiatan.getStatus_kegiatan().equals("Kegiatan Sedang Berjalan")) {
                         btn_dokumentasi.setVisibility(View.VISIBLE);
                         btn_monitor_dana.setVisibility(View.VISIBLE);
-                    } else if (status_kegiatan.equals("Kegiatan Selesai Berjalan")) {
+                    } else if (kegiatan.getStatus_kegiatan().equals("Kegiatan Selesai Berjalan")) {
                         btn_dokumentasi.setVisibility(View.VISIBLE);
                         btn_monitor_dana.setVisibility(View.VISIBLE);
                         btn_feedback.setVisibility(View.VISIBLE);
                     }
                 } else if (session.getTipePengguna().equals("relawan")) {
-                    if (status_kegiatan.equals("Kegiatan Sedang Berjalan")) {
+                    if (kegiatan.getStatus_kegiatan().equals("Kegiatan Sedang Berjalan")) {
                         btn_dokumentasi.setVisibility(View.VISIBLE);
-                    } else if (status_kegiatan.equals("Kegiatan Selesai Berjalan")) {
+                    } else if (kegiatan.getStatus_kegiatan().equals("Kegiatan Selesai Berjalan")) {
                         btn_dokumentasi.setVisibility(View.VISIBLE);
                         btn_feedback.setVisibility(View.VISIBLE);
                     }

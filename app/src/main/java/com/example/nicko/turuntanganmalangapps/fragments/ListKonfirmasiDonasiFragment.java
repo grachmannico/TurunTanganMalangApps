@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.nicko.turuntanganmalangapps.R;
 import com.example.nicko.turuntanganmalangapps.activities.KonfirmasiDonasiActivity;
 import com.example.nicko.turuntanganmalangapps.adapters.KonfirmasiDonasiAdapter;
-import com.example.nicko.turuntanganmalangapps.models.KonfirmasiDonasi;
+import com.example.nicko.turuntanganmalangapps.models.Donasi;
 import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
 import com.example.nicko.turuntanganmalangapps.utils.InternetConnection;
 import com.example.nicko.turuntanganmalangapps.utils.Session;
@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class ListKonfirmasiDonasiFragment extends Fragment {
 
     private ListView listView;
-    private ArrayList<KonfirmasiDonasi> list;
+    private ArrayList<Donasi> list;
     private KonfirmasiDonasiAdapter adapter;
 
     private Session session;
@@ -105,11 +105,11 @@ public class ListKonfirmasiDonasiFragment extends Fragment {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
-                            KonfirmasiDonasi model = new KonfirmasiDonasi();
+                            Donasi model = new Donasi();
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
                             String id_donasi = innerObject.getString("id_donasi");
                             String nama_kegiatan = innerObject.getString("nama_kegiatan");
-                            String nominal_donasi = innerObject.getString("nominal_donasi");
+                            double nominal_donasi = Double.parseDouble(innerObject.getString("nominal_donasi"));
                             String tanggal_donasi = innerObject.getString("tanggal_donasi");
 
                             model.setId_donasi(id_donasi);

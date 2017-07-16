@@ -119,9 +119,9 @@ public class GarageSaleFragment extends Fragment {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             GarageSale model = new GarageSale(getActivity().getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            String id_barang_garage_sale = innerObject.getString("id_barang_garage_sale");
+                            int id_barang_garage_sale = Integer.parseInt(innerObject.getString("id_barang_garage_sale"));
                             String nama_barang = innerObject.getString("nama_barang");
-                            String harga = innerObject.getString("harga");
+                            double harga = Double.parseDouble(innerObject.getString("harga"));
                             String gambar_barang = innerObject.getString("gambar_barang");
 
                             model.setId_barang_garage_sale(id_barang_garage_sale);

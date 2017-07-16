@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.nicko.turuntanganmalangapps.R;
-import com.example.nicko.turuntanganmalangapps.models.KonfirmasiPembayaran;
+import com.example.nicko.turuntanganmalangapps.models.Pembayaran;
 
 import java.util.List;
 
@@ -17,13 +17,13 @@ import java.util.List;
  * Created by nicko on 6/12/2017.
  */
 
-public class KonfirmasiPembayaranAdapter extends ArrayAdapter<KonfirmasiPembayaran> {
-    List<KonfirmasiPembayaran> modelList;
+public class KonfirmasiPembayaranAdapter extends ArrayAdapter<Pembayaran> {
+    List<Pembayaran> modelList;
     Context context;
     private LayoutInflater mInflater;
 
     // Constructors
-    public KonfirmasiPembayaranAdapter(Context context, List<KonfirmasiPembayaran> objects) {
+    public KonfirmasiPembayaranAdapter(Context context, List<Pembayaran> objects) {
         super(context, 0, objects);
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
@@ -31,7 +31,7 @@ public class KonfirmasiPembayaranAdapter extends ArrayAdapter<KonfirmasiPembayar
     }
 
     @Override
-    public KonfirmasiPembayaran getItem(int position) {
+    public Pembayaran getItem(int position) {
         return modelList.get(position);
     }
 
@@ -46,7 +46,7 @@ public class KonfirmasiPembayaranAdapter extends ArrayAdapter<KonfirmasiPembayar
             vh = (ViewHolder) convertView.getTag();
         }
 
-        KonfirmasiPembayaran item = getItem(position);
+        Pembayaran item = getItem(position);
 
         vh.txt_invoice_pembayaran.setText(item.getId_invoice());
         vh.txt_tanggal_pembelian.setText(item.getTanggal_pembelian());
