@@ -61,6 +61,12 @@ public class Session {
         editor.commit();
     }
 
+//    public void setURL(String url) {
+//        this.MAIN_URL = url;
+//        editor.putString("url", this.MAIN_URL);
+//        editor.commit();
+//    }
+
     public boolean loggedin() {
         return prefs.getBoolean("loggedInmode", false);
     }

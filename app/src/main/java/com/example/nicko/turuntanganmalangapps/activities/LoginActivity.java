@@ -54,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
                 token = sharedPreferences.getString(getString(R.string.FCM_TOKEN), "");
                 email = edt_email.getText().toString();
                 password = edt_pass.getText().toString();
+//                Toast.makeText(getApplicationContext(), session.getURL(), Toast.LENGTH_LONG).show();
+                new JSONParser(getApplicationContext());
                 if (InternetConnection.checkConnection(getApplicationContext())) {
                     new Login().execute();
                 } else {
