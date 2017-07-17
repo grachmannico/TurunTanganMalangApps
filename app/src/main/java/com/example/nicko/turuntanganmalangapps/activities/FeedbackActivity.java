@@ -42,7 +42,7 @@ public class FeedbackActivity extends AppCompatActivity {
     private Button btn_kirim_feedback;
 
     private Session session;
-    private String id_kegiatan, nama_kegiatan, email, komentar, rating, status;
+    private String id_kegiatan, nama_kegiatan, email, tipe_pengguna, komentar, rating, status;
     private String[] array_rating;
 
     @Override
@@ -54,6 +54,7 @@ public class FeedbackActivity extends AppCompatActivity {
 
         session = new Session(this);
         email = session.getEmail();
+        tipe_pengguna = session.getTipePengguna();
         Toast.makeText(getApplicationContext(), email, Toast.LENGTH_LONG).show();
         id_kegiatan = getIntent().getExtras().getString("id_kegiatan");
         nama_kegiatan = getIntent().getExtras().getString("nama_kegiatan");
@@ -99,10 +100,14 @@ public class FeedbackActivity extends AppCompatActivity {
             public void onClick(View view) {
                 komentar = edt_feedback.getText().toString();
                 rating = spin_rating.getSelectedItem().toString();
-                if (InternetConnection.checkConnection(getApplicationContext())) {
-                    new Kirim_Feedback().execute();
+                if (komentar.equals("") || komentar.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Isi Kolom Komentar", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                    if (InternetConnection.checkConnection(getApplicationContext())) {
+                        new Kirim_Feedback().execute();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -124,7 +129,7 @@ public class FeedbackActivity extends AppCompatActivity {
         @Nullable
         @Override
         protected Void doInBackground(Void... params) {
-            JSONArray jsonArray = JSONParser.lihat_feedback(id_kegiatan);
+            JSONArray jsonArray = JSONParser.lihat_feedback(id_kegiatan, tipe_pengguna);
             try {
                 if (jsonArray != null) {
                     int lenArray = jsonArray.length();
@@ -182,7 +187,7 @@ public class FeedbackActivity extends AppCompatActivity {
         @Nullable
         @Override
         protected Void doInBackground(Void... params) {
-            JSONObject jsonObject = JSONParser.kirim_feedback(email, id_kegiatan, komentar, rating);
+            JSONObject jsonObject = JSONParser.kirim_feedback(email, id_kegiatan, komentar, rating, tipe_pengguna);
             try {
                 if (jsonObject != null) {
                     if (jsonObject.length() > 0) {

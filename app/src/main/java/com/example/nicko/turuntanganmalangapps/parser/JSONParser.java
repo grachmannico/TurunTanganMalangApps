@@ -481,12 +481,13 @@ public class JSONParser {
         return null;
     }
 
-    public static JSONArray lihat_feedback(String id_kegiatan) {
+    public static JSONArray lihat_feedback(String id_kegiatan, String tipe_pengguna) {
         try {
             OkHttpClient client = new OkHttpClient();
 
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("id_kegiatan", id_kegiatan)
+                    .add("tipe_pengguna", tipe_pengguna)
                     .build();
 
             Request request = new Request.Builder()
@@ -502,7 +503,7 @@ public class JSONParser {
         return null;
     }
 
-    public static JSONObject kirim_feedback(String email, String id_kegiatan, String komentar, String rating) {
+    public static JSONObject kirim_feedback(String email, String id_kegiatan, String komentar, String rating, String tipe_pengguna) {
 
         try {
             OkHttpClient client = new OkHttpClient();
@@ -512,6 +513,7 @@ public class JSONParser {
                     .add("id_kegiatan", id_kegiatan)
                     .add("komentar", komentar)
                     .add("rating", rating)
+                    .add("tipe_pengguna", tipe_pengguna)
                     .build();
 
             Request request = new Request.Builder()
@@ -528,12 +530,13 @@ public class JSONParser {
         return null;
     }
 
-    public static JSONArray lihat_balasan_feedback(String id_feedback_kegiatan) {
+    public static JSONArray lihat_balasan_feedback(String id_feedback_kegiatan, String tipe_pengguna) {
         try {
             OkHttpClient client = new OkHttpClient();
 
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("id_feedback_kegiatan", id_feedback_kegiatan)
+                    .add("tipe_pengguna", tipe_pengguna)
                     .build();
 
             Request request = new Request.Builder()
@@ -549,7 +552,7 @@ public class JSONParser {
         return null;
     }
 
-    public static JSONObject kirim_balasan_feedback(String id_feedback_kegiatan, String email, String komentar) {
+    public static JSONObject kirim_balasan_feedback(String id_feedback_kegiatan, String email, String komentar, String tipe_pengguna) {
 
         try {
             OkHttpClient client = new OkHttpClient();
@@ -558,6 +561,7 @@ public class JSONParser {
                     .add("id_feedback_kegiatan", id_feedback_kegiatan)
                     .add("email", email)
                     .add("komentar", komentar)
+                    .add("tipe_pengguna", tipe_pengguna)
                     .build();
 
             Request request = new Request.Builder()
@@ -569,6 +573,27 @@ public class JSONParser {
             return new JSONObject(response.body().string());
 
         } catch (IOException | JSONException e) {
+            Log.e(TAG, "" + e.getLocalizedMessage());
+        }
+        return null;
+    }
+
+    public static JSONArray dokumentasi(String id_kegiatan) {
+        try {
+            OkHttpClient client = new OkHttpClient();
+
+            RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
+                    .add("id_kegiatan", id_kegiatan)
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(MAIN_URL + "dokumentasi")
+                    .post(formBody)
+                    .build();
+
+            response = client.newCall(request).execute();
+            return new JSONArray(response.body().string());
+        } catch (@NonNull IOException | JSONException e) {
             Log.e(TAG, "" + e.getLocalizedMessage());
         }
         return null;

@@ -84,6 +84,15 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btn_dokumentasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailKegiatanDiikutiActivity.this, DokumentasiActivity.class);
+                intent.putExtra("id_kegiatan", id_kegiatan);
+                startActivity(intent);
+            }
+        });
     }
 
     class Detail_Kegiatan_Diikuti extends AsyncTask<Void, Void, Void> {
@@ -173,6 +182,7 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                         btn_feedback.setVisibility(View.VISIBLE);
                     }
                 }
+                nama_kegiatan = kegiatan.getNama_kegiatan();
             } else if (status.equals("jsonNull")) {
                 Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {

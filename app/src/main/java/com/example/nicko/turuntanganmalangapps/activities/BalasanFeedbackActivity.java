@@ -37,7 +37,7 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
     private EditText edt_feedback_balasan;
     private Button btn_kirim_balasan;
 
-    private String email, id_feedback_kegiatan, komentar, nama, balasan, status;
+    private String email, tipe_pengguna, id_feedback_kegiatan, komentar, nama, balasan, status;
 
     private Session session;
 
@@ -48,6 +48,7 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
 
         session = new Session(this);
         email = session.getEmail();
+        tipe_pengguna = session.getTipePengguna();
         id_feedback_kegiatan = getIntent().getExtras().getString("id_feedback_kegiatan");
         komentar = getIntent().getExtras().getString("komentar");
         nama = getIntent().getExtras().getString("nama");
@@ -76,7 +77,15 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 balasan = edt_feedback_balasan.getText().toString();
-                new Kirim_Balasan_Feedback().execute();
+                if (balasan.equals("") || balasan.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Isi Kolom Komentar", Toast.LENGTH_LONG).show();
+                } else {
+                    if (InternetConnection.checkConnection(getApplicationContext())) {
+                        new Kirim_Balasan_Feedback().execute();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
     }
@@ -97,7 +106,7 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
         @Nullable
         @Override
         protected Void doInBackground(Void... params) {
-            JSONArray jsonArray = JSONParser.lihat_balasan_feedback(id_feedback_kegiatan);
+            JSONArray jsonArray = JSONParser.lihat_balasan_feedback(id_feedback_kegiatan, tipe_pengguna);
             try {
                 if (jsonArray != null) {
                     int lenArray = jsonArray.length();
@@ -150,7 +159,7 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
         @Nullable
         @Override
         protected Void doInBackground(Void... params) {
-            JSONObject jsonObject = JSONParser.kirim_balasan_feedback(id_feedback_kegiatan, email, balasan);
+            JSONObject jsonObject = JSONParser.kirim_balasan_feedback(id_feedback_kegiatan, email, balasan, tipe_pengguna);
             try {
                 if (jsonObject != null) {
                     if (jsonObject.length() > 0) {
