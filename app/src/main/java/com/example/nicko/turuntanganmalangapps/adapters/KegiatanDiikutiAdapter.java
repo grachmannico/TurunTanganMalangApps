@@ -52,7 +52,7 @@ public class KegiatanDiikutiAdapter extends ArrayAdapter<Kegiatan> {
 
         vh.txt_nama_kegiatan_diikuti.setText(item.getNama_kegiatan());
         vh.txt_status_kegiatan.setText(item.getStatus_kegiatan());
-        Picasso.with(context).load(item.getBanner()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(vh.img_kegiatan_diikuti);
+        Picasso.with(context).load(item.getBanner()).placeholder(R.drawable.ttm_logo).error(R.drawable.ttm_logo).into(vh.img_kegiatan_diikuti);
 
         return vh.rootView;
     }

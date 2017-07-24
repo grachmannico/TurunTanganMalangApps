@@ -164,7 +164,7 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                 txt_jumlah_donasi_diikuti.setText("Donasi Terkumpul: " + kegiatan.getMinimal_donasi());
                 txt_alamat_diikuti.setText("Alamat: " + kegiatan.getAlamat());
                 txt_status_kegiatan_diikuti.setText("Status Kegiatan: " + kegiatan.getStatus_kegiatan());
-                Picasso.with(DetailKegiatanDiikutiActivity.this).load(kegiatan.getBanner()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(img_banner_kegiatan_diikuti);
+                Picasso.with(DetailKegiatanDiikutiActivity.this).load(kegiatan.getBanner()).placeholder(R.drawable.ttm_logo).error(R.drawable.ttm_logo).into(img_banner_kegiatan_diikuti);
                 if (session.getTipePengguna().equals("donatur")) {
                     if (kegiatan.getStatus_kegiatan().equals("Kegiatan Sedang Berjalan")) {
                         btn_dokumentasi.setVisibility(View.VISIBLE);

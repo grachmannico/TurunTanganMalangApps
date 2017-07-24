@@ -52,7 +52,7 @@ public class GarageSaleAdapter extends ArrayAdapter<GarageSale> {
 
         vh.txt_nama_barang.setText(item.getNama_barang());
         vh.txt_harga.setText(item.getHarga());
-        Picasso.with(context).load(item.getGambar_barang()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(vh.img_garage_sale);
+        Picasso.with(context).load(item.getGambar_barang()).placeholder(R.drawable.ttm_logo).error(R.drawable.ttm_logo).into(vh.img_garage_sale);
 
         return vh.rootView;
     }

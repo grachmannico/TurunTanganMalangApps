@@ -34,7 +34,7 @@ import java.util.ArrayList;
 public class KeranjangBelanjaActivity extends AppCompatActivity {
 
     private TextView txt_invoice, txt_total_tagihan, txt_judul_cart, txt_null_cart;
-    private Button btn_beli_sekarang;
+    private Button btn_beli_sekarang, btn_tambah_barang_belanja, btn_batal_beli;
 
     private ListView listView;
     private ArrayList<GarageSale> list;
@@ -80,10 +80,43 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
         }
 
         btn_beli_sekarang = (Button) findViewById(R.id.btn_beli_sekarang);
+        btn_batal_beli = (Button) findViewById(R.id.btn_batal_beli);
+        btn_tambah_barang_belanja = (Button) findViewById(R.id.btn_tambah_barang_belanja);
+
         btn_beli_sekarang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Pembelian().execute();
+                if (list.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Daftar Barang Belanja Kosong, Silahkan Beli Minimal 1 Item", Toast.LENGTH_LONG).show();
+                } else {
+                    if (InternetConnection.checkConnection(getApplicationContext())) {
+                        new Pembelian().execute();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                    }
+//                    Toast.makeText(getApplicationContext(), "Thread dijalankan", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        btn_batal_beli.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (InternetConnection.checkConnection(getApplicationContext())) {
+                    new Batal_Beli().execute();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        btn_tambah_barang_belanja.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(KeranjangBelanjaActivity.this, MainActivity.class);
+                intent.putExtra("trigger", "garage_sale");
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -161,14 +194,21 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
             dialog.dismiss();
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
-                txt_total_tagihan.setText("Total Tagihan: " + total_tagihan.toString());
+                txt_total_tagihan.setText("Total Tagihan: Rp." + total_tagihan.toString());
             } else {
-                txt_null_cart.setVisibility(View.VISIBLE);
-                txt_judul_cart.setVisibility(View.GONE);
-                txt_total_tagihan.setVisibility(View.GONE);
-                txt_invoice.setVisibility(View.GONE);
-                listView.setVisibility(View.GONE);
-                btn_beli_sekarang.setVisibility(View.GONE);
+                if (session.getInvoice().equals("null")) {
+                    txt_null_cart.setVisibility(View.VISIBLE);
+                    txt_judul_cart.setVisibility(View.GONE);
+                    txt_total_tagihan.setVisibility(View.GONE);
+                    txt_invoice.setVisibility(View.GONE);
+                    listView.setVisibility(View.GONE);
+                    btn_beli_sekarang.setVisibility(View.GONE);
+                    btn_batal_beli.setVisibility(View.GONE);
+                    btn_tambah_barang_belanja.setVisibility(View.GONE);
+                } else {
+                    adapter.notifyDataSetChanged();
+                    txt_total_tagihan.setText("Total Tagihan: Rp." + total_tagihan.toString());
+                }
             }
         }
     }
@@ -262,6 +302,60 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
             if (status.equals("sukses")) {
                 session = new Session(getApplicationContext());
                 session.setInvoice("null");
+                Toast.makeText(getApplicationContext(), "Pembelian Barang Sukses. Segera Lakukan Pembayaran dan Konfirmasi Pembayaran", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(KeranjangBelanjaActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else if (status.equals("gagal")) {
+                Toast.makeText(getApplicationContext(), "Pembelian Barang Gagal", Toast.LENGTH_LONG).show();
+            } else if (status.equals("jsonNull")) {
+                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    class Batal_Beli extends AsyncTask<Void, Void, Void> {
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            dialog = new ProgressDialog(KeranjangBelanjaActivity.this);
+            dialog.setTitle("Tunggu Sebentar");
+            dialog.setMessage("Permintaan Sedang Diproses");
+            dialog.show();
+        }
+
+        @Nullable
+        @Override
+        protected Void doInBackground(Void... params) {
+            JSONObject jsonObject = JSONParser.batal_beli(invoice);
+            try {
+                if (jsonObject != null) {
+                    if (jsonObject.length() > 0) {
+                        status = jsonObject.getString("status");
+                    } else {
+                        status = "jsonNull";
+                    }
+                } else {
+                    status = "jsonNull";
+                }
+            } catch (JSONException je) {
+                Log.i(JSONParser.TAG, "" + je.getLocalizedMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            dialog.dismiss();
+            if (status.equals("sukses")) {
+                session = new Session(getApplicationContext());
+                session.setInvoice("null");
+                Toast.makeText(getApplicationContext(), "Pembatalan Pembelian Sukses", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(KeranjangBelanjaActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

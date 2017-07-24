@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private String email, password, token, tipe_pengguna, status;
     private String email_pengguna, nama_pengguna, pangkat_divisi, divisi;
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     private Session session;
 
@@ -55,11 +56,19 @@ public class LoginActivity extends AppCompatActivity {
                 email = edt_email.getText().toString();
                 password = edt_pass.getText().toString();
 //                Toast.makeText(getApplicationContext(), session.getURL(), Toast.LENGTH_LONG).show();
-                new JSONParser(getApplicationContext());
-                if (InternetConnection.checkConnection(getApplicationContext())) {
-                    new Login().execute();
+                if ((email.equals("") || email.isEmpty()) || (password.equals("") || password.isEmpty())) {
+                    Toast.makeText(getApplicationContext(), "Isi Semua Form Terlebih Dahulu", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                    if (email.matches(emailPattern)) {
+                        new JSONParser(getApplicationContext());
+                        if (InternetConnection.checkConnection(getApplicationContext())) {
+                            new Login().execute();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Pastikan Anda Mengisi Field Email Dengan Benar", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

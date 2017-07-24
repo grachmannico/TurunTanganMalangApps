@@ -393,6 +393,29 @@ public class JSONParser {
         return null;
     }
 
+    public static JSONObject batal_beli(String invoice) {
+
+        try {
+            OkHttpClient client = new OkHttpClient();
+
+            RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
+                    .add("invoice", invoice)
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(MAIN_URL + "batal_beli")
+                    .post(formBody)
+                    .build();
+
+            response = client.newCall(request).execute();
+            return new JSONObject(response.body().string());
+
+        } catch (IOException | JSONException e) {
+            Log.e(TAG, "" + e.getLocalizedMessage());
+        }
+        return null;
+    }
+
     public static JSONArray list_konfirmasi_pembayaran(String email) {
         try {
             OkHttpClient client = new OkHttpClient();

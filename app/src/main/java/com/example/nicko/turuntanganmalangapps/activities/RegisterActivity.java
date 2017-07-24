@@ -25,6 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btn_register_now;
 
     private String nama, email, password, status;
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +45,18 @@ public class RegisterActivity extends AppCompatActivity {
                 nama = edt_reg_nama.getText().toString();
                 email = edt_reg_email.getText().toString();
                 password = edt_reg_pass.getText().toString();
-
-                if (InternetConnection.checkConnection(getApplicationContext())) {
-                    new RegisterActivity.Register().execute();
+                if ((nama.equals("") || nama.isEmpty()) || (email.equals("") || email.isEmpty()) || (password.equals("") || password.isEmpty())) {
+                    Toast.makeText(getApplicationContext(), "Isi Semua Form Terlebih Dahulu", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                    if (email.matches(emailPattern)) {
+                        if (InternetConnection.checkConnection(getApplicationContext())) {
+                            new RegisterActivity.Register().execute();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Pastikan Anda Mengisi Field Email Dengan Benar", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

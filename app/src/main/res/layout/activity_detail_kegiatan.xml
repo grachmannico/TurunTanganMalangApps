@@ -133,7 +133,7 @@
                 android:id="@+id/img_banner_kegiatan"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/ttm_logo" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

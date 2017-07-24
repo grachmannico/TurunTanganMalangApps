@@ -11,7 +11,7 @@ import com.example.nicko.turuntanganmalangapps.utils.Session;
 public class Kegiatan {
     private int id_kegiatan;
     private double lat, lng;
-    private String nama_kegiatan, pesan_ajakan, deskripsi_kegiatan, minimal_relawan, minimal_donasi, alamat, banner, status_kegiatan;
+    private String nama_kegiatan, pesan_ajakan, deskripsi_kegiatan, minimal_relawan, minimal_donasi, alamat, banner, status_kegiatan, tanggal_kegiatan, batas_akhir_pendaftaran;
     private Context context;
     private Session session;
 
@@ -106,6 +106,22 @@ public class Kegiatan {
 
     public void setStatus_kegiatan(String status_kegiatan) {
         this.status_kegiatan = status_kegiatan;
+    }
+
+    public String getTanggal_kegiatan() {
+        return tanggal_kegiatan;
+    }
+
+    public void setTanggal_kegiatan(String tanggal_kegiatan) {
+        this.tanggal_kegiatan = tanggal_kegiatan;
+    }
+
+    public String getBatas_akhir_pendaftaran() {
+        return batas_akhir_pendaftaran;
+    }
+
+    public void setBatas_akhir_pendaftaran(String batas_akhir_pendaftaran) {
+        this.batas_akhir_pendaftaran = batas_akhir_pendaftaran;
     }
 
     public Context getContext() {

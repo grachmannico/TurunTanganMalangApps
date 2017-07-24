@@ -9,7 +9,7 @@
         android:id="@+id/img_garage_sale"
         android:layout_width="100dp"
         android:layout_height="75dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@drawable/ttm_logo" />
 
     <LinearLayout
         android:layout_width="match_parent"

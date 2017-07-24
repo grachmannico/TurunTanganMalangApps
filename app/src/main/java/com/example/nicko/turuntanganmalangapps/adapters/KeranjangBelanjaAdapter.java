@@ -53,7 +53,7 @@ public class KeranjangBelanjaAdapter extends ArrayAdapter<GarageSale> {
         vh.txt_nama_barang_cart.setText(item.getNama_barang());
         vh.txt_harga_cart.setText("Harga Satuan: Rp. " + item.getHarga());
         vh.txt_qty_cart.setText("Pesanan anda: " + item.getQty());
-        Picasso.with(context).load(item.getGambar_barang()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(vh.img_keranjang_belanja);
+        Picasso.with(context).load(item.getGambar_barang()).placeholder(R.drawable.ttm_logo).error(R.drawable.ttm_logo).into(vh.img_keranjang_belanja);
 
         return vh.rootView;
     }

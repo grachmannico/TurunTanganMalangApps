@@ -54,7 +54,7 @@ public class DokumentasiAdapter extends ArrayAdapter<Dokumentasi> {
         vh.txt_tanggal_dokumentasi.setText("Tanggal dokumentasi: " + item.getTanggal());
         vh.txt_deskripsi_dokumentasi.setText(Html.fromHtml(item.getDeskripsi()));
         vh.txt_nama_dokumentasi.setText(item.getNama_dokumentasi());
-        Picasso.with(context).load(item.getGambar_dokumentasi()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(vh.img_dokumentasi);
+        Picasso.with(context).load(item.getGambar_dokumentasi()).placeholder(R.drawable.ttm_logo).error(R.drawable.ttm_logo).into(vh.img_dokumentasi);
 
         return vh.rootView;
     }

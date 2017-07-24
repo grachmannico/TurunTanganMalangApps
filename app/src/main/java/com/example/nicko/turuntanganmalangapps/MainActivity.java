@@ -86,6 +86,8 @@ public class MainActivity extends AppCompatActivity
                 } else if (session.getTipePengguna().equals("donatur")) {
                     displaySelectedScreen(R.id.nav_notif_donatur);
                 }
+            } else if (trigger.equals("garage_sale")) {
+                displaySelectedScreen(R.id.nav_garage_sale);
             }
         } else {
             displaySelectedScreen(R.id.nav_kegiatan);

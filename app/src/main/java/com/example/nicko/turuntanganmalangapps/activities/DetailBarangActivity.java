@@ -37,7 +37,7 @@ public class DetailBarangActivity extends AppCompatActivity {
 
     private Integer qty;
     private String email, invoice, id_barang, status;
-    private String id_barang_garage_sale, nama_barang, deskripsi, harga, stok_terpesan, gambar_barang;
+    private String stok_terpesan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +102,15 @@ public class DetailBarangActivity extends AppCompatActivity {
         btn_beli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Beli_Barang().execute();
+                if (edt_qty.getText().toString().equals("0")) {
+                    Toast.makeText(getApplicationContext(), "Isi Jumlah Barang Yang Akan Dibeli", Toast.LENGTH_LONG).show();
+                } else {
+                    if (InternetConnection.checkConnection(getApplicationContext())) {
+                        new Beli_Barang().execute();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
     }
@@ -167,7 +175,8 @@ public class DetailBarangActivity extends AppCompatActivity {
                 txt_harga_detail.setText("Rp. " + garageSale.getHarga());
                 txt_deskripsi_barang.setText("Deskripsi: \n" + Html.fromHtml(garageSale.getDeskripsi()));
                 txt_stok.setText("Stok: " + garageSale.getStok_terpesan());
-                Picasso.with(DetailBarangActivity.this).load(garageSale.getGambar_barang()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(img_barang);
+                stok_terpesan = garageSale.getStok_terpesan();
+                Picasso.with(DetailBarangActivity.this).load(garageSale.getGambar_barang()).placeholder(R.drawable.ttm_logo).error(R.drawable.ttm_logo).into(img_barang);
             } else {
                 Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             }
