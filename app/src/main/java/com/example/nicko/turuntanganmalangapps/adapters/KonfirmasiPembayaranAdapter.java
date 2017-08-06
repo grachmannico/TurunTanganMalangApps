@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.nicko.turuntanganmalangapps.R;
 import com.example.nicko.turuntanganmalangapps.models.Pembayaran;
+import com.example.nicko.turuntanganmalangapps.utils.NumberFormatter;
 
 import java.util.List;
 
@@ -48,9 +49,9 @@ public class KonfirmasiPembayaranAdapter extends ArrayAdapter<Pembayaran> {
 
         Pembayaran item = getItem(position);
 
-        vh.txt_invoice_pembayaran.setText(item.getId_invoice());
+        vh.txt_invoice_pembayaran.setText("ID Invoice:\n" + item.getId_invoice());
         vh.txt_tanggal_pembelian.setText(item.getTanggal_pembelian());
-        vh.txt_total_tagihan_pembelian.setText(item.getTotal_tagihan());
+        vh.txt_total_tagihan_pembelian.setText("Total Pembayaran:\n" + NumberFormatter.money(item.getTotal_tagihan()));
 
         return vh.rootView;
     }

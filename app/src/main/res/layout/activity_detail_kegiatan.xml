@@ -54,9 +54,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_person_add_black_24dp"
+                android:backgroundTint="@color/reddarkflat"
+                android:drawableLeft="@drawable/ic_person_add"
                 android:drawablePadding="5dp"
                 android:text="Gabung Relawan"
+                android:textColor="@color/white"
                 android:visibility="gone" />
 
             <Button
@@ -64,9 +66,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_favorite_black_24dp"
+                android:backgroundTint="@color/reddarkflat"
+                android:drawableLeft="@drawable/ic_favorite"
                 android:drawablePadding="5dp"
                 android:text="Donasi"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_dokumentasi_kegiatan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/reddarkflat"
+                android:drawableLeft="@drawable/ic_description"
+                android:drawablePadding="5dp"
+                android:text="Dokumentasi Kegiatan"
+                android:textColor="@color/white"
                 android:visibility="gone" />
 
             <TextView
@@ -74,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/ic_pin_drop_black_24dp"
+                android:drawableLeft="@drawable/ic_pin_drop_red"
                 android:drawablePadding="5dp"
                 android:text="Alamat: "
                 android:textSize="18sp" />
@@ -84,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                android:drawableLeft="@drawable/ic_date_range_red"
                 android:drawablePadding="5dp"
                 android:text="Tanggal Kegiatan: "
                 android:textSize="18sp" />
@@ -94,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                android:drawableLeft="@drawable/ic_date_range_red"
                 android:drawablePadding="5dp"
                 android:text="Batas Akhir Pendaftaran: "
                 android:textSize="18sp" />
@@ -104,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/ic_people_black_24dp"
+                android:drawableLeft="@drawable/ic_people"
                 android:drawablePadding="5dp"
                 android:text="Jumlah Relawan: "
                 android:textSize="18sp" />
@@ -114,7 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/ic_favorite_black_24dp"
+                android:drawableLeft="@drawable/ic_favorite_red"
                 android:drawablePadding="5dp"
                 android:text="Jumlah Dana Terkumpul: "
                 android:textSize="18sp" />
@@ -124,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/ic_description_black_24dp"
+                android:drawableLeft="@drawable/ic_description_red"
                 android:drawablePadding="5dp"
                 android:text="Deskripsi Kegiatan: "
                 android:textSize="18sp" />

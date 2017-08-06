@@ -13,9 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nicko.turuntanganmalangapps.activities.LoginActivity;
+import com.example.nicko.turuntanganmalangapps.activities.ProfilDonaturActivity;
+import com.example.nicko.turuntanganmalangapps.activities.ProfilRelawanActivity;
 import com.example.nicko.turuntanganmalangapps.fragments.GarageSaleFragment;
 import com.example.nicko.turuntanganmalangapps.fragments.KegiatanDiikutiFragment;
 import com.example.nicko.turuntanganmalangapps.fragments.KegiatanFragment;
@@ -25,12 +29,14 @@ import com.example.nicko.turuntanganmalangapps.fragments.NotificationFragment;
 import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
 import com.example.nicko.turuntanganmalangapps.sqlite.SQLiteHelper;
 import com.example.nicko.turuntanganmalangapps.utils.Session;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private View navHeaderView;
     private TextView txt_nama, txt_divisi;
+    private ImageView img_foto_profil;
 
     private Session session;
     private String trigger;
@@ -59,6 +65,9 @@ public class MainActivity extends AppCompatActivity
         navHeaderView = navigationView.getHeaderView(0);
         txt_nama = (TextView) navHeaderView.findViewById(R.id.txt_nama);
         txt_divisi = (TextView) navHeaderView.findViewById(R.id.txt_divisi);
+        img_foto_profil = (ImageView) navHeaderView.findViewById(R.id.img_foto_profil);
+        Picasso.with(MainActivity.this).load(session.getURL() + session.getFoto_profil()).placeholder(R.drawable.ttm_logo_white).error(R.drawable.ttm_logo_white).into(img_foto_profil);
+        Toast.makeText(getApplicationContext(), session.getURL() + session.getFoto_profil(), Toast.LENGTH_LONG).show();
 
         if (session.getTipePengguna().equals("relawan")) {
             txt_nama.setText(session.getNama());
@@ -134,13 +143,24 @@ public class MainActivity extends AppCompatActivity
         if (session.getTipePengguna().equals("relawan")) {
             switch (id) {
                 case R.id.nav_kegiatan:
+//                    getSupportActionBar().setIcon(null);
+                    getSupportActionBar().setLogo(R.drawable.ttm_white_action_bar);
+                    getSupportActionBar().setDisplayUseLogoEnabled(true);
                     fragment = new KegiatanFragment();
                     break;
                 case R.id.nav_notif_relawan:
+                    getSupportActionBar().setDisplayUseLogoEnabled(false);
+                    getSupportActionBar().setIcon(R.drawable.ic_notification);
                     fragment = new NotificationFragment();
                     break;
                 case R.id.nav_kegiatan_diikuti:
+                    getSupportActionBar().setDisplayUseLogoEnabled(false);
+                    getSupportActionBar().setIcon(R.drawable.ic_cast_connected);
                     fragment = new KegiatanDiikutiFragment();
+                    break;
+                case R.id.nav_profil_relawan:
+                    Intent intent = new Intent(MainActivity.this, ProfilRelawanActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.nav_logout:
                     logout();
@@ -149,22 +169,39 @@ public class MainActivity extends AppCompatActivity
         } else if (session.getTipePengguna().equals("donatur")) {
             switch (id) {
                 case R.id.nav_kegiatan:
+//                    getSupportActionBar().setIcon(null);
+                    getSupportActionBar().setLogo(R.drawable.ttm_white_action_bar);
+                    getSupportActionBar().setDisplayUseLogoEnabled(true);
                     fragment = new KegiatanFragment();
                     break;
                 case R.id.nav_notif_donatur:
+                    getSupportActionBar().setDisplayUseLogoEnabled(false);
+                    getSupportActionBar().setIcon(R.drawable.ic_notification);
                     fragment = new NotificationFragment();
                     break;
                 case R.id.nav_konfirmasi_donasi:
+                    getSupportActionBar().setDisplayUseLogoEnabled(false);
+                    getSupportActionBar().setIcon(R.drawable.ic_favorite);
                     fragment = new ListKonfirmasiDonasiFragment();
                     break;
                 case R.id.nav_kegiatan_diikuti:
+                    getSupportActionBar().setDisplayUseLogoEnabled(false);
+                    getSupportActionBar().setIcon(R.drawable.ic_cast_connected);
                     fragment = new KegiatanDiikutiFragment();
                     break;
                 case R.id.nav_garage_sale:
+                    getSupportActionBar().setDisplayUseLogoEnabled(false);
+                    getSupportActionBar().setIcon(R.drawable.ic_shopping_cart);
                     fragment = new GarageSaleFragment();
                     break;
                 case R.id.nav_konfirmasi_pembayaran:
+                    getSupportActionBar().setDisplayUseLogoEnabled(false);
+                    getSupportActionBar().setIcon(R.drawable.ic_monetazion_on);
                     fragment = new ListKonfirmasiPembayaranFragment();
+                    break;
+                case R.id.nav_profil_donatur:
+                    Intent intent = new Intent(MainActivity.this, ProfilDonaturActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.nav_logout:
                     logout();

@@ -19,6 +19,7 @@ import com.example.nicko.turuntanganmalangapps.R;
 import com.example.nicko.turuntanganmalangapps.models.GarageSale;
 import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
 import com.example.nicko.turuntanganmalangapps.utils.InternetConnection;
+import com.example.nicko.turuntanganmalangapps.utils.NumberFormatter;
 import com.example.nicko.turuntanganmalangapps.utils.Session;
 import com.squareup.picasso.Picasso;
 
@@ -37,12 +38,16 @@ public class DetailBarangActivity extends AppCompatActivity {
 
     private Integer qty;
     private String email, invoice, id_barang, status;
-    private String stok_terpesan;
+    private int stok_terpesan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_barang);
+
+        this.setTitle(" Detail Barang");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_shopping_cart);
 
         img_barang = (ImageView) findViewById(R.id.img_barang);
         txt_nama_barang_detail = (TextView) findViewById(R.id.txt_nama_barang_detail);
@@ -62,8 +67,6 @@ public class DetailBarangActivity extends AppCompatActivity {
             invoice = session.getInvoice();
         }
         id_barang = getIntent().getExtras().getString("id_barang");
-//        Toast.makeText(getApplicationContext(), "Cek email: " + email, Toast.LENGTH_LONG).show();
-//        Toast.makeText(getApplicationContext(), "Cek id barang: " + id_barang, Toast.LENGTH_LONG).show();
         Toast.makeText(getApplicationContext(), "Cek Invoice: " + invoice, Toast.LENGTH_LONG).show();
 
         if (InternetConnection.checkConnection(getApplicationContext())) {
@@ -90,7 +93,7 @@ public class DetailBarangActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 qty = Integer.parseInt(edt_qty.getText().toString());
-                if (qty >= Integer.parseInt(stok_terpesan)) {
+                if (qty >= stok_terpesan) {
                     // Do Nothing
                 } else {
                     qty = qty + 1;
@@ -140,17 +143,11 @@ public class DetailBarangActivity extends AppCompatActivity {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             JSONObject innerObject = jsonArray.getJSONObject(0);
                             status = "sukses";
-//                            id_barang_garage_sale = innerObject.getString("id_barang_garage_sale");
-//                            nama_barang = innerObject.getString("nama_barang");
-//                            deskripsi = innerObject.getString("deskripsi");
-//                            harga = innerObject.getString("harga");
-//                            stok_terpesan = innerObject.getString("stok_terpesan");
-//                            gambar_barang = session.getURL() + "uploads/barang_garage_sale/" + innerObject.getString("gambar_barang");
-                            garageSale.setId_barang_garage_sale(Integer.parseInt(innerObject.getString("id_barang_garage_sale")));
+                            garageSale.setId_barang_garage_sale(innerObject.getInt("id_barang_garage_sale"));
                             garageSale.setNama_barang(innerObject.getString("nama_barang"));
                             garageSale.setDeskripsi(innerObject.getString("deskripsi"));
-                            garageSale.setHarga(Double.parseDouble(innerObject.getString("harga")));
-                            garageSale.setStok_terpesan(Integer.parseInt(innerObject.getString("stok_terpesan")));
+                            garageSale.setHarga(innerObject.getDouble("harga"));
+                            garageSale.setStok_terpesan(innerObject.getInt("stok_terpesan"));
                             garageSale.setGambar_barang(innerObject.getString("gambar_barang"));
                         }
                     }
@@ -166,13 +163,8 @@ public class DetailBarangActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             dialog.dismiss();
             if (status.equals("sukses")) {
-//                txt_nama_barang_detail.setText(nama_barang);
-//                txt_harga_detail.setText("Rp. " + harga);
-//                txt_deskripsi_barang.setText("Deskripsi: \n" + Html.fromHtml(deskripsi));
-//                txt_stok.setText("Stok: " + stok_terpesan);
-//                Picasso.with(DetailBarangActivity.this).load(gambar_barang).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(img_barang);
                 txt_nama_barang_detail.setText(garageSale.getNama_barang());
-                txt_harga_detail.setText("Rp. " + garageSale.getHarga());
+                txt_harga_detail.setText(NumberFormatter.money(garageSale.getHarga()));
                 txt_deskripsi_barang.setText("Deskripsi: \n" + Html.fromHtml(garageSale.getDeskripsi()));
                 txt_stok.setText("Stok: " + garageSale.getStok_terpesan());
                 stok_terpesan = garageSale.getStok_terpesan();
@@ -228,6 +220,7 @@ public class DetailBarangActivity extends AppCompatActivity {
                 }
                 Intent intent = new Intent(DetailBarangActivity.this, KeranjangBelanjaActivity.class);
                 startActivity(intent);
+                finish();
             } else if (status.equals("gagal")) {
                 Toast.makeText(getApplicationContext(), "Status Gagal", Toast.LENGTH_LONG).show();
             } else if (status.equals("jsonNull")) {

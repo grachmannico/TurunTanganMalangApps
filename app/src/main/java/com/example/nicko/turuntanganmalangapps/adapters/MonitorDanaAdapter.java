@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.nicko.turuntanganmalangapps.R;
 import com.example.nicko.turuntanganmalangapps.models.MonitorDana;
+import com.example.nicko.turuntanganmalangapps.utils.NumberFormatter;
 
 import java.util.List;
 
@@ -49,10 +50,10 @@ public class MonitorDanaAdapter extends ArrayAdapter<MonitorDana> {
 
         MonitorDana item = getItem(position);
 
-        vh.txt_nama_dana_keluar.setText(item.getNama_dana_keluar());
+        vh.txt_nama_dana_keluar.setText("Perihal:\n" + item.getNama_dana_keluar());
         vh.txt_tanggal_dana_keluar.setText(item.getTanggal());
-        vh.txt_nominal_dana_keluar.setText(item.getNominal_dana_keluar());
-        vh.txt_deskripsi_dana_keluar.setText(Html.fromHtml(item.getKeterangan()));
+        vh.txt_nominal_dana_keluar.setText("Dana Keluar:\n" + NumberFormatter.money(item.getNominal_dana_keluar()));
+        vh.txt_deskripsi_dana_keluar.setText("Deskripsi:\n" + Html.fromHtml(item.getKeterangan()));
 
         return vh.rootView;
     }

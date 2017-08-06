@@ -48,15 +48,17 @@
 
                 <Button
                     android:id="@+id/btn_qty_min"
-                    android:layout_width="50dp"
+                    android:layout_width="55dp"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_keyboard_arrow_down_black_24dp"
+                    android:backgroundTint="@color/reddarkflat"
+                    android:drawableLeft="@drawable/ic_key_down"
                     android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/edt_qty"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
                     android:clickable="false"
                     android:cursorVisible="false"
                     android:focusable="false"
@@ -66,9 +68,10 @@
 
                 <Button
                     android:id="@+id/btn_qty_plus"
-                    android:layout_width="50dp"
+                    android:layout_width="55dp"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_keyboard_arrow_up_black_24dp"
+                    android:backgroundTint="@color/reddarkflat"
+                    android:drawableLeft="@drawable/ic_key_up"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -77,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/ic_storage_black_24dp"
+                android:drawableLeft="@drawable/ic_storage"
                 android:drawablePadding="5dp"
                 android:text="Stok: "
                 android:textSize="18sp" />
@@ -87,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/ic_description_black_24dp"
+                android:drawableLeft="@drawable/ic_description_red"
                 android:drawablePadding="5dp"
                 android:text="Deskripsi Barang: "
                 android:textSize="18sp" />
@@ -97,9 +100,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_add_shopping_cart_black_24dp"
+                android:backgroundTint="@color/reddarkflat"
+                android:drawableLeft="@drawable/ic_shopping_cart"
                 android:drawablePadding="5dp"
-                android:text="Beli Barang" />
+                android:text="Beli Barang"
+                android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -621,4 +621,90 @@ public class JSONParser {
         }
         return null;
     }
+
+    public static JSONArray profil_pengguna(String email, String tipe_pengguna) {
+        try {
+            OkHttpClient client = new OkHttpClient();
+
+            RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
+                    .add("email", email)
+                    .add("tipe_pengguna", tipe_pengguna)
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(MAIN_URL + "profil_pengguna")
+                    .post(formBody)
+                    .build();
+
+            response = client.newCall(request).execute();
+            return new JSONArray(response.body().string());
+        } catch (@NonNull IOException | JSONException e) {
+            Log.e(TAG, "" + e.getLocalizedMessage());
+        }
+        return null;
+    }
+
+    public static JSONObject update_profil_w_photo(String email, String tipe_pengguna, String id_jenis_kelamin,
+                                           String nama, String pass, String no_hp, String tgl_lahir, String alamat,
+                                           File image, String image_name) {
+
+        try {
+            OkHttpClient client = new OkHttpClient();
+
+            RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("foto_profil", image_name, RequestBody.create(MEDIA_TYPE_PNG, image))
+                    .addFormDataPart("email", email)
+                    .addFormDataPart("tipe_pengguna", tipe_pengguna)
+                    .addFormDataPart("id_jenis_kelamin", id_jenis_kelamin)
+                    .addFormDataPart("nama", nama)
+                    .addFormDataPart("pass", pass)
+                    .addFormDataPart("no_hp", no_hp)
+                    .addFormDataPart("tgl_lahir", tgl_lahir)
+                    .addFormDataPart("alamat", alamat)
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(MAIN_URL + "update_profil")
+                    .post(formBody)
+                    .build();
+
+            response = client.newCall(request).execute();
+            return new JSONObject(response.body().string());
+
+        } catch (IOException | JSONException e) {
+            Log.e(TAG, "" + e.getLocalizedMessage());
+        }
+        return null;
+    }
+
+    public static JSONObject update_profil(String email, String tipe_pengguna, String id_jenis_kelamin,
+                                           String nama, String pass, String no_hp, String tgl_lahir, String alamat) {
+
+        try {
+            OkHttpClient client = new OkHttpClient();
+
+            RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
+                    .add("email", email)
+                    .add("tipe_pengguna", tipe_pengguna)
+                    .add("id_jenis_kelamin", id_jenis_kelamin)
+                    .add("nama", nama)
+                    .add("pass", pass)
+                    .add("no_hp", no_hp)
+                    .add("tgl_lahir", tgl_lahir)
+                    .add("alamat", alamat)
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(MAIN_URL + "update_profil")
+                    .post(formBody)
+                    .build();
+
+            response = client.newCall(request).execute();
+            return new JSONObject(response.body().string());
+
+        } catch (IOException | JSONException e) {
+            Log.e(TAG, "" + e.getLocalizedMessage());
+        }
+        return null;
+    }
 }

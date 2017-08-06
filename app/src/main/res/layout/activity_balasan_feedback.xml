@@ -19,7 +19,7 @@
             android:id="@+id/txt_komentar_dibalas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_chat_black_24dp"
+            android:drawableLeft="@drawable/ic_chat_red"
             android:drawablePadding="5dp"
             android:text="Komentar: "
             android:textSize="20sp" />
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:drawableLeft="@drawable/ic_account_circle_black_24dp"
+            android:drawableLeft="@drawable/ic_account_circle_red"
             android:drawablePadding="5dp"
             android:text="Nama: "
             android:textSize="18sp" />
@@ -38,6 +38,7 @@
             android:id="@+id/edt_feedback_balasan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/reddarkflat"
             android:hint="Balas Feedback Ini" />
 
         <Button
@@ -45,9 +46,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:backgroundTint="@color/reddarkflat"
             android:drawablePadding="5dp"
-            android:drawableRight="@drawable/ic_menu_send"
-            android:text="Kirim Balasan" />
+            android:drawableRight="@drawable/ic_send"
+            android:text="Kirim Balasan"
+            android:textColor="@color/white" />
 
         <ListView
             android:id="@+id/list_feedback_balasan"

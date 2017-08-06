@@ -11,7 +11,7 @@ public class Session {
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     Context context;
-    private String tipe_pengguna, nama, email, pangkat_divisi, divisi, invoice;
+    private String tipe_pengguna, nama, email, pangkat_divisi, divisi, invoice, foto_profil;
     private String MAIN_URL = "http://192.168.43.133:80/ttm/";
 
     public Session(Context context) {
@@ -67,6 +67,13 @@ public class Session {
 //        editor.commit();
 //    }
 
+
+    public void setFoto_profil(String foto_profil) {
+        this.foto_profil = "uploads/foto_profil/" + foto_profil;
+        editor.putString("foto_profil", this.foto_profil);
+        editor.commit();
+    }
+
     public boolean loggedin() {
         return prefs.getBoolean("loggedInmode", false);
     }
@@ -97,5 +104,9 @@ public class Session {
 
     public String getURL() {
         return prefs.getString("url", this.MAIN_URL);
+    }
+
+    public String getFoto_profil() {
+        return prefs.getString("foto_profil", this.foto_profil);
     }
 }

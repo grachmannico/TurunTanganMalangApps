@@ -9,9 +9,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:drawableLeft="@drawable/ic_shopping_cart_black_24dp"
+        android:backgroundTint="@color/reddarkflat"
+        android:drawableLeft="@drawable/ic_shopping_cart"
         android:drawablePadding="5dp"
-        android:text="Keranjang Belanja" />
+        android:text="Keranjang Belanja"
+        android:textColor="@color/white" />
 
     <ListView
         android:id="@+id/list_barang"

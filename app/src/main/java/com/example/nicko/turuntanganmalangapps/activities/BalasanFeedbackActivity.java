@@ -46,6 +46,10 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balasan_feedback);
 
+        this.setTitle(" Balas Feedback");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_chat);
+
         session = new Session(this);
         email = session.getEmail();
         tipe_pengguna = session.getTipePengguna();
@@ -59,8 +63,8 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
         edt_feedback_balasan = (EditText) findViewById(R.id.edt_feedback_balasan);
         btn_kirim_balasan = (Button) findViewById(R.id.btn_kirim_balasan);
 
-        txt_nama_pengirim_dibalas.setText("Nama: " + nama);
-        txt_komentar_dibalas.setText("Komentar: " + komentar);
+        txt_nama_pengirim_dibalas.setText("Feedback Oleh:\n" + nama);
+        txt_komentar_dibalas.setText("Komentar:\n" + komentar);
 
         listView = (ListView) findViewById(R.id.list_feedback_balasan);
         list = new ArrayList<>();
@@ -114,12 +118,10 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             Feedback model = new Feedback();
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            String nama = innerObject.getString("nama");
-                            String komentar = innerObject.getString("komentar");
-
                             model.setId_feedback_kegiatan(Integer.parseInt(id_feedback_kegiatan));
-                            model.setNama(nama);
-                            model.setKomentar(komentar);
+                            model.setNama(innerObject.getString("nama"));
+                            model.setKomentar(innerObject.getString("komentar"));
+                            model.setTanggal(innerObject.getString("tanggal"));
                             list.add(model);
                         }
                     }
@@ -137,7 +139,6 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
             } else {
-//                Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
                 listView.setVisibility(View.GONE);
                 txt_null_feedback_balasan.setVisibility(View.VISIBLE);
             }

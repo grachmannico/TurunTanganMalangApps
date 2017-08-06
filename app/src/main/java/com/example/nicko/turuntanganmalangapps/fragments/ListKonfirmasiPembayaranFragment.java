@@ -53,7 +53,7 @@ public class ListKonfirmasiPembayaranFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Daftar Konfirmasi Pembayaran");
+        getActivity().setTitle(" Daftar Konfirmasi Pembayaran");
 
         session = new Session(getActivity());
         email = session.getEmail();
@@ -103,13 +103,13 @@ public class ListKonfirmasiPembayaranFragment extends Fragment {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             Pembayaran model = new Pembayaran();
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            String id_invoice = innerObject.getString("id_invoice");
-                            String tanggal_pembelian = innerObject.getString("tanggal_pembelian");
-                            double total_tagihan = Double.parseDouble(innerObject.getString("total_tagihan"));
+//                            String id_invoice = innerObject.getString("id_invoice");
+//                            String tanggal_pembelian = innerObject.getString("tanggal_pembelian");
+//                            double total_tagihan = Double.parseDouble(innerObject.getString("total_tagihan"));
 
-                            model.setId_invoice(id_invoice);
-                            model.setTanggal_pembelian(tanggal_pembelian);
-                            model.setTotal_tagihan(total_tagihan);
+                            model.setId_invoice(innerObject.getString("id_invoice"));
+                            model.setTanggal_pembelian(innerObject.getString("tanggal_pembelian"));
+                            model.setTotal_tagihan(innerObject.getDouble("total_tagihan"));
                             list.add(model);
                         }
                     }

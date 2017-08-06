@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -58,6 +59,10 @@
         <activity android:name=".activities.MonitorDanaActivity" />
         <activity android:name=".activities.FeedbackActivity" />
         <activity android:name=".activities.BalasanFeedbackActivity" />
+        <!-- Crop Image Activity-->
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
 
         <service android:name=".utils.FcmInstanceIdService">
             <intent-filter>
@@ -70,7 +75,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activities.DokumentasiActivity"></activity>
+        <activity android:name=".activities.DokumentasiActivity" />
+        <activity android:name=".activities.ProfilRelawanActivity" />
+        <activity android:name=".activities.ProfilDonaturActivity" />
     </application>
 
 </manifest>

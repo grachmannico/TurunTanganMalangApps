@@ -52,7 +52,7 @@ public class KegiatanDiikutiFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Kegiatan Yang Diikuti");
+        getActivity().setTitle(" Kegiatan Yang Diikuti");
 
         session = new Session(getActivity());
         email = session.getEmail();

@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/txt_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:text="ini title"
         android:textSize="23sp" />
@@ -17,15 +17,14 @@
         android:id="@+id/txt_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ini body/pesan singkat"
         android:layout_marginBottom="5dp"
+        android:text="ini body/pesan singkat"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/txt_tanggal_notif"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ini tanggal"
-        android:layout_marginBottom="10dp"/>
+        android:text="ini tanggal" />
 
 </LinearLayout>

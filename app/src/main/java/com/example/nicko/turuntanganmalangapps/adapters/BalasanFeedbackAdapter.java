@@ -50,8 +50,8 @@ public class BalasanFeedbackAdapter extends ArrayAdapter<Feedback> {
         Feedback item = getItem(position);
 
         vh.txt_komentar_balasan.setText(Html.fromHtml(item.getKomentar()));
-        vh.txt_tanggal_feedback_balasan.setText("");
-        vh.txt_nama_pengirim_balasan.setText(item.getNama());
+        vh.txt_tanggal_feedback_balasan.setText(item.getTanggal());
+        vh.txt_nama_pengirim_balasan.setText("Dibalas Oleh:\n" + item.getNama());
         return vh.rootView;
     }
 

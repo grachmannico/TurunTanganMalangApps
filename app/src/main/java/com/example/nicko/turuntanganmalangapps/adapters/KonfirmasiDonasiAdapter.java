@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.nicko.turuntanganmalangapps.R;
 import com.example.nicko.turuntanganmalangapps.models.Donasi;
+import com.example.nicko.turuntanganmalangapps.utils.NumberFormatter;
 
 import java.util.List;
 
@@ -48,8 +49,8 @@ public class KonfirmasiDonasiAdapter extends ArrayAdapter<Donasi> {
 
         Donasi item = getItem(position);
 
-        vh.txt_nama_kegiatan_donasi.setText(item.getNama_kegiatan());
-        vh.txt_nominal_donasi.setText(item.getNominal_donasi());
+        vh.txt_nama_kegiatan_donasi.setText("Donasi Pada Kegiatan:\n" + item.getNama_kegiatan());
+        vh.txt_nominal_donasi.setText("Jumlah Donasi:\n" + NumberFormatter.money(item.getNominal_donasi()));
         vh.txt_tanggal_donasi.setText(item.getTanggal_donasi());
 
         return vh.rootView;

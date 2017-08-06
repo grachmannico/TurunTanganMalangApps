@@ -20,7 +20,7 @@
             android:id="@+id/txt_judul_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_shopping_cart_black_24dp"
+            android:drawableLeft="@drawable/ic_shopping_cart_red"
             android:gravity="center"
             android:text="Barang yang anda beli:"
 
@@ -53,17 +53,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableLeft="@drawable/ic_file_upload_black_24dp"
+            android:backgroundTint="@color/reddarkflat"
+            android:drawableLeft="@drawable/ic_file_upload"
             android:drawablePadding="5dp"
-            android:text="Struk Transfer Pembelian" />
+            android:text="Struk Transfer Pembelian"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btn_konfirmasi_pembelian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+            android:backgroundTint="@color/reddarkflat"
+            android:drawableLeft="@drawable/ic_check_circle"
             android:drawablePadding="5dp"
-            android:text="Konfirmasi Pembelian" />
+            android:text="Konfirmasi Pembelian"
+            android:textColor="@color/white" />
     </LinearLayout>
 </RelativeLayout>

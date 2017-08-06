@@ -1,12 +1,16 @@
 package com.example.nicko.turuntanganmalangapps.activities;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,7 +26,8 @@ import com.example.nicko.turuntanganmalangapps.adapters.KeranjangBelanjaAdapter;
 import com.example.nicko.turuntanganmalangapps.models.GarageSale;
 import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
 import com.example.nicko.turuntanganmalangapps.utils.InternetConnection;
-import com.example.nicko.turuntanganmalangapps.utils.Session;
+import com.example.nicko.turuntanganmalangapps.utils.NumberFormatter;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,20 +46,24 @@ public class DetailPembelianActivity extends AppCompatActivity {
     private ArrayList<GarageSale> list;
     private KeranjangBelanjaAdapter adapter;
 
-    private Session session;
-    private String email, invoice, status;
-    private Integer total_tagihan;
+    private String invoice, status;
+    private double total_tagihan;
 
     private File image;
     private String image_name;
     private static final int FILE_SELECT_CODE = 0;
+//    IMAGE CROPPER
+    Uri mCropImageUri;
+    Uri croppedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pembelian);
 
-        this.setTitle("Detail Pembelian");
+        this.setTitle(" Detail Pembelian");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_shopping_cart);
 
         listView = (ListView) findViewById(R.id.list_keranjang_belanja_detail);
         list = new ArrayList<>();
@@ -62,8 +71,6 @@ public class DetailPembelianActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
         registerForContextMenu(listView);
 
-        session = new Session(this);
-        email = session.getEmail();
         invoice = getIntent().getExtras().getString("id_invoice");
 
         txt_invoice_detail = (TextView) findViewById(R.id.txt_invoice_detail);
@@ -83,7 +90,8 @@ public class DetailPembelianActivity extends AppCompatActivity {
         btn_foto_struk_pembelian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showFileChooser();
+//                showFileChooser();
+                startCropImageActivity();
             }
         });
 
@@ -104,66 +112,106 @@ public class DetailPembelianActivity extends AppCompatActivity {
         });
     }
 
-    private void showFileChooser() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-
-        try {
-            startActivityForResult(
-                    Intent.createChooser(intent, "Select a File to Upload"),
-                    FILE_SELECT_CODE);
-        } catch (android.content.ActivityNotFoundException ex) {
-            // Potentially direct the user to the Market with a Dialog
-            Toast.makeText(this, "Please install a File Manager.",
-                    Toast.LENGTH_SHORT).show();
-        }
+    private void startCropImageActivity() {
+        CropImage.activity()
+                .start(this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case FILE_SELECT_CODE:
-                if (resultCode == RESULT_OK) {
-                    // Get the Uri of the selected file
-                    Uri uri = data.getData();
-                    // Get the path
-                    String path = null;
-                    try {
-                        path = DetailPembelianActivity.getPath(this, uri);
-                    } catch (URISyntaxException e) {
-                        e.printStackTrace();
-                    }
-                    // Get the file instance
-                    image = new File(path);
-                    image_name = image.getName();
-                    // Initiate the upload
-                    Toast.makeText(this, image.getPath(), Toast.LENGTH_SHORT).show();
-                }
-                break;
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+        // handle result of pick image chooser
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Uri imageUri = CropImage.getPickImageResultUri(this, data);
 
-    public static String getPath(Context context, Uri uri) throws URISyntaxException {
-        if ("content".equalsIgnoreCase(uri.getScheme())) {
-            String[] projection = {"_data"};
-            Cursor cursor = null;
-
-            try {
-                cursor = context.getContentResolver().query(uri, projection, null, null, null);
-                int column_index = cursor.getColumnIndexOrThrow("_data");
-                if (cursor.moveToFirst()) {
-                    return cursor.getString(column_index);
-                }
-            } catch (Exception e) {
-                // Eat it
+            // For API >= 23 we need to check specifically that we have permissions to read external storage.
+            if (CropImage.isReadExternalStoragePermissionsRequired(this, imageUri)) {
+                // request permissions and handle the result in onRequestPermissionsResult()
+                mCropImageUri = imageUri;
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},   CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
+            } else {
+                // no permissions required or already grunted, can start crop image activity
+                startCropImageActivity(imageUri);
             }
-        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
         }
-        return null;
+        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            CropImage.ActivityResult res = CropImage.getActivityResult(data);
+            croppedImage = res.getUri();
+            String path = croppedImage.getPath();
+            image = new File(path);
+            image_name = croppedImage.getLastPathSegment();
+            Toast.makeText(getApplicationContext(), "Foto Struk Transfer Pembelian Telah Dipilih", Toast.LENGTH_LONG).show();
+        }
     }
+
+    private void startCropImageActivity(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .setAspectRatio(1,1)
+                .setFixAspectRatio(true)
+                .setRequestedSize(200,200)
+                .start(this);
+    }
+
+//    private void showFileChooser() {
+//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//        intent.setType("image/*");
+//        intent.addCategory(Intent.CATEGORY_OPENABLE);
+//
+//        try {
+//            startActivityForResult(
+//                    Intent.createChooser(intent, "Select a File to Upload"),
+//                    FILE_SELECT_CODE);
+//        } catch (android.content.ActivityNotFoundException ex) {
+//            // Potentially direct the user to the Market with a Dialog
+//            Toast.makeText(this, "Please install a File Manager.",
+//                    Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        switch (requestCode) {
+//            case FILE_SELECT_CODE:
+//                if (resultCode == RESULT_OK) {
+//                    // Get the Uri of the selected file
+//                    Uri uri = data.getData();
+//                    // Get the path
+//                    String path = null;
+//                    try {
+//                        path = DetailPembelianActivity.getPath(this, uri);
+//                    } catch (URISyntaxException e) {
+//                        e.printStackTrace();
+//                    }
+//                    // Get the file instance
+//                    image = new File(path);
+//                    image_name = image.getName();
+//                    // Initiate the upload
+//                    Toast.makeText(this, image.getPath(), Toast.LENGTH_SHORT).show();
+//                }
+//                break;
+//        }
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
+//
+//    public static String getPath(Context context, Uri uri) throws URISyntaxException {
+//        if ("content".equalsIgnoreCase(uri.getScheme())) {
+//            String[] projection = {"_data"};
+//            Cursor cursor = null;
+//
+//            try {
+//                cursor = context.getContentResolver().query(uri, projection, null, null, null);
+//                int column_index = cursor.getColumnIndexOrThrow("_data");
+//                if (cursor.moveToFirst()) {
+//                    return cursor.getString(column_index);
+//                }
+//            } catch (Exception e) {
+//                // Eat it
+//            }
+//        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+//            return uri.getPath();
+//        }
+//        return null;
+//    }
 
     class Detail_Pembelian extends AsyncTask<Void, Void, Void> {
 
@@ -189,19 +237,13 @@ public class DetailPembelianActivity extends AppCompatActivity {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             GarageSale model = new GarageSale(getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            int id_keranjang_belanja = Integer.parseInt(innerObject.getString("id_keranjang_belanja"));
-                            String nama_barang = innerObject.getString("nama_barang");
-                            double harga = Double.parseDouble(innerObject.getString("harga"));
-                            String gambar_barang = innerObject.getString("gambar_barang");
-                            int qty = Integer.parseInt(innerObject.getString("qty"));
-                            total_tagihan = total_tagihan + ((int) harga * qty);
-
-                            model.setId_keranjang_belanja(id_keranjang_belanja);
-                            model.setNama_barang(nama_barang);
-                            model.setHarga(harga);
-                            model.setGambar_barang(gambar_barang);
-                            model.setQty(qty);
+                            model.setId_keranjang_belanja(innerObject.getInt("id_keranjang_belanja"));
+                            model.setNama_barang(innerObject.getString("nama_barang"));
+                            model.setHarga(innerObject.getDouble("harga"));
+                            model.setGambar_barang(innerObject.getString("gambar_barang"));
+                            model.setQty(innerObject.getInt("qty"));
                             list.add(model);
+                            total_tagihan = total_tagihan + (innerObject.getDouble("harga") * innerObject.getInt("qty"));
                         }
                     }
                 }
@@ -217,7 +259,7 @@ public class DetailPembelianActivity extends AppCompatActivity {
             dialog.dismiss();
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
-                txt_total_tagihan_detail.setText("Total Tagihan: Rp. " + total_tagihan.toString());
+                txt_total_tagihan_detail.setText("Total Tagihan: " + NumberFormatter.money(total_tagihan));
             } else {
                 Toast.makeText(getApplicationContext(), "No Data Found", Toast.LENGTH_LONG).show();
             }

@@ -54,7 +54,7 @@ public class ListKonfirmasiDonasiFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Daftar Konfirmasi Donasi");
+        getActivity().setTitle(" Daftar Konfirmasi Donasi");
 
         session = new Session(getActivity());
         email = session.getEmail();
@@ -107,15 +107,10 @@ public class ListKonfirmasiDonasiFragment extends Fragment {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             Donasi model = new Donasi();
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            String id_donasi = innerObject.getString("id_donasi");
-                            String nama_kegiatan = innerObject.getString("nama_kegiatan");
-                            double nominal_donasi = Double.parseDouble(innerObject.getString("nominal_donasi"));
-                            String tanggal_donasi = innerObject.getString("tanggal_donasi");
-
-                            model.setId_donasi(id_donasi);
-                            model.setNama_kegiatan(nama_kegiatan);
-                            model.setNominal_donasi(nominal_donasi);
-                            model.setTanggal_donasi(tanggal_donasi);
+                            model.setId_donasi(innerObject.getInt("id_donasi"));
+                            model.setNama_kegiatan(innerObject.getString("nama_kegiatan"));
+                            model.setNominal_donasi(innerObject.getDouble("nominal_donasi"));
+                            model.setTanggal_donasi(innerObject.getString("tanggal_donasi"));
                             list.add(model);
                         }
                     }

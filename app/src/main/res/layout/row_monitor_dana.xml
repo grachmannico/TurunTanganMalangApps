@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:layout_marginTop="5dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +15,7 @@
             android:id="@+id/txt_nama_dana_keluar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_credit_card_black_24dp"
+            android:drawableLeft="@drawable/ic_credit_card_red"
             android:drawablePadding="5dp"
             android:textSize="20sp"
             tools:text="TextView" />
@@ -33,17 +32,17 @@
         android:id="@+id/txt_nominal_dana_keluar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:drawableLeft="@drawable/ic_monetization_on_black_24dp"
+        android:drawableLeft="@drawable/ic_monetation_on_red"
         android:drawablePadding="5dp"
-        android:textSize="17dp"
+        android:textSize="15dp"
         tools:text="TextView" />
 
     <TextView
         android:id="@+id/txt_deskripsi_dana_keluar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_description_black_24dp"
+        android:drawableLeft="@drawable/ic_description_red"
         android:drawablePadding="5dp"
-        android:text="Deskripsi" />
+        android:text="Deskripsi"
+        android:textSize="15dp" />
 </LinearLayout>

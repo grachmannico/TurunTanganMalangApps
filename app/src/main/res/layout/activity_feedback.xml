@@ -27,6 +27,7 @@
             android:id="@+id/edt_feedback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/reddarkflat"
             android:hint="Feedback Anda" />
 
         <LinearLayout
@@ -50,9 +51,11 @@
                 android:id="@+id/btn_kirim_feedback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_menu_send"
+                android:backgroundTint="@color/reddarkflat"
                 android:drawablePadding="5dp"
-                android:text="Kirim Feedback" />
+                android:drawableRight="@drawable/ic_send"
+                android:text="Kirim Feedback"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <ListView

@@ -72,39 +72,49 @@ public class KegiatanFragment extends Fragment {
         ArrayAdapter<String> status_kegiatan_adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, array_status_kegiatan);
         spin_status_kegiatan.setAdapter(status_kegiatan_adapter);
 
-        if (InternetConnection.checkConnection(getActivity().getApplicationContext())) {
-            id_status_kegiatan = "";
-            new Tampil_Kegiatan().execute();
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    Intent intent = new Intent(getActivity(), DetailKegiatanActivity.class);
-                    intent.putExtra("id_kegiatan", list.get(position).getId_kegiatan());
-                    intent.putExtra("lat", list.get(position).getLat());
-                    intent.putExtra("lng", list.get(position).getLng());
-                    startActivity(intent);
-                }
-            });
-        } else {
-            Toast.makeText(getActivity().getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
-        }
+//        if (InternetConnection.checkConnection(getActivity().getApplicationContext())) {
+//            id_status_kegiatan = "";
+//            new Tampil_Kegiatan().execute();
+//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                    Intent intent = new Intent(getActivity(), DetailKegiatanActivity.class);
+//                    intent.putExtra("id_kegiatan", list.get(position).getId_kegiatan());
+//                    intent.putExtra("lat", list.get(position).getLat());
+//                    intent.putExtra("lng", list.get(position).getLng());
+//                    startActivity(intent);
+//                }
+//            });
+//        } else {
+//            Toast.makeText(getActivity().getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+//        }
 
-        btn_cari.setOnClickListener(new View.OnClickListener() {
+        spin_status_kegiatan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 list.clear();
-
-                if (spin_status_kegiatan.getSelectedItem().toString().equals("Semua Kegiatan")) {
-                    id_status_kegiatan = "";
-                } else if (spin_status_kegiatan.getSelectedItem().toString().equals("Kegiatan yang Akan Dilaksanakan")) {
-                    id_status_kegiatan = "1";
-                } else if (spin_status_kegiatan.getSelectedItem().toString().equals("Kegiatan yang Sedang Dilaksanakan")) {
-                    id_status_kegiatan = "2";
-                } else if (spin_status_kegiatan.getSelectedItem().toString().equals("Kegiatan yang Selesai Dilaksanakan")) {
-                    id_status_kegiatan = "3";
-                }
-
                 if (InternetConnection.checkConnection(getActivity().getApplicationContext())) {
+                    id_status_kegiatan = Integer.toString(i);
+                    new Tampil_Kegiatan().execute();
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                            Intent intent = new Intent(getActivity(), DetailKegiatanActivity.class);
+                            intent.putExtra("id_kegiatan", list.get(position).getId_kegiatan());
+                            intent.putExtra("lat", list.get(position).getLat());
+                            intent.putExtra("lng", list.get(position).getLng());
+                            startActivity(intent);
+                        }
+                    });
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                if (InternetConnection.checkConnection(getActivity().getApplicationContext())) {
+                    id_status_kegiatan = "0";
                     new Tampil_Kegiatan().execute();
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -121,6 +131,40 @@ public class KegiatanFragment extends Fragment {
                 }
             }
         });
+
+        btn_cari.setVisibility(View.GONE);
+//        btn_cari.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                list.clear();
+//
+//                if (spin_status_kegiatan.getSelectedItem().toString().equals("Semua Kegiatan")) {
+//                    id_status_kegiatan = "";
+//                } else if (spin_status_kegiatan.getSelectedItem().toString().equals("Kegiatan yang Akan Dilaksanakan")) {
+//                    id_status_kegiatan = "1";
+//                } else if (spin_status_kegiatan.getSelectedItem().toString().equals("Kegiatan yang Sedang Dilaksanakan")) {
+//                    id_status_kegiatan = "2";
+//                } else if (spin_status_kegiatan.getSelectedItem().toString().equals("Kegiatan yang Selesai Dilaksanakan")) {
+//                    id_status_kegiatan = "3";
+//                }
+//
+//                if (InternetConnection.checkConnection(getActivity().getApplicationContext())) {
+//                    new Tampil_Kegiatan().execute();
+//                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                            Intent intent = new Intent(getActivity(), DetailKegiatanActivity.class);
+//                            intent.putExtra("id_kegiatan", list.get(position).getId_kegiatan());
+//                            intent.putExtra("lat", list.get(position).getLat());
+//                            intent.putExtra("lng", list.get(position).getLng());
+//                            startActivity(intent);
+//                        }
+//                    });
+//                } else {
+//                    Toast.makeText(getActivity().getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
     }
 
     class Tampil_Kegiatan extends AsyncTask<Void, Void, Void> {
@@ -177,7 +221,11 @@ public class KegiatanFragment extends Fragment {
             super.onPostExecute(aVoid);
             dialog.dismiss();
             if (list.size() > 0) {
+                listView.setVisibility(View.VISIBLE);
                 adapter.notifyDataSetChanged();
+            } else if (list.size() == 0) {
+                listView.setVisibility(View.GONE);
+                Toast.makeText(getActivity().getApplicationContext(), "Data Tidak Ditemukan", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getActivity().getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             }

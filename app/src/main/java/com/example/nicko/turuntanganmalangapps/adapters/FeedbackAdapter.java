@@ -50,10 +50,10 @@ public class FeedbackAdapter extends ArrayAdapter<Feedback> {
         Feedback item = getItem(position);
 
         vh.txt_komentar.setText(Html.fromHtml(item.getKomentar()));
-        vh.txt_tanggal_feedback.setText("");
-        vh.txt_rating.setText("Rating: " + item.getRating());
-        vh.txt_jumlah_balasan.setText("Jumlah balasan: " + item.getJml_balasan());
-        vh.txt_nama_pengirim.setText(item.getNama());
+        vh.txt_tanggal_feedback.setText(item.getTanggal());
+        vh.txt_rating.setText("Rating:\n" + item.getRating());
+        vh.txt_jumlah_balasan.setText("Jumlah balasan:\n" + item.getJml_balasan());
+        vh.txt_nama_pengirim.setText("Feedback Oleh:\n" + item.getNama());
         return vh.rootView;
     }
 

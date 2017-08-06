@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:layout_marginTop="5dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +15,7 @@
             android:id="@+id/txt_komentar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_chat_black_24dp"
+            android:drawableLeft="@drawable/ic_chat_red"
             android:drawablePadding="5dp"
             android:textSize="20sp"
             tools:text="TextView" />
@@ -34,17 +33,15 @@
         android:id="@+id/txt_rating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:drawableLeft="@drawable/ic_star_black_24dp"
+        android:drawableLeft="@drawable/ic_start_red"
         android:drawablePadding="5dp"
-        android:textSize="17dp"
         tools:text="TextView" />
 
     <TextView
         android:id="@+id/txt_jumlah_balasan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_feedback_black_24dp"
+        android:drawableLeft="@drawable/ic_feedback_red"
         android:drawablePadding="5dp"
         android:text="TextView" />
 
@@ -52,7 +49,7 @@
         android:id="@+id/txt_nama_pengirim"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_account_circle_black_24dp"
+        android:drawableLeft="@drawable/ic_account_circle_red"
         android:drawablePadding="5dp"
         android:text="TextView" />
 </LinearLayout>

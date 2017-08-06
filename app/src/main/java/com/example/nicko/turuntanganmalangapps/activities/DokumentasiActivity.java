@@ -39,7 +39,9 @@ public class DokumentasiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dokumentasi);
 
-        this.setTitle("Dokumentasi Kegiatan");
+        this.setTitle(" Dokumentasi Kegiatan");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_description);
 
         session = new Session(this);
         email = session.getEmail();
@@ -84,18 +86,19 @@ public class DokumentasiActivity extends AppCompatActivity {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             Dokumentasi model = new Dokumentasi(getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            String id_dokumentasi = innerObject.getString("id_dokumentasi");
-                            String id_kegiatan = innerObject.getString("id_kegiatan");
-                            String gambar_kegiatan = innerObject.getString("gambar_dokumentasi");
-                            String deskripsi = innerObject.getString("deskripsi");
-                            String tanggal = innerObject.getString("tanggal");
-                            String nama_dokumentasi = innerObject.getString("nama_dokumentasi");
-                            nama_kegiatan = innerObject.getString("nama_kegiatan");
+//                            String id_dokumentasi = innerObject.getString("id_dokumentasi");
+//                            String id_kegiatan = innerObject.getString("id_kegiatan");
+//                            String gambar_kegiatan = innerObject.getString("gambar_dokumentasi");
+//                            String deskripsi = innerObject.getString("deskripsi");
+//                            String tanggal = innerObject.getString("tanggal");
+//                            String nama_dokumentasi = innerObject.getString("nama_dokumentasi");
+//                            nama_kegiatan = innerObject.getString("nama_kegiatan");
 
-                            model.setGambar_dokumentasi(gambar_kegiatan);
-                            model.setDeskripsi(deskripsi);
-                            model.setTanggal(tanggal);
-                            model.setNama_dokumentasi(nama_dokumentasi);
+                            model.setGambar_dokumentasi(innerObject.getString("gambar_dokumentasi"));
+                            model.setDeskripsi(innerObject.getString("deskripsi"));
+                            model.setTanggal(innerObject.getString("tanggal"));
+                            model.setNama_dokumentasi(innerObject.getString("nama_dokumentasi"));
+                            nama_kegiatan = innerObject.getString("nama_kegiatan");
                             list.add(model);
                         }
                     }

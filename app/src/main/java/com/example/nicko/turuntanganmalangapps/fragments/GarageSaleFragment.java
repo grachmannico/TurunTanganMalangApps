@@ -56,7 +56,7 @@ public class GarageSaleFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Garage Sale");
+        getActivity().setTitle(" Garage Sale");
 
         session = new Session(getActivity());
         email = session.getEmail();
@@ -120,15 +120,10 @@ public class GarageSaleFragment extends Fragment {
                             GarageSale model = new GarageSale(getActivity().getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
                             if (Integer.parseInt(innerObject.getString("stok_terpesan")) > 0) {
-                                int id_barang_garage_sale = Integer.parseInt(innerObject.getString("id_barang_garage_sale"));
-                                String nama_barang = innerObject.getString("nama_barang");
-                                double harga = Double.parseDouble(innerObject.getString("harga"));
-                                String gambar_barang = innerObject.getString("gambar_barang");
-
-                                model.setId_barang_garage_sale(id_barang_garage_sale);
-                                model.setNama_barang(nama_barang);
-                                model.setHarga(harga);
-                                model.setGambar_barang(gambar_barang);
+                                model.setId_barang_garage_sale(innerObject.getInt("id_barang_garage_sale"));
+                                model.setNama_barang(innerObject.getString("nama_barang"));
+                                model.setHarga(innerObject.getDouble("harga"));
+                                model.setGambar_barang(innerObject.getString("gambar_barang"));
                                 list.add(model);
                             }
                         }

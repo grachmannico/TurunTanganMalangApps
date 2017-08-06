@@ -21,6 +21,9 @@ import android.widget.Toast;
 import com.example.nicko.turuntanganmalangapps.MainActivity;
 import com.example.nicko.turuntanganmalangapps.R;
 import com.example.nicko.turuntanganmalangapps.activities.DetailKegiatanActivity;
+import com.example.nicko.turuntanganmalangapps.activities.DetailKegiatanDiikutiActivity;
+import com.example.nicko.turuntanganmalangapps.activities.DokumentasiActivity;
+import com.example.nicko.turuntanganmalangapps.activities.MonitorDanaActivity;
 import com.example.nicko.turuntanganmalangapps.sqlite.NotificationAdapter;
 import com.example.nicko.turuntanganmalangapps.sqlite.NotificationModel;
 import com.example.nicko.turuntanganmalangapps.sqlite.SQLiteHelper;
@@ -44,6 +47,7 @@ public class NotificationFragment extends Fragment {
     private Button btn_cari_notif;
 
     private String[] array_kategori_notif;
+    private ArrayAdapter<String> kategori_notif_adapter;
 
     private Session session;
 
@@ -57,7 +61,7 @@ public class NotificationFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Notification");
+        getActivity().setTitle(" Notifikasi");
 
         spin_kategori_notif = (Spinner) getActivity().findViewById(R.id.spin_kategori_notif);
         txt_null_notif = (TextView) getActivity().findViewById(R.id.txt_null_notif);
@@ -68,13 +72,13 @@ public class NotificationFragment extends Fragment {
             this.array_kategori_notif = new String[]{
                     "Semua Notifikasi", "Kegiatan", "Absensi", "Dokumentasi"
             };
-            ArrayAdapter<String> kategori_notif_adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, array_kategori_notif);
+            kategori_notif_adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, array_kategori_notif);
             spin_kategori_notif.setAdapter(kategori_notif_adapter);
         } else if (session.getTipePengguna().equals("donatur")) {
             this.array_kategori_notif = new String[]{
                     "Semua Notifikasi", "Kegiatan", "Konfirmasi Donasi", "Konfirmasi Pembayaran", "Dokumentasi", "Monitor Dana"
             };
-            ArrayAdapter<String> kategori_notif_adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, array_kategori_notif);
+            kategori_notif_adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, array_kategori_notif);
             spin_kategori_notif.setAdapter(kategori_notif_adapter);
         }
 
@@ -82,37 +86,34 @@ public class NotificationFragment extends Fragment {
 
         sqLiteHelper = new SQLiteHelper(getActivity());
         list_data = (ListView) getActivity().findViewById(R.id.list_notifikasi);
-        notifModel = sqLiteHelper.getAllRecords();
-        if (notifModel.isEmpty()) {
-            list_data.setVisibility(View.GONE);
-            txt_null_notif.setVisibility(View.VISIBLE);
-        } else {
-            dataAdapter = new NotificationAdapter(getActivity(), notifModel);
-            list_data.setAdapter(dataAdapter);
-            registerForContextMenu(list_data);
-        }
+//        notifModel = sqLiteHelper.getAllRecords();
+//        if (notifModel.isEmpty()) {
+//            list_data.setVisibility(View.GONE);
+//            txt_null_notif.setVisibility(View.VISIBLE);
+//        } else {
+//            dataAdapter = new NotificationAdapter(getActivity(), notifModel);
+//            list_data.setAdapter(dataAdapter);
+//            registerForContextMenu(list_data);
+//        }
 
-        btn_cari_notif.setOnClickListener(new View.OnClickListener() {
+        spin_kategori_notif.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                notifModel.clear();
-
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 list_data.setVisibility(View.VISIBLE);
                 txt_null_notif.setVisibility(View.GONE);
-
-                if (spin_kategori_notif.getSelectedItem().toString().equals("Semua Notifikasi")) {
+                if (array_kategori_notif[i].equals("Semua Notifikasi")) {
                     notifModel = sqLiteHelper.getAllRecords();
-                } else if (spin_kategori_notif.getSelectedItem().toString().equals("Kegiatan")) {
+                } else if (array_kategori_notif[i].equals("Kegiatan")) {
                     notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "kegiatan");
-                } else if (spin_kategori_notif.getSelectedItem().toString().equals("Absensi")) {
+                } else if (array_kategori_notif[i].equals("Absensi")) {
                     notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "absensi");
-                } else if (spin_kategori_notif.getSelectedItem().toString().equals("Dokumentasi")){
+                } else if (array_kategori_notif[i].equals("Dokumentasi")){
                     notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "dokumentasi");
-                } else if (spin_kategori_notif.getSelectedItem().toString().equals("Konfirmasi Donasi")) {
+                } else if (array_kategori_notif[i].equals("Konfirmasi Donasi")) {
                     notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "konfirmasi donasi");
-                } else if (spin_kategori_notif.getSelectedItem().toString().equals("Konfirmasi Pembayaran")) {
+                } else if (array_kategori_notif[i].equals("Konfirmasi Pembayaran")) {
                     notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "konfirmasi pembayaran");
-                } else if (spin_kategori_notif.getSelectedItem().toString().equals("Monitor Dana")) {
+                } else if (array_kategori_notif[i].equals("Monitor Dana")) {
                     notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "monitor dana");
                 }
 
@@ -125,13 +126,70 @@ public class NotificationFragment extends Fragment {
                     registerForContextMenu(list_data);
                 }
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                notifModel = sqLiteHelper.getAllRecords();
+                if (notifModel.isEmpty()) {
+                    list_data.setVisibility(View.GONE);
+                    txt_null_notif.setVisibility(View.VISIBLE);
+                } else {
+                    dataAdapter = new NotificationAdapter(getActivity(), notifModel);
+                    list_data.setAdapter(dataAdapter);
+                    registerForContextMenu(list_data);
+                }
+            }
         });
+
+        btn_cari_notif.setVisibility(View.GONE);
+//        btn_cari_notif.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                notifModel.clear();
+//
+//                list_data.setVisibility(View.VISIBLE);
+//                txt_null_notif.setVisibility(View.GONE);
+//
+//                if (spin_kategori_notif.getSelectedItem().toString().equals("Semua Notifikasi")) {
+//                    notifModel = sqLiteHelper.getAllRecords();
+//                } else if (spin_kategori_notif.getSelectedItem().toString().equals("Kegiatan")) {
+//                    notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "kegiatan");
+//                } else if (spin_kategori_notif.getSelectedItem().toString().equals("Absensi")) {
+//                    notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "absensi");
+//                } else if (spin_kategori_notif.getSelectedItem().toString().equals("Dokumentasi")){
+//                    notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "dokumentasi");
+//                } else if (spin_kategori_notif.getSelectedItem().toString().equals("Konfirmasi Donasi")) {
+//                    notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "konfirmasi donasi");
+//                } else if (spin_kategori_notif.getSelectedItem().toString().equals("Konfirmasi Pembayaran")) {
+//                    notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "konfirmasi pembayaran");
+//                } else if (spin_kategori_notif.getSelectedItem().toString().equals("Monitor Dana")) {
+//                    notifModel = sqLiteHelper.getSelectedRecords("MESSAGE_TYPE", "monitor dana");
+//                }
+//
+//                if (notifModel.isEmpty()) {
+//                    list_data.setVisibility(View.GONE);
+//                    txt_null_notif.setVisibility(View.VISIBLE);
+//                } else {
+//                    dataAdapter = new NotificationAdapter(getActivity(), notifModel);
+//                    list_data.setAdapter(dataAdapter);
+//                    registerForContextMenu(list_data);
+//                }
+//            }
+//        });
 
         list_data.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 if (notifModel.get(position).getIntent().equals("DetailKegiatanActivity")) {
                     Intent intent = new Intent(getActivity(), DetailKegiatanActivity.class);
+                    intent.putExtra("id_kegiatan", notifModel.get(position).getId_target());
+                    startActivity(intent);
+                } else if (notifModel.get(position).getIntent().equals("MonitorDanaActivity")) {
+                    Intent intent = new Intent(getActivity(), MonitorDanaActivity.class);
+                    intent.putExtra("id_kegiatan", notifModel.get(position).getId_target());
+                    startActivity(intent);
+                } else if (notifModel.get(position).getIntent().equals("DokumentasiActivity")) {
+                    Intent intent = new Intent(getActivity(), DokumentasiActivity.class);
                     intent.putExtra("id_kegiatan", notifModel.get(position).getId_target());
                     startActivity(intent);
                 }

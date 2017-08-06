@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,9 +19,14 @@ import com.example.nicko.turuntanganmalangapps.MainActivity;
 import com.example.nicko.turuntanganmalangapps.R;
 import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
 import com.example.nicko.turuntanganmalangapps.utils.InternetConnection;
+import com.example.nicko.turuntanganmalangapps.utils.NumberFormatter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 
 public class DonasiActivity extends AppCompatActivity {
 
@@ -34,16 +41,79 @@ public class DonasiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donasi);
 
+        this.setTitle(" Donasi");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_favorite);
+
         edt_nominal_donasi = (EditText) findViewById(R.id.edt_nominal_donasi);
         txt_header_rekening = (TextView) findViewById(R.id.txt_header_rekening);
         txt_no_rekening = (TextView) findViewById(R.id.txt_no_rekening);
         btn_donasi_now = (Button) findViewById(R.id.btn_donasi_now);
         btn_daftar_konfirmasi_donasi = (Button) findViewById(R.id.btn_daftar_konfirmasi_donasi);
 
+        nominal_donasi = edt_nominal_donasi.getText().toString();
+        edt_nominal_donasi.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                if (!charSequence.toString().equals(nominal_donasi)) {
+//                    edt_nominal_donasi.removeTextChangedListener(this);
+//
+//                    String cleanString = charSequence.toString().replaceAll("[,.]", "");
+//
+//                    double parsed = Double.parseDouble(cleanString);
+//                    String formatted = NumberFormat.getCurrencyInstance().format((parsed / 100));
+//
+//                    nominal_donasi = formatted;
+//                    edt_nominal_donasi.setText(formatted);
+//                    edt_nominal_donasi.setSelection(formatted.length());
+//
+//                    edt_nominal_donasi.addTextChangedListener(this);
+//                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!editable.toString().equals(nominal_donasi)) {
+                    edt_nominal_donasi.removeTextChangedListener(this);
+
+                    String replaceable = String.format("[%s,.\\s]", DecimalFormat.getCurrencyInstance().getCurrency().getSymbol());
+                    String cleanString = editable.toString().replaceAll(replaceable, "");
+
+                    double parsed;
+                    try {
+                        parsed = Double.parseDouble(cleanString);
+                    } catch (NumberFormatException e) {
+                        parsed = 0.00;
+                    }
+
+                    DecimalFormat formatter = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+                    DecimalFormatSymbols formatNumber = new DecimalFormatSymbols();
+
+                    formatNumber.setCurrencySymbol("");
+                    formatNumber.setMonetaryDecimalSeparator(',');
+                    formatNumber.setGroupingSeparator('.');
+
+                    formatter.setDecimalFormatSymbols(formatNumber);
+                    formatter.setMinimumFractionDigits(0);
+                    String formatted = formatter.format((parsed));
+
+                    nominal_donasi = formatted;
+                    edt_nominal_donasi.setText(formatted);
+                    edt_nominal_donasi.setSelection(formatted.length());
+                    edt_nominal_donasi.addTextChangedListener(this);
+                }
+            }
+        });
+
         btn_donasi_now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nominal_donasi = edt_nominal_donasi.getText().toString();
+//                nominal_donasi = edt_nominal_donasi.getText().toString();
                 id_kegiatan = getIntent().getExtras().getString("id_kegiatan");
                 email = getIntent().getExtras().getString("email");
                 if (nominal_donasi.equals("") || nominal_donasi.isEmpty()) {
@@ -66,6 +136,7 @@ public class DonasiActivity extends AppCompatActivity {
                 Intent intent = new Intent(DonasiActivity.this, MainActivity.class);
                 intent.putExtra("trigger", "konfirmasi_donasi");
                 startActivity(intent);
+                finish();
             }
         });
     }

@@ -39,7 +39,9 @@ public class MonitorDanaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitor_dana);
 
-        this.setTitle("Monitor Dana");
+        this.setTitle(" Monitor Dana");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_monetazion_on);
 
         session = new Session(this);
         email = session.getEmail();
@@ -84,16 +86,17 @@ public class MonitorDanaActivity extends AppCompatActivity {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             MonitorDana model = new MonitorDana();
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            String nama_dana_keluar = innerObject.getString("nama_dana_keluar");
-                            String tanggal = innerObject.getString("tanggal");
-                            double nominal_dana_keluar = Double.parseDouble(innerObject.getString("nominal_dana_keluar"));
-                            String keterangan = innerObject.getString("keterangan");
-                            nama_kegiatan = innerObject.getString("nama_kegiatan");
+//                            String nama_dana_keluar = innerObject.getString("nama_dana_keluar");
+//                            String tanggal = innerObject.getString("tanggal");
+//                            double nominal_dana_keluar = Double.parseDouble(innerObject.getString("nominal_dana_keluar"));
+//                            String keterangan = innerObject.getString("keterangan");
+//                            nama_kegiatan = innerObject.getString("nama_kegiatan");
 
-                            model.setNama_dana_keluar(nama_dana_keluar);
-                            model.setTanggal(tanggal);
-                            model.setNominal_dana_keluar(nominal_dana_keluar);
-                            model.setKeterangan(keterangan);
+                            model.setNama_dana_keluar(innerObject.getString("nama_dana_keluar"));
+                            model.setTanggal(innerObject.getString("tanggal"));
+                            model.setNominal_dana_keluar(innerObject.getDouble("nominal_dana_keluar"));
+                            model.setKeterangan(innerObject.getString("nama_kegiatan"));
+                            nama_kegiatan = innerObject.getString("nama_kegiatan");
                             list.add(model);
                         }
                     }

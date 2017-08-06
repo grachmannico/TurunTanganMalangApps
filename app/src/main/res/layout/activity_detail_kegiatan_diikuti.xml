@@ -44,7 +44,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:backgroundTint="@color/reddarkflat"
                     android:text="Dokumentasi"
+                    android:textColor="@color/white"
                     android:visibility="gone" />
 
                 <Button
@@ -52,7 +54,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:backgroundTint="@color/reddarkflat"
                     android:text="Monitor Dana"
+                    android:textColor="@color/white"
                     android:visibility="gone" />
 
                 <Button
@@ -60,7 +64,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:backgroundTint="@color/reddarkflat"
                     android:text="Feedback"
+                    android:textColor="@color/white"
                     android:visibility="gone" />
             </LinearLayout>
 
@@ -69,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/ic_cast_connected_black_24dp"
+                android:drawableLeft="@drawable/ic_cast_connected_red"
                 android:drawablePadding="5dp"
                 android:text="Status Kegiatan: "
                 android:textSize="18sp" />
@@ -79,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/ic_pin_drop_black_24dp"
+                android:drawableLeft="@drawable/ic_pin_drop_red"
                 android:drawablePadding="5dp"
                 android:text="Alamat: "
                 android:textSize="18sp" />
@@ -89,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/ic_people_black_24dp"
+                android:drawableLeft="@drawable/ic_people"
                 android:drawablePadding="5dp"
                 android:text="Jumlah Relawan: "
                 android:textSize="18sp" />
@@ -99,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/ic_favorite_black_24dp"
+                android:drawableLeft="@drawable/ic_favorite_red"
                 android:drawablePadding="5dp"
                 android:text="Jumlah Dana Terkumpul: "
                 android:textSize="18sp" />
@@ -109,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:drawableLeft="@drawable/ic_description_black_24dp"
+                android:drawableLeft="@drawable/ic_description_red"
                 android:drawablePadding="5dp"
                 android:text="Deskripsi Kegiatan: "
                 android:textSize="18sp" />

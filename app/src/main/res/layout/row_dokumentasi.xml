@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/img_dokumentasi"
@@ -23,7 +24,6 @@
             android:id="@+id/txt_nama_dokumentasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:textSize="20sp"
             tools:text="TextView" />
 
@@ -31,7 +31,7 @@
             android:id="@+id/txt_tanggal_dokumentasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="13sp"
             tools:text="TextView" />
 
         <TextView

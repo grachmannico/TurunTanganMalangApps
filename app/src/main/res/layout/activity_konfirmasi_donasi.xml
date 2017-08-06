@@ -35,19 +35,30 @@
         android:text="Rp."
         android:textSize="20sp" />
 
+    <ImageView
+        android:id="@+id/img_struk_donasi"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/ttm_logo" />
+
     <Button
         android:id="@+id/btn_foto_struk_transfer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_file_upload_black_24dp"
-        android:text="Foto Struk Transfer" />
+        android:backgroundTint="@color/reddarkflat"
+        android:drawableLeft="@drawable/ic_file_upload"
+        android:text="Foto Struk Transfer"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btn_konfirmasi_donasi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:drawableLeft="@drawable/ic_check_circle_black_24dp"
+        android:backgroundTint="@color/reddarkflat"
+        android:drawableLeft="@drawable/ic_check_circle"
         android:drawablePadding="5dp"
-        android:text="Konfirmasi Donasi" />
+        android:text="Konfirmasi Donasi"
+        android:textColor="@color/white" />
 </LinearLayout>

@@ -8,8 +8,8 @@ public class MonitorDana {
     private double nominal_dana_keluar;
     private String nama_dana_keluar, tanggal, keterangan;
 
-    public String getNominal_dana_keluar() {
-        return String.valueOf(((int) nominal_dana_keluar));
+    public double getNominal_dana_keluar() {
+        return nominal_dana_keluar;
     }
 
     public void setNominal_dana_keluar(double nominal_dana_keluar) {

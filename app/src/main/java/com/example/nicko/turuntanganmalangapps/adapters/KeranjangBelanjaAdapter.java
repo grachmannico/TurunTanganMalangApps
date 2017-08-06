@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.nicko.turuntanganmalangapps.R;
 import com.example.nicko.turuntanganmalangapps.models.GarageSale;
+import com.example.nicko.turuntanganmalangapps.utils.NumberFormatter;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class KeranjangBelanjaAdapter extends ArrayAdapter<GarageSale> {
         GarageSale item = getItem(position);
 
         vh.txt_nama_barang_cart.setText(item.getNama_barang());
-        vh.txt_harga_cart.setText("Harga Satuan: Rp. " + item.getHarga());
+        vh.txt_harga_cart.setText("Harga Satuan: " + NumberFormatter.money(item.getHarga()));
         vh.txt_qty_cart.setText("Pesanan anda: " + item.getQty());
         Picasso.with(context).load(item.getGambar_barang()).placeholder(R.drawable.ttm_logo).error(R.drawable.ttm_logo).into(vh.img_keranjang_belanja);
 

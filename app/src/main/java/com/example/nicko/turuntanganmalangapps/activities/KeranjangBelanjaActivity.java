@@ -23,6 +23,7 @@ import com.example.nicko.turuntanganmalangapps.adapters.KeranjangBelanjaAdapter;
 import com.example.nicko.turuntanganmalangapps.models.GarageSale;
 import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
 import com.example.nicko.turuntanganmalangapps.utils.InternetConnection;
+import com.example.nicko.turuntanganmalangapps.utils.NumberFormatter;
 import com.example.nicko.turuntanganmalangapps.utils.Session;
 
 import org.json.JSONArray;
@@ -42,14 +43,16 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
 
     private Session session;
     private String email, invoice, id_keranjang_belanja, status;
-    private Integer total_tagihan;
+    private double total_tagihan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keranjang_belanja);
 
-        this.setTitle("Keranjang Belanja");
+        this.setTitle(" Keranjang Belanja");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_shopping_cart);
 
         listView = (ListView) findViewById(R.id.list_keranjang_belanja);
         list = new ArrayList<>();
@@ -94,7 +97,6 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
                     }
-//                    Toast.makeText(getApplicationContext(), "Thread dijalankan", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -134,7 +136,7 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         if (item.getItemId() == R.id.hapus_barang) {
-            id_keranjang_belanja = list.get(info.position).getId_keranjang_belanja();
+            id_keranjang_belanja = String.valueOf(list.get(info.position).getId_keranjang_belanja());
             new Hapus_Barang().execute();
             return true;
         } else {
@@ -166,19 +168,14 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             GarageSale model = new GarageSale(getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            int id_keranjang_belanja = Integer.parseInt(innerObject.getString("id_keranjang_belanja"));
-                            String nama_barang = innerObject.getString("nama_barang");
-                            double harga = Integer.parseInt(innerObject.getString("harga"));
-                            String gambar_barang = innerObject.getString("gambar_barang");
-                            int qty = Integer.parseInt(innerObject.getString("qty"));
-                            total_tagihan = total_tagihan + (((int) harga) * qty);
 
-                            model.setId_keranjang_belanja(id_keranjang_belanja);
-                            model.setNama_barang(nama_barang);
-                            model.setHarga(harga);
-                            model.setGambar_barang(gambar_barang);
-                            model.setQty(qty);
+                            model.setId_keranjang_belanja(innerObject.getInt("id_keranjang_belanja"));
+                            model.setNama_barang(innerObject.getString("nama_barang"));
+                            model.setHarga(innerObject.getDouble("harga"));
+                            model.setGambar_barang(innerObject.getString("gambar_barang"));
+                            model.setQty(innerObject.getInt("qty"));
                             list.add(model);
+                            total_tagihan = total_tagihan + (innerObject.getDouble("harga") * innerObject.getInt("qty"));
                         }
                     }
                 }
@@ -194,7 +191,7 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
             dialog.dismiss();
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
-                txt_total_tagihan.setText("Total Tagihan: Rp." + total_tagihan.toString());
+                txt_total_tagihan.setText("Total Tagihan: " + NumberFormatter.money(total_tagihan));
             } else {
                 if (session.getInvoice().equals("null")) {
                     txt_null_cart.setVisibility(View.VISIBLE);
@@ -207,7 +204,7 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
                     btn_tambah_barang_belanja.setVisibility(View.GONE);
                 } else {
                     adapter.notifyDataSetChanged();
-                    txt_total_tagihan.setText("Total Tagihan: Rp." + total_tagihan.toString());
+                    txt_total_tagihan.setText("Total Tagihan: " + NumberFormatter.money(total_tagihan));
                 }
             }
         }

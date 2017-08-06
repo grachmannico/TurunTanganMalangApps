@@ -8,8 +8,8 @@ public class Pembayaran {
     private double total_tagihan;
     private String id_invoice, tanggal_pembelian;
 
-    public String getTotal_tagihan() {
-        return String.valueOf(((int) total_tagihan));
+    public double getTotal_tagihan() {
+        return total_tagihan;
     }
 
     public void setTotal_tagihan(double total_tagihan) {

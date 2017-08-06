@@ -6,7 +6,7 @@ package com.example.nicko.turuntanganmalangapps.models;
 
 public class Feedback {
     private int id_feedback_kegiatan, rating, jml_balasan;
-    private String nama, komentar;
+    private String nama, komentar, tanggal;
 
     public String getId_feedback_kegiatan() {
         return String.valueOf(id_feedback_kegiatan);
@@ -16,16 +16,16 @@ public class Feedback {
         this.id_feedback_kegiatan = id_feedback_kegiatan;
     }
 
-    public String getRating() {
-        return String.valueOf(rating);
+    public int getRating() {
+        return rating;
     }
 
     public void setRating(int rating) {
         this.rating = rating;
     }
 
-    public String getJml_balasan() {
-        return String.valueOf(jml_balasan);
+    public int getJml_balasan() {
+        return jml_balasan;
     }
 
     public void setJml_balasan(int jml_balasan) {
@@ -47,4 +47,52 @@ public class Feedback {
     public void setKomentar(String komentar) {
         this.komentar = komentar;
     }
+
+    public String getTanggal() {
+        return tanggal;
+    }
+
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
+    }
+
+    //    public String getId_feedback_kegiatan() {
+//        return String.valueOf(id_feedback_kegiatan);
+//    }
+//
+//    public void setId_feedback_kegiatan(int id_feedback_kegiatan) {
+//        this.id_feedback_kegiatan = id_feedback_kegiatan;
+//    }
+//
+//    public String getRating() {
+//        return String.valueOf(rating);
+//    }
+//
+//    public void setRating(int rating) {
+//        this.rating = rating;
+//    }
+//
+//    public String getJml_balasan() {
+//        return String.valueOf(jml_balasan);
+//    }
+//
+//    public void setJml_balasan(int jml_balasan) {
+//        this.jml_balasan = jml_balasan;
+//    }
+//
+//    public String getNama() {
+//        return nama;
+//    }
+//
+//    public void setNama(String nama) {
+//        this.nama = nama;
+//    }
+//
+//    public String getKomentar() {
+//        return komentar;
+//    }
+//
+//    public void setKomentar(String komentar) {
+//        this.komentar = komentar;
+//    }
 }

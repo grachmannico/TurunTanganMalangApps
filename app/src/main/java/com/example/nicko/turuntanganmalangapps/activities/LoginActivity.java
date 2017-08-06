@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btn_login, btn_register;
 
     private String email, password, token, tipe_pengguna, status;
-    private String email_pengguna, nama_pengguna, pangkat_divisi, divisi;
+    private String email_pengguna, nama_pengguna, pangkat_divisi, divisi, foto_profil;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     private Session session;
@@ -113,11 +113,13 @@ public class LoginActivity extends AppCompatActivity {
                             if (tipe_pengguna.equals("donatur")) {
                                 email_pengguna = jsonObject.getString("email");
                                 nama_pengguna = jsonObject.getString("nama");
+                                foto_profil = jsonObject.getString("foto_profil");
                             } else if (tipe_pengguna.equals("relawan")) {
                                 email_pengguna = jsonObject.getString("email");
                                 nama_pengguna = jsonObject.getString("nama");
                                 pangkat_divisi = jsonObject.getString("pangkat_divisi");
                                 divisi = jsonObject.getString("divisi");
+                                foto_profil = jsonObject.getString("foto_profil");
                             }
                         }
                     } else {
@@ -143,6 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                 session.setNama(nama_pengguna);
                 session.setPangkatDivisi(pangkat_divisi);
                 session.setDivisi(divisi);
+                session.setFoto_profil(foto_profil);
                 Toast.makeText(getApplicationContext(), "Login Berhasil, Selamat Datang " + session.getNama(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -152,6 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                 session.setTipePengguna(tipe_pengguna);
                 session.setNama(nama_pengguna);
                 session.setEmail(email_pengguna);
+                session.setFoto_profil(foto_profil);
                 if (session.getInvoice() == null || session.getInvoice().equals("null")) {
                     session.setInvoice("null");
                 }

@@ -50,7 +50,9 @@ public class FeedbackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
 
-        this.setTitle("Feedback Kegiatan");
+        this.setTitle(" Feedback Kegiatan");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_chat);
 
         session = new Session(this);
         email = session.getEmail();
@@ -58,6 +60,7 @@ public class FeedbackActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), email, Toast.LENGTH_LONG).show();
         id_kegiatan = getIntent().getExtras().getString("id_kegiatan");
         nama_kegiatan = getIntent().getExtras().getString("nama_kegiatan");
+        Toast.makeText(getApplicationContext(), id_kegiatan, Toast.LENGTH_LONG).show();
 
         txt_nama_kegiatan_feedback = (TextView) findViewById(R.id.txt_nama_kegiatan_feedback);
         txt_null_feedback = (TextView) findViewById(R.id.txt_null_feedback);
@@ -137,17 +140,13 @@ public class FeedbackActivity extends AppCompatActivity {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             Feedback model = new Feedback();
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            int id_feedback_kegiatan = Integer.parseInt(innerObject.getString("id_feedback_kegiatan"));
-                            String nama = innerObject.getString("nama");
-                            String komentar = innerObject.getString("komentar");
-                            int rating = Integer.parseInt(innerObject.getString("rating"));
-                            int jml_balasan = Integer.parseInt(innerObject.getString("jml_balasan"));
 
-                            model.setId_feedback_kegiatan(id_feedback_kegiatan);
-                            model.setNama(nama);
-                            model.setKomentar(komentar);
-                            model.setRating(rating);
-                            model.setJml_balasan(jml_balasan);
+                            model.setId_feedback_kegiatan(innerObject.getInt("id_feedback_kegiatan"));
+                            model.setNama(innerObject.getString("nama"));
+                            model.setKomentar(innerObject.getString("komentar"));
+                            model.setRating(innerObject.getInt("rating"));
+                            model.setJml_balasan(innerObject.getInt("jml_balasan"));
+                            model.setTanggal(innerObject.getString("tanggal"));
                             list.add(model);
                         }
                     }
