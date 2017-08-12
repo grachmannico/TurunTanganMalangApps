@@ -135,14 +135,13 @@
                 android:text="Jumlah Dana Terkumpul: "
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/txt_deskripsi"
+            <org.sufficientlysecure.htmltextview.HtmlTextView
+                android:id="@+id/html_deskripsi"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_height="match_parent"
                 android:drawableLeft="@drawable/ic_description_red"
                 android:drawablePadding="5dp"
-                android:text="Deskripsi Kegiatan: "
+                android:textAppearance="@android:style/TextAppearance.Small"
                 android:textSize="18sp" />
 
             <ImageView

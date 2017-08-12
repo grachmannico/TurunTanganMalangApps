@@ -184,7 +184,6 @@ public class KegiatanFragment extends Fragment {
         @Nullable
         @Override
         protected Void doInBackground(Void... params) {
-//            jsonParser = new JSONParser(getActivity().getApplicationContext());
             JSONArray jsonArray = JSONParser.tampil_kegiatan(id_status_kegiatan);
             try {
                 if (jsonArray != null) {
@@ -193,19 +192,12 @@ public class KegiatanFragment extends Fragment {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
                             Kegiatan model = new Kegiatan(getActivity().getApplicationContext());
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            int id_kegiatan = Integer.parseInt(innerObject.getString("id_kegiatan"));
-                            String nama_kegiatan = innerObject.getString("nama_kegiatan");
-                            String pesan_ajakan = innerObject.getString("pesan_ajakan");
-                            String banner = innerObject.getString("banner");
-                            double lat = Double.parseDouble(innerObject.getString("lat"));
-                            double lng = Double.parseDouble(innerObject.getString("lng"));
-
-                            model.setId_kegiatan(id_kegiatan);
-                            model.setNama_kegiatan(nama_kegiatan);
-                            model.setPesan_ajakan(pesan_ajakan);
-                            model.setBanner(banner);
-                            model.setLat(lat);
-                            model.setLng(lng);
+                            model.setId_kegiatan(innerObject.getInt("id_kegiatan"));
+                            model.setNama_kegiatan(innerObject.getString("nama_kegiatan"));
+                            model.setPesan_ajakan(innerObject.getString("pesan_ajakan"));
+                            model.setBanner(innerObject.getString("banner"));
+                            model.setLat(innerObject.getDouble("lat"));
+                            model.setLng(innerObject.getDouble("lng"));
                             list.add(model);
                         }
                     }

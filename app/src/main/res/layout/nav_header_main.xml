@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@color/reddarkflat"
+    android:background="@drawable/bg2c"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -14,22 +14,44 @@
 
     <ImageView
         android:id="@+id/img_foto_profil"
-        android:layout_marginTop="10dp"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        app:srcCompat="@drawable/ttm_logo_white" />
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/ttm_logo" />
 
-    <TextView
-        android:id="@+id/txt_nama"
+    <!--<TextView-->
+    <!--android:id="@+id/txt_nama"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Android Studio"-->
+    <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/txt_divisi"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="android.studio@android.com" />-->
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Android Studio"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:background="#802c3e50"
+        android:orientation="vertical"
+        android:padding="3dp"
+        android:layout_marginTop="2dp">
 
-    <TextView
-        android:id="@+id/txt_divisi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="android.studio@android.com" />
+        <TextView
+            android:id="@+id/txt_nama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Android Studio"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/txt_divisi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="android.studio@android.com" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -26,6 +26,7 @@ import com.example.nicko.turuntanganmalangapps.fragments.KegiatanFragment;
 import com.example.nicko.turuntanganmalangapps.fragments.ListKonfirmasiDonasiFragment;
 import com.example.nicko.turuntanganmalangapps.fragments.ListKonfirmasiPembayaranFragment;
 import com.example.nicko.turuntanganmalangapps.fragments.NotificationFragment;
+import com.example.nicko.turuntanganmalangapps.fragments.SertifikatFragment;
 import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
 import com.example.nicko.turuntanganmalangapps.sqlite.SQLiteHelper;
 import com.example.nicko.turuntanganmalangapps.utils.Session;
@@ -157,6 +158,11 @@ public class MainActivity extends AppCompatActivity
                     getSupportActionBar().setDisplayUseLogoEnabled(false);
                     getSupportActionBar().setIcon(R.drawable.ic_cast_connected);
                     fragment = new KegiatanDiikutiFragment();
+                    break;
+                case R.id.nav_sertifikat:
+                    getSupportActionBar().setDisplayUseLogoEnabled(false);
+                    getSupportActionBar().setIcon(R.drawable.ic_card_member);
+                    fragment = new SertifikatFragment();
                     break;
                 case R.id.nav_profil_relawan:
                     Intent intent = new Intent(MainActivity.this, ProfilRelawanActivity.class);

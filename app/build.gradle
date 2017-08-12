@@ -20,6 +20,10 @@ android {
     }
 }
 
+repositories {
+    jcenter()
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -35,6 +39,7 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.4.+'
+    compile 'org.sufficientlysecure:html-textview:3.4'
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

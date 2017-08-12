@@ -11,7 +11,7 @@ import com.example.nicko.turuntanganmalangapps.utils.Session;
 public class Kegiatan {
     private int id_kegiatan, jml_relawan, minimal_relawan;
     private double lat, lng, donasi, minimal_donasi;
-    private String nama_kegiatan, pesan_ajakan, deskripsi_kegiatan, alamat, banner, status_kegiatan, tanggal_kegiatan, batas_akhir_pendaftaran;
+    private String nama_kegiatan, pesan_ajakan, deskripsi_kegiatan, alamat, banner, status_kegiatan, tanggal_kegiatan, batas_akhir_pendaftaran, sertifikat;
     private Context context;
     private Session session;
 
@@ -138,6 +138,14 @@ public class Kegiatan {
 
     public void setBatas_akhir_pendaftaran(String batas_akhir_pendaftaran) {
         this.batas_akhir_pendaftaran = batas_akhir_pendaftaran;
+    }
+
+    public String getSertifikat() {
+        return sertifikat;
+    }
+
+    public void setSertifikat(String sertifikat) {
+        this.sertifikat = sertifikat;
     }
 
     public Context getContext() {

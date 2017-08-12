@@ -11,63 +11,85 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.nicko.turuntanganmalangapps.activities.KeranjangBelanjaActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/txt_judul_detail"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_shopping_cart_red"
-            android:gravity="center"
-            android:text="Barang yang anda beli:"
+            android:orientation="vertical">
 
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/txt_judul_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_shopping_cart_red"
+                android:gravity="center"
+                android:text="Barang yang anda beli:"
 
-        <ListView
-            android:id="@+id/list_keranjang_belanja_detail"
-            android:layout_width="fill_parent"
-            android:layout_height="300dp"
-            android:layout_below="@+id/linear_layout" />
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/txt_invoice_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="INVOICE"
-            android:textSize="15sp" />
+            <ListView
+                android:id="@+id/list_keranjang_belanja_detail"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/linear_layout" />
 
-        <TextView
-            android:id="@+id/txt_total_tagihan_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Total Tagihan: "
-            android:textSize="15sp" />
+            <TextView
+                android:id="@+id/txt_invoice_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="INVOICE"
+                android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/btn_foto_struk_pembelian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/reddarkflat"
-            android:drawableLeft="@drawable/ic_file_upload"
-            android:drawablePadding="5dp"
-            android:text="Struk Transfer Pembelian"
-            android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/txt_total_tagihan_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Total Tagihan: "
+                android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/btn_konfirmasi_pembelian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/reddarkflat"
-            android:drawableLeft="@drawable/ic_check_circle"
-            android:drawablePadding="5dp"
-            android:text="Konfirmasi Pembelian"
-            android:textColor="@color/white" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_foto_struk_pembelian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/reddarkflat"
+                android:drawableLeft="@drawable/ic_file_upload"
+                android:drawablePadding="5dp"
+                android:text="Struk Transfer Pembelian"
+                android:textColor="@color/white" />
+
+            <EditText
+                android:id="@+id/edt_alamat_pengiriman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/reddarkflat"
+                android:drawableLeft="@drawable/ic_home_red"
+                android:hint="Alamat pengiriman" />
+
+            <EditText
+                android:id="@+id/edt_no_hp_pembeli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/reddarkflat"
+                android:drawableLeft="@drawable/ic_phone_red"
+                android:hint="Nomor Yang Bisa Dihubungi"
+                android:inputType="phone" />
+
+            <Button
+                android:id="@+id/btn_konfirmasi_pembelian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/reddarkflat"
+                android:drawableLeft="@drawable/ic_check_circle"
+                android:drawablePadding="5dp"
+                android:text="Konfirmasi Pembelian"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

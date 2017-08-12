@@ -2,6 +2,7 @@ package com.example.nicko.turuntanganmalangapps.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -24,13 +25,16 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
 
     private ImageView img_banner_kegiatan_diikuti;
     private TextView txt_nama_kegiatan_detail_diikuti, txt_pesan_ajakan_detail_diikuti, txt_status_kegiatan_diikuti, txt_alamat_diikuti, txt_jumlah_relawan_diikuti,
-            txt_jumlah_donasi_diikuti, txt_deskripsi_diikuti;
-    private Button btn_dokumentasi, btn_monitor_dana, btn_feedback;
+            txt_jumlah_donasi_diikuti;
+    private Button btn_dokumentasi, btn_monitor_dana, btn_feedback, btn_print_lpj;
+    private HtmlTextView htmlTextView;
 
     private String email, id_kegiatan, nama_kegiatan, status;
 
@@ -55,10 +59,12 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
         txt_alamat_diikuti = (TextView) findViewById(R.id.txt_alamat_diikuti);
         txt_jumlah_relawan_diikuti = (TextView) findViewById(R.id.txt_jumlah_relawan_diikuti);
         txt_jumlah_donasi_diikuti = (TextView) findViewById(R.id.txt_jumlah_donasi_diikuti);
-        txt_deskripsi_diikuti = (TextView) findViewById(R.id.txt_deskripsi_diikuti);
         btn_dokumentasi = (Button) findViewById(R.id.btn_dokumentasi);
         btn_monitor_dana = (Button) findViewById(R.id.btn_monitor_dana);
         btn_feedback = (Button) findViewById(R.id.btn_feedback);
+        btn_print_lpj = (Button) findViewById(R.id.btn_print_lpj);
+
+        htmlTextView = (HtmlTextView) findViewById(R.id.html_deskripsi_diikuti);
 
         id_kegiatan = getIntent().getExtras().getString("id_kegiatan");
 
@@ -95,6 +101,16 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btn_print_lpj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = session.getURL() + "Report/print_lpj/" + id_kegiatan;
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
     }
 
     class Detail_Kegiatan_Diikuti extends AsyncTask<Void, Void, Void> {
@@ -121,8 +137,6 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                         kegiatan.setNama_kegiatan(jsonObject.getString("nama_kegiatan"));
                         kegiatan.setPesan_ajakan(jsonObject.getString("pesan_ajakan"));
                         kegiatan.setDeskripsi_kegiatan(jsonObject.getString("deskripsi_kegiatan"));
-//                        kegiatan.setMinimal_relawan(jsonObject.getString("jumlah_relawan") + " / " + jsonObject.getString("minimal_relawan"));
-//                        kegiatan.setMinimal_donasi(jsonObject.getString("jumlah_donasi") + " / " + jsonObject.getString("minimal_donasi"));
                         kegiatan.setJml_relawan(jsonObject.getInt("jumlah_relawan"));
                         kegiatan.setMinimal_relawan(jsonObject.getInt("minimal_relawan"));
                         kegiatan.setDonasi(jsonObject.getDouble("jumlah_donasi"));
@@ -149,9 +163,10 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
             if (status.equals("sukses")) {
                 txt_nama_kegiatan_detail_diikuti.setText(kegiatan.getNama_kegiatan());
                 txt_pesan_ajakan_detail_diikuti.setText(kegiatan.getPesan_ajakan());
-                txt_deskripsi_diikuti.setText("Deskripsi: \n" + Html.fromHtml(kegiatan.getDeskripsi_kegiatan()));
-//                txt_jumlah_relawan_diikuti.setText("Jumlah Relawan: " + kegiatan.getMinimal_relawan());
-//                txt_jumlah_donasi_diikuti.setText("Donasi Terkumpul: " + kegiatan.getMinimal_donasi());
+
+                htmlTextView.setHtml("Deskripsi: <br>" + kegiatan.getDeskripsi_kegiatan(),
+                        new HtmlHttpImageGetter(htmlTextView));
+
                 txt_jumlah_relawan_diikuti.setText("Jumlah Relawan: \n" + NumberFormatter.number_separator(kegiatan.getJml_relawan()) + " / " + NumberFormatter.number_separator(kegiatan.getMinimal_relawan()));
                 txt_jumlah_donasi_diikuti.setText("Jumlah Donasi: \n" + NumberFormatter.money(kegiatan.getDonasi()) + " / " + NumberFormatter.money(kegiatan.getMinimal_donasi()));
                 txt_alamat_diikuti.setText("Alamat: \n" + kegiatan.getAlamat());
@@ -165,6 +180,7 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                         btn_dokumentasi.setVisibility(View.VISIBLE);
                         btn_monitor_dana.setVisibility(View.VISIBLE);
                         btn_feedback.setVisibility(View.VISIBLE);
+                        btn_print_lpj.setVisibility(View.VISIBLE);
                     }
                 } else if (session.getTipePengguna().equals("relawan")) {
                     if (kegiatan.getStatus_kegiatan().equals("Kegiatan Sedang Berjalan")) {

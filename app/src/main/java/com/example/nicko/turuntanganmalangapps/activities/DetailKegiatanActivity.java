@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,15 +30,18 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 public class DetailKegiatanActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
     private TextView txt_nama_kegiatan_detail, txt_pesan_ajakan_detail, txt_alamat, txt_tanggal_kegiatan, txt_batas_akhir_pendaftaran,
-            txt_jumlah_relawan, txt_jumlah_donasi, txt_deskripsi;
+            txt_jumlah_relawan, txt_jumlah_donasi;
     private Button btn_gabung, btn_donasi, btn_dokumentasi_kegiatan;
     private ImageView img_banner_kegiatan;
+    private HtmlTextView htmlTextView;
 
     private String id_kegiatan, email, status, status_bergabung;
 
@@ -66,11 +68,12 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
         txt_batas_akhir_pendaftaran = (TextView) findViewById(R.id.txt_batas_akhir_pendaftaran);
         txt_jumlah_relawan = (TextView) findViewById(R.id.txt_jumlah_relawan);
         txt_jumlah_donasi = (TextView) findViewById(R.id.txt_jumlah_donasi);
-        txt_deskripsi = (TextView) findViewById(R.id.txt_deskripsi);
         img_banner_kegiatan = (ImageView) findViewById(R.id.img_banner_kegiatan);
         btn_gabung = (Button) findViewById(R.id.btn_gabung);
         btn_donasi = (Button) findViewById(R.id.btn_donasi);
         btn_dokumentasi_kegiatan = (Button) findViewById(R.id.btn_dokumentasi_kegiatan);
+
+        htmlTextView = (HtmlTextView) findViewById(R.id.html_deskripsi);
 
         session = new Session(this);
         email = session.getEmail();
@@ -147,8 +150,6 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
                         kegiatan.setNama_kegiatan(jsonObject.getString("nama_kegiatan"));
                         kegiatan.setPesan_ajakan(jsonObject.getString("pesan_ajakan"));
                         kegiatan.setDeskripsi_kegiatan(jsonObject.getString("deskripsi_kegiatan"));
-//                        kegiatan.setMinimal_relawan(jsonObject.getString("jumlah_relawan") + " / " + jsonObject.getString("minimal_relawan"));
-//                        kegiatan.setMinimal_donasi(jsonObject.getString("jumlah_donasi") + " / " + jsonObject.getString("minimal_donasi"));
                         kegiatan.setJml_relawan(jsonObject.getInt("jumlah_relawan"));
                         kegiatan.setMinimal_relawan(jsonObject.getInt("minimal_relawan"));
                         kegiatan.setDonasi(jsonObject.getDouble("jumlah_donasi"));
@@ -180,9 +181,10 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
             if (status.equals("sukses")) {
                 txt_nama_kegiatan_detail.setText(kegiatan.getNama_kegiatan());
                 txt_pesan_ajakan_detail.setText(kegiatan.getPesan_ajakan());
-                txt_deskripsi.setText("Deskripsi: \n" + Html.fromHtml(kegiatan.getDeskripsi_kegiatan()));
-//                txt_jumlah_relawan.setText("Jumlah Relawan: " + kegiatan.getMinimal_relawan());
-//                txt_jumlah_donasi.setText("Donasi Terkumpul: " + kegiatan.getMinimal_donasi());
+
+                htmlTextView.setHtml("Deskripsi: <br>" + kegiatan.getDeskripsi_kegiatan(),
+                        new HtmlHttpImageGetter(htmlTextView));
+
                 txt_jumlah_relawan.setText("Jumlah Relawan: \n" + NumberFormatter.number_separator(kegiatan.getJml_relawan()) + " / " + NumberFormatter.number_separator(kegiatan.getMinimal_relawan()));
                 txt_jumlah_donasi.setText("Donasi Terkumpul: \n" + NumberFormatter.money(kegiatan.getDonasi()) + " / " + NumberFormatter.money(kegiatan.getMinimal_donasi()));
                 txt_tanggal_kegiatan.setText("Pelaksanaan Kegiatan: \n" + kegiatan.getTanggal_kegiatan());

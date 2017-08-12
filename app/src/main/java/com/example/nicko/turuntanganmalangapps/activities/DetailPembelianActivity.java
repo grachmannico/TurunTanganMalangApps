@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,12 +42,13 @@ public class DetailPembelianActivity extends AppCompatActivity {
 
     private TextView txt_invoice_detail, txt_total_tagihan_detail;
     private Button btn_foto_struk_pembelian, btn_konfirmasi_pembelian;
+    private EditText edt_alamat_pengiriman, edt_no_hp_pembeli;
 
     private ListView listView;
     private ArrayList<GarageSale> list;
     private KeranjangBelanjaAdapter adapter;
 
-    private String invoice, status;
+    private String invoice, alamat_pengiriman, no_hp_pembeli, status;
     private double total_tagihan;
 
     private File image;
@@ -75,6 +77,8 @@ public class DetailPembelianActivity extends AppCompatActivity {
 
         txt_invoice_detail = (TextView) findViewById(R.id.txt_invoice_detail);
         txt_total_tagihan_detail = (TextView) findViewById(R.id.txt_total_tagihan_detail);
+        edt_alamat_pengiriman = (EditText) findViewById(R.id.edt_alamat_pengiriman);
+        edt_no_hp_pembeli = (EditText) findViewById(R.id.edt_no_hp_pembeli);
 
         txt_invoice_detail.setText("ID Invoice: " + invoice);
         total_tagihan = 0;
@@ -99,8 +103,14 @@ public class DetailPembelianActivity extends AppCompatActivity {
         btn_konfirmasi_pembelian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                alamat_pengiriman = edt_alamat_pengiriman.getText().toString();
+                no_hp_pembeli = edt_no_hp_pembeli.getText().toString();
                 if (image_name.equals("imgNull")) {
                     Toast.makeText(getApplicationContext(), "Anda Belum Memilih Struk Transfer Untuk Diunggah", Toast.LENGTH_LONG).show();
+                } else if (alamat_pengiriman.equals("") || alamat_pengiriman.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Isi Seluruh Form Yang ada Terlebih Dahulu", Toast.LENGTH_LONG).show();
+                } else if (no_hp_pembeli.equals("") || no_hp_pembeli.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Isi Seluruh Form Yang ada Terlebih Dahulu", Toast.LENGTH_LONG).show();
                 } else {
                     if (InternetConnection.checkConnection(getApplicationContext())) {
                         new Konfirmasi_Pembelian().execute();
@@ -282,7 +292,7 @@ public class DetailPembelianActivity extends AppCompatActivity {
         @Nullable
         @Override
         protected Void doInBackground(Void... params) {
-            JSONObject jsonObject = JSONParser.konfirmasi_pembelian(invoice, image, image_name);
+            JSONObject jsonObject = JSONParser.konfirmasi_pembelian(invoice, alamat_pengiriman, no_hp_pembeli, image, image_name);
             try {
                 if (jsonObject != null) {
                     if (jsonObject.length() > 0) {

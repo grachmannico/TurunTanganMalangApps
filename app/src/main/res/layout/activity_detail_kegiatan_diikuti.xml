@@ -70,6 +70,17 @@
                     android:visibility="gone" />
             </LinearLayout>
 
+            <Button
+                android:id="@+id/btn_print_lpj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/reddarkflat"
+                android:drawableLeft="@drawable/ic_description"
+                android:text="Lihat LPJ"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/txt_status_kegiatan_diikuti"
                 android:layout_width="match_parent"
@@ -110,14 +121,13 @@
                 android:text="Jumlah Dana Terkumpul: "
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/txt_deskripsi_diikuti"
+            <org.sufficientlysecure.htmltextview.HtmlTextView
+                android:id="@+id/html_deskripsi_diikuti"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_height="match_parent"
                 android:drawableLeft="@drawable/ic_description_red"
                 android:drawablePadding="5dp"
-                android:text="Deskripsi Kegiatan: "
+                android:textAppearance="@android:style/TextAppearance.Small"
                 android:textSize="18sp" />
 
             <ImageView

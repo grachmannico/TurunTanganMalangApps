@@ -458,7 +458,7 @@ public class JSONParser {
         return null;
     }
 
-    public static JSONObject konfirmasi_pembelian(String invoice, File image, String image_name) {
+    public static JSONObject konfirmasi_pembelian(String invoice, String alamat_pengiriman, String no_hp_pembeli, File image, String image_name) {
 
         try {
             OkHttpClient client = new OkHttpClient();
@@ -466,6 +466,8 @@ public class JSONParser {
             RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("struk", image_name, RequestBody.create(MEDIA_TYPE_PNG, image))
                     .addFormDataPart("invoice", invoice)
+                    .addFormDataPart("alamat_pengiriman", alamat_pengiriman)
+                    .addFormDataPart("no_hp_pembeli", no_hp_pembeli)
                     .build();
 
             Request request = new Request.Builder()
@@ -703,6 +705,27 @@ public class JSONParser {
             return new JSONObject(response.body().string());
 
         } catch (IOException | JSONException e) {
+            Log.e(TAG, "" + e.getLocalizedMessage());
+        }
+        return null;
+    }
+
+    public static JSONArray achievement(String email) {
+        try {
+            OkHttpClient client = new OkHttpClient();
+
+            RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
+                    .add("email", email)
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(MAIN_URL + "achievement")
+                    .post(formBody)
+                    .build();
+
+            response = client.newCall(request).execute();
+            return new JSONArray(response.body().string());
+        } catch (@NonNull IOException | JSONException e) {
             Log.e(TAG, "" + e.getLocalizedMessage());
         }
         return null;
