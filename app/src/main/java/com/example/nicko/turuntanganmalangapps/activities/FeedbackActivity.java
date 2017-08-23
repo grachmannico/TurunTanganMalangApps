@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,12 +39,13 @@ public class FeedbackActivity extends AppCompatActivity {
 
     private TextView txt_nama_kegiatan_feedback, txt_null_feedback;
     private EditText edt_feedback;
-    private Spinner spin_rating;
+//    private Spinner spin_rating;
     private Button btn_kirim_feedback;
+    private RatingBar rating_kegiatan;
 
     private Session session;
     private String id_kegiatan, nama_kegiatan, email, tipe_pengguna, komentar, rating, status;
-    private String[] array_rating;
+//    private String[] array_rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,16 +67,17 @@ public class FeedbackActivity extends AppCompatActivity {
         txt_nama_kegiatan_feedback = (TextView) findViewById(R.id.txt_nama_kegiatan_feedback);
         txt_null_feedback = (TextView) findViewById(R.id.txt_null_feedback);
         edt_feedback = (EditText) findViewById(R.id.edt_feedback);
-        spin_rating = (Spinner) findViewById(R.id.spin_rating);
+//        spin_rating = (Spinner) findViewById(R.id.spin_rating);
         btn_kirim_feedback = (Button) findViewById(R.id.btn_kirim_feedback);
+        rating_kegiatan = (RatingBar) findViewById(R.id.rating_kegiatan);
 
         txt_nama_kegiatan_feedback.setText(nama_kegiatan);
 
-        this.array_rating = new String[]{
-                "5", "4", "3", "2", "1"
-        };
-        ArrayAdapter<String> status_kegiatan_adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, array_rating);
-        spin_rating.setAdapter(status_kegiatan_adapter);
+//        this.array_rating = new String[]{
+//                "5", "4", "3", "2", "1"
+//        };
+//        ArrayAdapter<String> status_kegiatan_adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, array_rating);
+//        spin_rating.setAdapter(status_kegiatan_adapter);
 
         listView = (ListView) findViewById(R.id.list_feedback);
         list = new ArrayList<>();
@@ -98,11 +101,19 @@ public class FeedbackActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
         }
 
+        rating_kegiatan.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                rating = String.valueOf(v);
+            }
+        });
+
         btn_kirim_feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 komentar = edt_feedback.getText().toString();
-                rating = spin_rating.getSelectedItem().toString();
+//                rating = spin_rating.getSelectedItem().toString();
+
                 if (komentar.equals("") || komentar.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Isi Kolom Komentar", Toast.LENGTH_LONG).show();
                 } else {

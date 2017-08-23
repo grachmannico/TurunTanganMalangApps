@@ -1,12 +1,14 @@
 package com.example.nicko.turuntanganmalangapps.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +62,15 @@ public class DokumentasiActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
         }
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent intent = new Intent(DokumentasiActivity.this, ImageViewerActivity.class);
+                intent.putExtra("the_image", list.get(position).getGambar_dokumentasi());
+                startActivity(intent);
+            }
+        });
     }
 
     class Dokumentasi_Kegiatan extends AsyncTask<Void, Void, Void> {

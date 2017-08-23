@@ -5,13 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.nicko.turuntanganmalangapps.R;
-import com.example.nicko.turuntanganmalangapps.models.Kegiatan;
-import com.squareup.picasso.Picasso;
+import com.example.nicko.turuntanganmalangapps.models.SertifikatRelawan;
 
 import java.util.List;
 
@@ -19,13 +17,13 @@ import java.util.List;
  * Created by nicko on 8/11/2017.
  */
 
-public class SertifikatAdapter extends ArrayAdapter<Kegiatan> {
-    List<Kegiatan> modelList;
+public class SertifikatAdapter extends ArrayAdapter<SertifikatRelawan> {
+    List<SertifikatRelawan> modelList;
     Context context;
     private LayoutInflater mInflater;
 
     // Constructors
-    public SertifikatAdapter(Context context, List<Kegiatan> objects) {
+    public SertifikatAdapter(Context context, List<SertifikatRelawan> objects) {
         super(context, 0, objects);
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
@@ -33,7 +31,7 @@ public class SertifikatAdapter extends ArrayAdapter<Kegiatan> {
     }
 
     @Override
-    public Kegiatan getItem(int position) {
+    public SertifikatRelawan getItem(int position) {
         return modelList.get(position);
     }
 
@@ -48,10 +46,10 @@ public class SertifikatAdapter extends ArrayAdapter<Kegiatan> {
             vh = (ViewHolder) convertView.getTag();
         }
 
-        Kegiatan item = getItem(position);
+        SertifikatRelawan item = getItem(position);
 
-        vh.txt_nama_sertif_kegiatan.setText("Setifikat " + item.getNama_kegiatan());
-        vh.txt_tanggal_sertif_kegiatan.setText("Diterbitkan Pada Tanggal: " + item.getTanggal_kegiatan());
+        vh.txt_nama_sertif_kegiatan.setText(item.getNama_sertifikat());
+        vh.txt_tanggal_sertif_kegiatan.setText("Diterbitkan " + item.getTanggal_terbit());
 
         return vh.rootView;
     }

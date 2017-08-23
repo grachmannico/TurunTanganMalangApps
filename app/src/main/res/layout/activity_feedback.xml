@@ -30,6 +30,34 @@
             android:backgroundTint="@color/reddarkflat"
             android:hint="Feedback Anda" />
 
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Rating:"-->
+        <!--android:textSize="17sp" />-->
+
+        <!--&lt;!&ndash;<Spinner&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/spin_rating"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="wrap_content" />&ndash;&gt;-->
+
+        <!--<Button-->
+        <!--android:id="@+id/btn_kirim_feedback"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:backgroundTint="@color/reddarkflat"-->
+        <!--android:drawablePadding="5dp"-->
+        <!--android:drawableRight="@drawable/ic_send"-->
+        <!--android:text="Kirim Feedback"-->
+        <!--android:textColor="@color/white" />-->
+        <!--</LinearLayout>-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,24 +67,30 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rating:"
-                android:textSize="17sp" />
+                android:layout_gravity="center"
+                android:text="Rating: "
+                android:textSize="18sp" />
 
-            <Spinner
-                android:id="@+id/spin_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/btn_kirim_feedback"
+            <RatingBar
+                android:id="@+id/rating_kegiatan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/reddarkflat"
-                android:drawablePadding="5dp"
-                android:drawableRight="@drawable/ic_send"
-                android:text="Kirim Feedback"
-                android:textColor="@color/white" />
+                android:numStars="5"
+                android:progressTint="@color/reddarkflat"
+                android:rating="5.0"
+                android:stepSize="1.0" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_kirim_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:backgroundTint="@color/reddarkflat"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/ic_send"
+            android:text="Kirim Feedback"
+            android:textColor="@color/white" />
 
         <ListView
             android:id="@+id/list_feedback"

@@ -191,6 +191,15 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                     }
                 }
                 nama_kegiatan = kegiatan.getNama_kegiatan();
+
+                img_banner_kegiatan_diikuti.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(DetailKegiatanDiikutiActivity.this, ImageViewerActivity.class);
+                        intent.putExtra("the_image", kegiatan.getBanner());
+                        startActivity(intent);
+                    }
+                });
             } else if (status.equals("jsonNull")) {
                 Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {

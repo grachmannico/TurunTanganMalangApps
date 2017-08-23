@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nicko.turuntanganmalangapps.activities.ImageViewerActivity;
 import com.example.nicko.turuntanganmalangapps.activities.LoginActivity;
 import com.example.nicko.turuntanganmalangapps.activities.ProfilDonaturActivity;
 import com.example.nicko.turuntanganmalangapps.activities.ProfilRelawanActivity;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity
         txt_nama = (TextView) navHeaderView.findViewById(R.id.txt_nama);
         txt_divisi = (TextView) navHeaderView.findViewById(R.id.txt_divisi);
         img_foto_profil = (ImageView) navHeaderView.findViewById(R.id.img_foto_profil);
-        Picasso.with(MainActivity.this).load(session.getURL() + session.getFoto_profil()).placeholder(R.drawable.ttm_logo_white).error(R.drawable.ttm_logo_white).into(img_foto_profil);
+        Picasso.with(MainActivity.this).load(session.getURL() + session.getFoto_profil()).placeholder(R.drawable.ttm_logo).error(R.drawable.ttm_logo).into(img_foto_profil);
         Toast.makeText(getApplicationContext(), session.getURL() + session.getFoto_profil(), Toast.LENGTH_LONG).show();
 
         if (session.getTipePengguna().equals("relawan")) {
@@ -104,6 +105,14 @@ public class MainActivity extends AppCompatActivity
         }
 
 //        displaySelectedScreen(R.id.nav_kegiatan);
+        img_foto_profil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ImageViewerActivity.class);
+                intent.putExtra("the_image", session.getURL() + session.getFoto_profil());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

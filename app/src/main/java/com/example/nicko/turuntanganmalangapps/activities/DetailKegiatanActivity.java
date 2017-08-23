@@ -1,10 +1,18 @@
 package com.example.nicko.turuntanganmalangapps.activities;
 
+import android.Manifest;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,17 +22,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akexorcist.googledirection.DirectionCallback;
+import com.akexorcist.googledirection.GoogleDirection;
+import com.akexorcist.googledirection.constant.TransportMode;
+import com.akexorcist.googledirection.model.Direction;
+import com.akexorcist.googledirection.util.DirectionConverter;
 import com.example.nicko.turuntanganmalangapps.R;
 import com.example.nicko.turuntanganmalangapps.models.Kegiatan;
 import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
 import com.example.nicko.turuntanganmalangapps.utils.InternetConnection;
 import com.example.nicko.turuntanganmalangapps.utils.NumberFormatter;
 import com.example.nicko.turuntanganmalangapps.utils.Session;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
@@ -33,17 +48,21 @@ import org.json.JSONObject;
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
 import org.sufficientlysecure.htmltextview.HtmlTextView;
 
-public class DetailKegiatanActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.util.ArrayList;
+
+public class DetailKegiatanActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, DirectionCallback {
 
     private GoogleMap mMap;
 
     private TextView txt_nama_kegiatan_detail, txt_pesan_ajakan_detail, txt_alamat, txt_tanggal_kegiatan, txt_batas_akhir_pendaftaran,
             txt_jumlah_relawan, txt_jumlah_donasi;
-    private Button btn_gabung, btn_donasi, btn_dokumentasi_kegiatan;
+    private Button btn_gabung, btn_donasi, btn_dokumentasi_kegiatan, btn_route;
     private ImageView img_banner_kegiatan;
     private HtmlTextView htmlTextView;
 
     private String id_kegiatan, email, status, status_bergabung;
+    private double lat, lng, yLat, yLng = 0;
+    private LatLng origin, destination;
 
     private Session session;
     private NotificationManager nm;
@@ -72,6 +91,7 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
         btn_gabung = (Button) findViewById(R.id.btn_gabung);
         btn_donasi = (Button) findViewById(R.id.btn_donasi);
         btn_dokumentasi_kegiatan = (Button) findViewById(R.id.btn_dokumentasi_kegiatan);
+        btn_route = (Button) findViewById(R.id.btn_route);
 
         htmlTextView = (HtmlTextView) findViewById(R.id.html_deskripsi);
 
@@ -104,11 +124,46 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
 
         id_kegiatan = getIntent().getExtras().getString("id_kegiatan");
 
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
         if (InternetConnection.checkConnection(getApplicationContext())) {
             new Detail_Kegiatan().execute();
         } else {
             Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
         }
+
+//        yLat = -7.952440099999998;
+//        yLng = 112.6129181;
+
+        btn_route.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Pressed. " + yLat + "/" + yLng, Toast.LENGTH_LONG).show();
+                if (yLat == 0 && yLng == 0) {
+                    Toast.makeText(getApplicationContext(), "Lokasi Anda Belum Ditemukan. Tunggu Sebentar", Toast.LENGTH_LONG).show();
+                } else {
+                    origin = new LatLng(yLat, yLng);
+                    destination = new LatLng(lat, lng);
+                    GoogleDirection.withServerKey("AIzaSyBxygI2SIeOSnDK_kuw2a19WuCuFMX-Ua8")
+//                    GoogleDirection.withServerKey(String.valueOf(R.string.google_maps_key))
+                            .from(origin)
+                            .to(destination)
+                            .transportMode(TransportMode.DRIVING)
+                            .execute(DetailKegiatanActivity.this);
+                }
+            }
+        });
     }
 
 
@@ -124,6 +179,65 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return;
+//        }
+//        mMap.setMyLocationEnabled(true);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        yLat = location.getLatitude();
+        yLng = location.getLongitude();
+//        Toast.makeText(getApplicationContext(), "Your Location: " + yLat + yLng, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
+
+    @Override
+    public void onDirectionSuccess(Direction direction, String rawBody) {
+        Toast.makeText(getApplicationContext(), "Success with status : " + direction.getStatus(), Toast.LENGTH_LONG).show();
+        if (direction.isOK()) {
+            mMap.clear();
+            mMap.addMarker(new MarkerOptions().position(origin).title("Lokasi Anda"));
+            mMap.addMarker(new MarkerOptions().position(destination).title("Lokasi Kegiatan"));
+
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            builder.include(origin);
+            builder.include(destination);
+            LatLngBounds bounds = builder.build();
+
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 50);
+            mMap.animateCamera(cu);
+
+            ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
+            mMap.addPolyline(DirectionConverter.createPolyline(this, directionPositionList, 5, Color.parseColor("#c0392b")));
+        }
+    }
+
+    @Override
+    public void onDirectionFailure(Throwable t) {
+        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     class Detail_Kegiatan extends AsyncTask<Void, Void, Void> {
@@ -214,6 +328,8 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
                 LatLng locMarker = new LatLng(kegiatan.getLat(), kegiatan.getLng());
                 mMap.addMarker(new MarkerOptions().position(locMarker).title("Lokasi Kegiatan"));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(kegiatan.getLat(), kegiatan.getLng()), 15.0f));
+                lat = kegiatan.getLat();
+                lng = kegiatan.getLng();
 
                 Picasso.with(DetailKegiatanActivity.this).load(kegiatan.getBanner()).placeholder(R.drawable.ttm_logo).error(R.drawable.ttm_logo).into(img_banner_kegiatan);
 
@@ -221,6 +337,15 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
                     btn_gabung.setEnabled(false);
                     btn_gabung.setText("Anda Telah Bergabung Dalam Kegitan Ini");
                 }
+
+                img_banner_kegiatan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(DetailKegiatanActivity.this, ImageViewerActivity.class);
+                        intent.putExtra("the_image", kegiatan.getBanner());
+                        startActivity(intent);
+                    }
+                });
             } else if (status.equals("jsonNull")) {
                 Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             } else {

@@ -14,11 +14,26 @@
     <!--android:layout_height="match_parent"-->
     <!--tools:context="com.example.nicko.turuntanganmalangapps.activities.DetailKegiatanActivity" />-->
 
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_route"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/reddarkflat"
+            android:drawableLeft="@drawable/ic_location"
+            android:text="Tampilkan Rute"
+            android:textColor="@color/white" />
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"

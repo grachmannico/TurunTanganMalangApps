@@ -48,7 +48,7 @@ public class ProfilDonaturActivity extends AppCompatActivity {
     private ImageView img_foto_profil_donatur;
     private Button btn_update_foto_profil, btn_edit_profil_donatur, btn_tgl_lahir, btn_batal_update, btn_update_profil;
     private EditText edt_nama_donatur, edt_pass_donatur, edt_no_hp, edt_alamat;
-    private TextView txt_tgl_lahir;
+    private TextView txt_tgl_lahir, txt_status_donatur;
     private ScrollView show_edit;
     private Spinner spin_jenis_kelamin;
 
@@ -58,7 +58,7 @@ public class ProfilDonaturActivity extends AppCompatActivity {
     private String[] array_jenis_kelamin;
     ArrayAdapter<String> jenis_kelamin_adapter;
     private String email, tipe_pengguna, status;
-    private String foto_profil, nama, password, no_hp, alamat, tgl_lahir, jenis_kelamin;
+    private String foto_profil, nama, password, no_hp, alamat, tgl_lahir, jenis_kelamin, status_donatur;
 
     private Calendar calendar;
     private Session session;
@@ -88,6 +88,7 @@ public class ProfilDonaturActivity extends AppCompatActivity {
         edt_no_hp = (EditText) findViewById(R.id.edt_no_hp);
         edt_alamat = (EditText) findViewById(R.id.edt_alamat);
         txt_tgl_lahir = (TextView) findViewById(R.id.txt_tgl_lahir);
+        txt_status_donatur = (TextView) findViewById(R.id.txt_status_donatur);
         show_edit = (ScrollView) findViewById(R.id.show_edit);
         spin_jenis_kelamin = (Spinner) findViewById(R.id.spin_jenis_kelamin);
         btn_update_foto_profil = (Button) findViewById(R.id.btn_update_foto_profil);
@@ -276,6 +277,7 @@ public class ProfilDonaturActivity extends AppCompatActivity {
                             alamat = innerObject.getString("alamat");
                             foto_profil = innerObject.getString("foto_profil");
                             jenis_kelamin = innerObject.getString("id_jenis_kelamin");
+                            status_donatur = innerObject.getString("status_donatur");
                         }
                     }
                 }
@@ -296,6 +298,7 @@ public class ProfilDonaturActivity extends AppCompatActivity {
                 edt_alamat.setText(alamat);
                 edt_no_hp.setText(no_hp);
                 txt_tgl_lahir.setText(tgl_lahir);
+                txt_status_donatur.setText(status_donatur);
 //                edt_nama_donatur.setEnabled(false);
                 Picasso.with(ProfilDonaturActivity.this).load(session.getURL() + session.getFoto_profil()).placeholder(R.drawable.ttm_logo).error(R.drawable.ttm_logo).into(img_foto_profil_donatur);
 

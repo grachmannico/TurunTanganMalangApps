@@ -64,7 +64,7 @@ public class BalasanFeedbackActivity extends AppCompatActivity {
         btn_kirim_balasan = (Button) findViewById(R.id.btn_kirim_balasan);
 
         txt_nama_pengirim_dibalas.setText("Feedback Oleh:\n" + nama);
-        txt_komentar_dibalas.setText("Komentar:\n" + komentar);
+        txt_komentar_dibalas.setText("Feedback:\n" + komentar);
 
         listView = (ListView) findViewById(R.id.list_feedback_balasan);
         list = new ArrayList<>();

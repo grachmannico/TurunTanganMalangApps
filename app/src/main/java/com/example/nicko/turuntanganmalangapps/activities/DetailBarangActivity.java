@@ -169,6 +169,14 @@ public class DetailBarangActivity extends AppCompatActivity {
                 txt_stok.setText("Stok: " + garageSale.getStok_terpesan());
                 stok_terpesan = garageSale.getStok_terpesan();
                 Picasso.with(DetailBarangActivity.this).load(garageSale.getGambar_barang()).placeholder(R.drawable.ttm_logo).error(R.drawable.ttm_logo).into(img_barang);
+                img_barang.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(DetailBarangActivity.this, ImageViewerActivity.class);
+                        intent.putExtra("the_image", garageSale.getGambar_barang());
+                        startActivity(intent);
+                    }
+                });
             } else {
                 Toast.makeText(getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             }

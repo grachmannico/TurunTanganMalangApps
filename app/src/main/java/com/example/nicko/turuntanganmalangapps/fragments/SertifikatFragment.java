@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.example.nicko.turuntanganmalangapps.R;
 import com.example.nicko.turuntanganmalangapps.adapters.SertifikatAdapter;
-import com.example.nicko.turuntanganmalangapps.models.Kegiatan;
+import com.example.nicko.turuntanganmalangapps.models.SertifikatRelawan;
 import com.example.nicko.turuntanganmalangapps.parser.JSONParser;
 import com.example.nicko.turuntanganmalangapps.utils.InternetConnection;
 import com.example.nicko.turuntanganmalangapps.utils.Session;
@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 public class SertifikatFragment extends Fragment {
     private ListView listView;
-    private ArrayList<Kegiatan> list;
+    private ArrayList<SertifikatRelawan> list;
     private SertifikatAdapter adapter;
 
     private Session session;
@@ -67,7 +67,12 @@ public class SertifikatFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                String url = session.getURL() + "Report/sertifikat_kegiatan/" + email + "/" +list.get(position).getId_kegiatan();
+                String url = null;
+                if (list.get(position).getJenis().equals("SAR")) {
+                    url = session.getURL() + "Report/sertifikat_aktif_relawan/" + email + "/" + list.get(position).getId_target();
+                } else if (list.get(position).getJenis().equals("SK")) {
+                    url = session.getURL() + "Report/sertifikat_kegiatan/" + email + "/" + list.get(position).getId_target();
+                }
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
                 startActivity(intent);
@@ -98,11 +103,12 @@ public class SertifikatFragment extends Fragment {
                     int lenArray = jsonArray.length();
                     if (lenArray > 0) {
                         for (int jIndex = 0; jIndex < lenArray; jIndex++) {
-                            Kegiatan model = new Kegiatan(getActivity().getApplicationContext());
+                            SertifikatRelawan model = new SertifikatRelawan();
                             JSONObject innerObject = jsonArray.getJSONObject(jIndex);
-                            model.setNama_kegiatan(innerObject.getString("nama_kegiatan"));
-                            model.setTanggal_kegiatan(innerObject.getString("tanggal_kegiatan_berakhir"));
-                            model.setId_kegiatan(innerObject.getInt("id_kegiatan"));
+                            model.setNama_sertifikat(innerObject.getString("nama_sertifikat"));
+                            model.setTanggal_terbit(innerObject.getString("tanggal_terbit"));
+                            model.setId_target(innerObject.getInt("id_target"));
+                            model.setJenis(innerObject.getString("jenis"));
                             list.add(model);
                         }
                     }
