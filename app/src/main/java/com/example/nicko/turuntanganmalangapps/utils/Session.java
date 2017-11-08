@@ -13,6 +13,7 @@ public class Session {
     Context context;
     private String tipe_pengguna, nama, email, pangkat_divisi, divisi, invoice, foto_profil;
     private String MAIN_URL = "http://192.168.43.133:80/ttm/";
+//    private String MAIN_URL = "https://acold-action.000webhostapp.com/ttm/";
 
     public Session(Context context) {
         this.context = context;

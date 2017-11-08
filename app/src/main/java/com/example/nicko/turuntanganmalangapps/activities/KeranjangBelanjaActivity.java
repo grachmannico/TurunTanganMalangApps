@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +36,8 @@ import java.util.ArrayList;
 public class KeranjangBelanjaActivity extends AppCompatActivity {
 
     private TextView txt_invoice, txt_total_tagihan, txt_judul_cart, txt_null_cart;
-    private Button btn_beli_sekarang, btn_tambah_barang_belanja, btn_batal_beli;
+    private Button btn_beli_sekarang, btn_tambah_barang_belanja, btn_batal_beli, btn_daftar_konfirmasi_pembelian;
+    private LinearLayout layer1, layer2;
 
     private ListView listView;
     private ArrayList<GarageSale> list;
@@ -73,6 +75,9 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
         txt_null_cart = (TextView) findViewById(R.id.txt_null_cart);
         txt_total_tagihan = (TextView) findViewById(R.id.txt_total_tagihan);
 
+        layer1 = (LinearLayout) findViewById(R.id.layer1);
+        layer2 = (LinearLayout) findViewById(R.id.layer2);
+
         txt_invoice.setText("ID Invoice: " + invoice);
         total_tagihan = 0;
 
@@ -85,6 +90,7 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
         btn_beli_sekarang = (Button) findViewById(R.id.btn_beli_sekarang);
         btn_batal_beli = (Button) findViewById(R.id.btn_batal_beli);
         btn_tambah_barang_belanja = (Button) findViewById(R.id.btn_tambah_barang_belanja);
+        btn_daftar_konfirmasi_pembelian = (Button) findViewById(R.id.btn_daftar_konfirmasi_pembelian);
 
         btn_beli_sekarang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +123,16 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(KeranjangBelanjaActivity.this, MainActivity.class);
                 intent.putExtra("trigger", "garage_sale");
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btn_daftar_konfirmasi_pembelian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(KeranjangBelanjaActivity.this, MainActivity.class);
+                intent.putExtra("trigger", "konfirmasi_pembelian");
                 startActivity(intent);
                 finish();
             }
@@ -300,9 +316,11 @@ public class KeranjangBelanjaActivity extends AppCompatActivity {
                 session = new Session(getApplicationContext());
                 session.setInvoice("null");
                 Toast.makeText(getApplicationContext(), "Pembelian Barang Sukses. Segera Lakukan Pembayaran dan Konfirmasi Pembayaran", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(KeranjangBelanjaActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(KeranjangBelanjaActivity.this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
+                layer1.setVisibility(View.GONE);
+                layer2.setVisibility(View.VISIBLE);
             } else if (status.equals("gagal")) {
                 Toast.makeText(getApplicationContext(), "Pembelian Barang Gagal", Toast.LENGTH_LONG).show();
             } else if (status.equals("jsonNull")) {

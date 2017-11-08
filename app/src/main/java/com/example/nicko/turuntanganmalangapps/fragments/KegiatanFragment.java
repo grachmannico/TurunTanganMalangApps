@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nicko.turuntanganmalangapps.R;
@@ -39,6 +40,7 @@ public class KegiatanFragment extends Fragment {
     private ListView listView;
     private ArrayList<Kegiatan> list;
     private KegiatanAdapter adapter;
+    private TextView txt_null_kegiatan;
 
     private Button btn_cari;
     private Spinner spin_status_kegiatan;
@@ -57,6 +59,8 @@ public class KegiatanFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         getActivity().setTitle("Turun Tangan Malang");
+
+        txt_null_kegiatan = (TextView) getActivity().findViewById(R.id.txt_null_kegiatan);
 
         listView = (ListView) getActivity().findViewById(R.id.list_kegiatan);
         btn_cari = (Button) getActivity().findViewById(R.id.btn_cari);
@@ -214,10 +218,12 @@ public class KegiatanFragment extends Fragment {
             dialog.dismiss();
             if (list.size() > 0) {
                 listView.setVisibility(View.VISIBLE);
+                txt_null_kegiatan.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();
             } else if (list.size() == 0) {
                 listView.setVisibility(View.GONE);
-                Toast.makeText(getActivity().getApplicationContext(), "Data Tidak Ditemukan", Toast.LENGTH_LONG).show();
+                txt_null_kegiatan.setVisibility(View.VISIBLE);
+//                Toast.makeText(getActivity().getApplicationContext(), "Data Tidak Ditemukan", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getActivity().getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             }

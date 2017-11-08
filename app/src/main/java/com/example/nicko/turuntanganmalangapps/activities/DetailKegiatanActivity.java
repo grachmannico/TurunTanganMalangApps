@@ -149,7 +149,7 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
         btn_route.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Pressed. " + yLat + "/" + yLng, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Pressed. " + yLat + "/" + yLng, Toast.LENGTH_LONG).show();
                 if (yLat == 0 && yLng == 0) {
                     Toast.makeText(getApplicationContext(), "Lokasi Anda Belum Ditemukan. Tunggu Sebentar", Toast.LENGTH_LONG).show();
                 } else {
@@ -179,17 +179,17 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return;
-//        }
-//        mMap.setMyLocationEnabled(true);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
     }
 
     @Override
@@ -216,7 +216,7 @@ public class DetailKegiatanActivity extends FragmentActivity implements OnMapRea
 
     @Override
     public void onDirectionSuccess(Direction direction, String rawBody) {
-        Toast.makeText(getApplicationContext(), "Success with status : " + direction.getStatus(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "Success with status : " + direction.getStatus(), Toast.LENGTH_LONG).show();
         if (direction.isOK()) {
             mMap.clear();
             mMap.addMarker(new MarkerOptions().position(origin).title("Lokasi Anda"));

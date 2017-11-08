@@ -16,5 +16,14 @@
         android:id="@+id/list_sertifikat"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linear_layout" />
+        android:layout_below="@+id/linear_layout"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/txt_null_sertifikat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Tidak Ada Sertifikat"
+        android:textSize="20sp" />
 </LinearLayout>

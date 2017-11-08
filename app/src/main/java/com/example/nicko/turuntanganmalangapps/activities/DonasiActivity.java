@@ -31,7 +31,7 @@ import java.text.NumberFormat;
 public class DonasiActivity extends AppCompatActivity {
 
     private EditText edt_nominal_donasi;
-    private TextView txt_header_rekening, txt_no_rekening;
+    private TextView txt_header_rekening, txt_no_rekening, txt_an;
     private Button btn_donasi_now, btn_daftar_konfirmasi_donasi;
 
     private String nominal_donasi, id_kegiatan, email, status;
@@ -48,6 +48,7 @@ public class DonasiActivity extends AppCompatActivity {
         edt_nominal_donasi = (EditText) findViewById(R.id.edt_nominal_donasi);
         txt_header_rekening = (TextView) findViewById(R.id.txt_header_rekening);
         txt_no_rekening = (TextView) findViewById(R.id.txt_no_rekening);
+        txt_an = (TextView) findViewById(R.id.txt_an);
         btn_donasi_now = (Button) findViewById(R.id.btn_donasi_now);
         btn_daftar_konfirmasi_donasi = (Button) findViewById(R.id.btn_daftar_konfirmasi_donasi);
 
@@ -181,6 +182,7 @@ public class DonasiActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Donasi Anda Telah Tesimpan", Toast.LENGTH_LONG).show();
                 txt_header_rekening.setVisibility(View.VISIBLE);
                 txt_no_rekening.setVisibility(View.VISIBLE);
+                txt_an.setVisibility(View.VISIBLE);
                 btn_daftar_konfirmasi_donasi.setVisibility(View.VISIBLE);
             } else if (status.equals("0")) {
                 Toast.makeText(getApplicationContext(), "Masukkan Nominal Donasi", Toast.LENGTH_LONG).show();

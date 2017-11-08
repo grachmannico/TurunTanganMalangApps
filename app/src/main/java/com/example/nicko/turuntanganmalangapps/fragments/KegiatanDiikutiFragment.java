@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nicko.turuntanganmalangapps.R;
@@ -38,6 +39,7 @@ public class KegiatanDiikutiFragment extends Fragment {
     private ListView listView;
     private ArrayList<Kegiatan> list;
     private KegiatanDiikutiAdapter adapter;
+    private TextView txt_null_kegiatan_diikuti;
 
     private Session session;
     private String email;
@@ -56,6 +58,8 @@ public class KegiatanDiikutiFragment extends Fragment {
 
         session = new Session(getActivity());
         email = session.getEmail();
+
+        txt_null_kegiatan_diikuti = (TextView) getActivity().findViewById(R.id.txt_null_kegiatan_diikuti);
 
         listView = (ListView) getActivity().findViewById(R.id.list_kegiatan_diikuti);
         list = new ArrayList<>();
@@ -127,6 +131,11 @@ public class KegiatanDiikutiFragment extends Fragment {
             dialog.dismiss();
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
+                listView.setVisibility(View.VISIBLE);
+                txt_null_kegiatan_diikuti.setVisibility(View.GONE);
+            } else if (list.size() == 0){
+                listView.setVisibility(View.GONE);
+                txt_null_kegiatan_diikuti.setVisibility(View.VISIBLE);
             } else {
                 Toast.makeText(getActivity().getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             }

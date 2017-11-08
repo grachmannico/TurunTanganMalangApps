@@ -23,8 +23,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="5dp"
         android:text="Silahkan upload struk transfer untuk mengkonfirmasi donasi anda. Donasi anda sebesar:" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="Donasi ke rekening 0319845686 (BNI) a.n. Djafar Ravensky"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txt_nominal_donasi_detail"

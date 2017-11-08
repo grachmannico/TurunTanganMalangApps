@@ -181,6 +181,8 @@ public class DetailKegiatanDiikutiActivity extends AppCompatActivity {
                         btn_monitor_dana.setVisibility(View.VISIBLE);
                         btn_feedback.setVisibility(View.VISIBLE);
                         btn_print_lpj.setVisibility(View.VISIBLE);
+                    } else if (kegiatan.getStatus_kegiatan().equals("Promosi Kegiatan")) {
+                        btn_monitor_dana.setVisibility(View.VISIBLE);
                     }
                 } else if (session.getTipePengguna().equals("relawan")) {
                     if (kegiatan.getStatus_kegiatan().equals("Kegiatan Sedang Berjalan")) {

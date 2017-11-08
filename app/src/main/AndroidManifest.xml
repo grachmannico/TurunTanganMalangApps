@@ -81,7 +81,9 @@
         <activity android:name=".activities.DokumentasiActivity" />
         <activity android:name=".activities.ProfilRelawanActivity" />
         <activity android:name=".activities.ProfilDonaturActivity" />
-        <activity android:name=".activities.ImageViewerActivity"></activity>
+        <activity android:name=".activities.ImageViewerActivity" />
+        <activity
+            android:name=".activities.AboutActivity" />
     </application>
 
 </manifest>

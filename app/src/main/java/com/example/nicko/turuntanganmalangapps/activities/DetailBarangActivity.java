@@ -67,7 +67,7 @@ public class DetailBarangActivity extends AppCompatActivity {
             invoice = session.getInvoice();
         }
         id_barang = getIntent().getExtras().getString("id_barang");
-        Toast.makeText(getApplicationContext(), "Cek Invoice: " + invoice, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "Cek Invoice: " + invoice, Toast.LENGTH_LONG).show();
 
         if (InternetConnection.checkConnection(getApplicationContext())) {
             new Detail_Barang().execute();
@@ -222,7 +222,7 @@ public class DetailBarangActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             dialog.dismiss();
             if (status.equals("sukses")) {
-                Toast.makeText(getApplicationContext(), invoice, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), invoice, Toast.LENGTH_LONG).show();
                 if (session.getInvoice() == null || session.getInvoice().equals("null")) {
                     session.setInvoice(invoice);
                 }

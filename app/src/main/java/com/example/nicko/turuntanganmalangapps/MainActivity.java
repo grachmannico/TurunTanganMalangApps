@@ -2,6 +2,7 @@ package com.example.nicko.turuntanganmalangapps;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nicko.turuntanganmalangapps.activities.AboutActivity;
 import com.example.nicko.turuntanganmalangapps.activities.ImageViewerActivity;
 import com.example.nicko.turuntanganmalangapps.activities.LoginActivity;
 import com.example.nicko.turuntanganmalangapps.activities.ProfilDonaturActivity;
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity
 
     private Session session;
     private String trigger;
+
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity
         txt_divisi = (TextView) navHeaderView.findViewById(R.id.txt_divisi);
         img_foto_profil = (ImageView) navHeaderView.findViewById(R.id.img_foto_profil);
         Picasso.with(MainActivity.this).load(session.getURL() + session.getFoto_profil()).placeholder(R.drawable.ttm_logo).error(R.drawable.ttm_logo).into(img_foto_profil);
-        Toast.makeText(getApplicationContext(), session.getURL() + session.getFoto_profil(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), session.getURL() + session.getFoto_profil(), Toast.LENGTH_LONG).show();
 
         if (session.getTipePengguna().equals("relawan")) {
             txt_nama.setText(session.getNama());
@@ -99,6 +103,8 @@ public class MainActivity extends AppCompatActivity
                 }
             } else if (trigger.equals("garage_sale")) {
                 displaySelectedScreen(R.id.nav_garage_sale);
+            } else if (trigger.equals("konfirmasi_pembelian")) {
+                displaySelectedScreen(R.id.nav_konfirmasi_pembayaran);
             }
         } else {
             displaySelectedScreen(R.id.nav_kegiatan);
@@ -120,9 +126,18 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
+            return;
         }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Tekan 'Back' Sekali Lagi Untuk Keluar", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
     @Override
@@ -141,6 +156,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity(intent);
             return true;
         }
 

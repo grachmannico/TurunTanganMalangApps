@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nicko.turuntanganmalangapps.R;
@@ -36,6 +37,7 @@ public class SertifikatFragment extends Fragment {
     private ListView listView;
     private ArrayList<SertifikatRelawan> list;
     private SertifikatAdapter adapter;
+    private TextView txt_null_sertifikat;
 
     private Session session;
     private String email;
@@ -52,6 +54,8 @@ public class SertifikatFragment extends Fragment {
 
         session = new Session(getActivity());
         email = session.getEmail();
+
+        txt_null_sertifikat = (TextView) getActivity().findViewById(R.id.txt_null_sertifikat);
 
         listView = (ListView) getActivity().findViewById(R.id.list_sertifikat);
         list = new ArrayList<>();
@@ -125,10 +129,12 @@ public class SertifikatFragment extends Fragment {
             dialog.dismiss();
             if (list.size() > 0) {
                 listView.setVisibility(View.VISIBLE);
+                txt_null_sertifikat.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();
             } else if (list.size() == 0) {
                 listView.setVisibility(View.GONE);
-                Toast.makeText(getActivity().getApplicationContext(), "Data Tidak Ditemukan", Toast.LENGTH_LONG).show();
+                txt_null_sertifikat.setVisibility(View.VISIBLE);
+//                Toast.makeText(getActivity().getApplicationContext(), "Data Tidak Ditemukan", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getActivity().getApplicationContext(), "Gagal Mendapatkan Data", Toast.LENGTH_LONG).show();
             }

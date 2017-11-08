@@ -95,7 +95,7 @@ public class MonitorDanaActivity extends AppCompatActivity {
                             model.setNama_dana_keluar(innerObject.getString("nama_dana_keluar"));
                             model.setTanggal(innerObject.getString("tanggal"));
                             model.setNominal_dana_keluar(innerObject.getDouble("nominal_dana_keluar"));
-                            model.setKeterangan(innerObject.getString("nama_kegiatan"));
+                            model.setKeterangan(innerObject.getString("keterangan"));
                             nama_kegiatan = innerObject.getString("nama_kegiatan");
                             list.add(model);
                         }

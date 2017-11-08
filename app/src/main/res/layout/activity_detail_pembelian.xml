@@ -37,6 +37,12 @@
                 android:layout_below="@+id/linear_layout" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pembayaran ke rekening 0319845686 (BNI) a.n. Djafar Ravensky"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/txt_invoice_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

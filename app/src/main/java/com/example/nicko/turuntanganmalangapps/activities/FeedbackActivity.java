@@ -59,10 +59,10 @@ public class FeedbackActivity extends AppCompatActivity {
         session = new Session(this);
         email = session.getEmail();
         tipe_pengguna = session.getTipePengguna();
-        Toast.makeText(getApplicationContext(), email, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), email, Toast.LENGTH_LONG).show();
         id_kegiatan = getIntent().getExtras().getString("id_kegiatan");
         nama_kegiatan = getIntent().getExtras().getString("nama_kegiatan");
-        Toast.makeText(getApplicationContext(), id_kegiatan, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), id_kegiatan, Toast.LENGTH_LONG).show();
 
         txt_nama_kegiatan_feedback = (TextView) findViewById(R.id.txt_nama_kegiatan_feedback);
         txt_null_feedback = (TextView) findViewById(R.id.txt_null_feedback);
@@ -72,6 +72,7 @@ public class FeedbackActivity extends AppCompatActivity {
         rating_kegiatan = (RatingBar) findViewById(R.id.rating_kegiatan);
 
         txt_nama_kegiatan_feedback.setText(nama_kegiatan);
+        rating = "5.0";
 
 //        this.array_rating = new String[]{
 //                "5", "4", "3", "2", "1"
@@ -116,7 +117,10 @@ public class FeedbackActivity extends AppCompatActivity {
 
                 if (komentar.equals("") || komentar.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Isi Kolom Komentar", Toast.LENGTH_LONG).show();
+                } else if (rating.equals("0.0") || rating.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Isi Rating Bar", Toast.LENGTH_LONG).show();
                 } else {
+//                    Toast.makeText(getApplicationContext(), rating, Toast.LENGTH_LONG).show();
                     if (InternetConnection.checkConnection(getApplicationContext())) {
                         new Kirim_Feedback().execute();
                     } else {

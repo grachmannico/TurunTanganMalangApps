@@ -32,6 +32,7 @@ public class JSONParser {
     //    private static final String MAIN_URL = "http://192.168.43.133:80/ttm/REST_API/";
     //    private static final String MAIN_URL = "http://turuntanganmalang.pe.hu/REST_API/";
     public static final String TAG = "TAG";
+    public static final String keyAPI = "448fe35e6645e3c31f5c67f2cb868216";
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/*");
     private static Response response;
 
@@ -50,6 +51,7 @@ public class JSONParser {
                     .add("nama", nama)
                     .add("email", email)
                     .add("password", password)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -75,6 +77,7 @@ public class JSONParser {
                     .add("email", email)
                     .add("password", password)
                     .add("token", token)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -97,6 +100,7 @@ public class JSONParser {
 
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("id_status_kegiatan", id_status_kegiatan)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -120,6 +124,7 @@ public class JSONParser {
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("id_kegiatan", id_kegiatan)
                     .add("email", email)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -144,6 +149,7 @@ public class JSONParser {
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("gabung", id_kegiatan)
                     .add("email", email)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -169,6 +175,7 @@ public class JSONParser {
                     .add("donasi", id_kegiatan)
                     .add("email", email)
                     .add("nominal_donasi", nominal_donasi)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -191,6 +198,7 @@ public class JSONParser {
 
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("email", email)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -214,6 +222,7 @@ public class JSONParser {
             RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("struk", image_name, RequestBody.create(MEDIA_TYPE_PNG, image))
                     .addFormDataPart("id_donasi", id_donasi)
+                    .addFormDataPart("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -236,6 +245,7 @@ public class JSONParser {
 
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("email", email)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -258,6 +268,7 @@ public class JSONParser {
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("email", email)
                     .add("invoice", invoice)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -281,6 +292,7 @@ public class JSONParser {
                     .add("email", email)
                     .add("invoice", invoice)
                     .add("id_barang_garage_sale", id_barang_garage_sale)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -306,6 +318,7 @@ public class JSONParser {
                     .add("invoice", invoice)
                     .add("id_barang_garage_sale", id_barang_garage_sale)
                     .add("qty", qty)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -329,6 +342,7 @@ public class JSONParser {
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("email", email)
                     .add("invoice", invoice)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -353,6 +367,7 @@ public class JSONParser {
                     .add("email", email)
                     .add("invoice", invoice)
                     .add("id_keranjang_belanja", id_keranjang_belanja)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -377,6 +392,7 @@ public class JSONParser {
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("email", email)
                     .add("invoice", invoice)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -400,6 +416,7 @@ public class JSONParser {
 
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("invoice", invoice)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -422,6 +439,7 @@ public class JSONParser {
 
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("email", email)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -443,6 +461,7 @@ public class JSONParser {
 
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("invoice", invoice)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -468,6 +487,7 @@ public class JSONParser {
                     .addFormDataPart("invoice", invoice)
                     .addFormDataPart("alamat_pengiriman", alamat_pengiriman)
                     .addFormDataPart("no_hp_pembeli", no_hp_pembeli)
+                    .addFormDataPart("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -491,6 +511,7 @@ public class JSONParser {
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("email", email)
                     .add("id_kegiatan", id_kegiatan)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -513,6 +534,7 @@ public class JSONParser {
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("id_kegiatan", id_kegiatan)
                     .add("tipe_pengguna", tipe_pengguna)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -539,6 +561,7 @@ public class JSONParser {
                     .add("komentar", komentar)
                     .add("rating", rating)
                     .add("tipe_pengguna", tipe_pengguna)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -562,6 +585,7 @@ public class JSONParser {
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("id_feedback_kegiatan", id_feedback_kegiatan)
                     .add("tipe_pengguna", tipe_pengguna)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -587,6 +611,7 @@ public class JSONParser {
                     .add("email", email)
                     .add("komentar", komentar)
                     .add("tipe_pengguna", tipe_pengguna)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -609,6 +634,7 @@ public class JSONParser {
 
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("id_kegiatan", id_kegiatan)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -631,6 +657,7 @@ public class JSONParser {
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("email", email)
                     .add("tipe_pengguna", tipe_pengguna)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -663,6 +690,7 @@ public class JSONParser {
                     .addFormDataPart("no_hp", no_hp)
                     .addFormDataPart("tgl_lahir", tgl_lahir)
                     .addFormDataPart("alamat", alamat)
+                    .addFormDataPart("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -694,6 +722,7 @@ public class JSONParser {
                     .add("no_hp", no_hp)
                     .add("tgl_lahir", tgl_lahir)
                     .add("alamat", alamat)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()
@@ -716,6 +745,7 @@ public class JSONParser {
 
             RequestBody formBody = new FormBody.Builder() //FormEncodingBuilder
                     .add("email", email)
+                    .add("keyAPI", keyAPI)
                     .build();
 
             Request request = new Request.Builder()

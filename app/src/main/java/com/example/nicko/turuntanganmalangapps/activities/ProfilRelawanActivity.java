@@ -176,10 +176,16 @@ public class ProfilRelawanActivity extends AppCompatActivity {
                 }
 
                 tgl_lahir = txt_tgl_lahir.getText().toString();
-                if (InternetConnection.checkConnection(getApplicationContext())) {
-                    new Update_Profil().execute();
+                if ((password.equals("") || password.isEmpty()) || (no_hp.equals("") || no_hp.isEmpty()) ||
+                        (alamat.equals("") || alamat.isEmpty()) || (jenis_kelamin.equals("") || jenis_kelamin.isEmpty()) ||
+                        (tgl_lahir.equals("") || tgl_lahir.isEmpty())) {
+                    Toast.makeText(getApplicationContext(), "Isi Semua Form Terlebih Dahulu", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                    if (InternetConnection.checkConnection(getApplicationContext())) {
+                        new Update_Profil().execute();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Internet Connection Not Available", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -304,6 +310,10 @@ public class ProfilRelawanActivity extends AppCompatActivity {
                 txt_divisi_relawan.setText(divisi);
 //                edt_nama_relawan.setEnabled(false);
                 Picasso.with(ProfilRelawanActivity.this).load(session.getURL() + session.getFoto_profil()).placeholder(R.drawable.ttm_logo).error(R.drawable.ttm_logo).into(img_foto_profil_relawan);
+                String[] tLahir = tgl_lahir.split("-");
+                year = Integer.parseInt(tLahir[0]);
+                month = Integer.parseInt(tLahir[1]) - 1;
+                day = Integer.parseInt(tLahir[2]);
 
                 String compareValue = null;
                 if (jenis_kelamin.equals("1")) {
